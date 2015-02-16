@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" ?>
+
+<documentations>
+	<documentation>
+		<name>solenoid_und_steerer</name>
+		<title>Solenoid und Steerer</title>
+		<text>Dummy</text>
+	</documentation>
+	<documentation>
+		<name>buncher1300</name>
+		<title>Harmonischer Buncher bei 1.3 GHz</title>
+		<text>Dieser Buncher funktioniert nach dem gleichen Prinzip wie der subharmonische Buncher, lediglich mit einer höheren Resonanzfrequenz.</text>
+	</documentation>
+	<documentation>
+		<name>steerer</name>
+		<title>Steerer</title>
+		<text>Steerer erzeugen in ihrem Inneren ein homogenes Magnetfeld. Da dessen Stärke vom Spulenstrom bestimmt wird, werden sie zur Korrektur der Elektronenflugbahn eingesetzt.</text>
+	</documentation>
+	<documentation>
+		<name>dipol</name>
+		<title>Dipol-Magnet</title>
+		<text>Dipolmagnete besitzen zwischen ihrem Nord- und Südpol ein sehr starkes homogenes Magnetfeld. Aus diesem Grund werden sie immer dann eingesetzt, wenn große Ablenkwinkel zu realisieren sind.</text>
+	</documentation>
+	<documentation>
+		<name>solenoid</name>
+		<title>Solenoid</title>
+		<text>Ein Solenoid erzeugt in seinem Inneren ein radial ansteigendes Magnetfeld und dient so der Fokussierung der Elektronen. Ohne diese magnetischen Linsen würden die Elektronen mit der Wand des Strahlrohres kollidieren.</text>
+	</documentation>
+	<documentation>
+		<name>macropulser</name>
+		<title>Macropulser</title>
+		<text>Der Macropulser schneidet aus dem quasikontinuierlichen Elektronenstrahl der Elektronenkanone makroskopische Pulse heraus. Dazu werden die Elektronen für die Zeit der Austastung mit einem Steerer auf einer gekühlten Blende vernichtet.</text>
+	</documentation>
+	<documentation>
+		<name>quadrupol</name>
+		<title>Quadrupol-Magnet</title>
+		<text>Wie die Solenoidlinsen zu Beginn des Beschleunigers dienen auch die Quadrupol-Magnete der Fokussierung. Da sie jedoch in einer Ebene fokussierend und in der zweiten Ebene defokussierend wirken, treten sie mindestens paarweise auf.</text>
+	</documentation>
+	<documentation>
+		<name>schikane</name>
+		<title>Magnetische Schikane</title>
+		<text>Mit Hilfe dieser Anordnung aus vier Dipolmagneten wird der Elektronenpuls weiter verkürzt. Dabei nutzt man den Wegunterschied zwischen den "leichteren" Elektronen zu Beginn des Pulses gegenüber den etwas "schwereren" Elektronen am Ende.</text>
+	</documentation>
+	<documentation>
+		<name>gun</name>
+		<title>Thermionische Elektronenkanone</title>
+		<text>Die thermionische Elektronenkanone erzeugt nach dem Prinzip einer Triode 13 Mio. Elektronenpulse pro Sekunde. Dabei enthält jeder dieser Pulse 480 Mio. Elektronen (77 pC), die durch ein Gleichspannungspotential von 250 kV beschleunigt werden.</text>
+	</documentation>
+	<documentation>
+		<name>buncher260</name>
+		<title>Subharmonischer Buncher bei 260 MHz</title>
+		<text>Mit Hilfe des subharmonischen Bunchers werden die 500 ps langen Pulse aus der Elektronenkanone auf ein 50zigstel ihrer Ausgangslänge verkürzt. Hierzu werden die Elektronen zu Beginn eines jedes Pulses durch ein elektromagnetisches Feld gezielt abgebremst und die am Ende beschleunigt.</text>
+	</documentation>
+	<documentation>
+		<name>linac</name>
+		<title>ELBE-LINAC</title>
+		<text>Hier findet die eigentliche Beschleunigung statt. Dazu wird das elektromagnetische Feld zweier supraleitender, durch flüssiges Helium auf -271°C gekühlter Niob-Resonatoren genutzt. Die Elektronen "surfen" dabei wie auf einer Wasserwelle und erfahren so eine Spannungsdifferenz von 10 Mio. Volt pro Resonator und Meter!</text>
+	</documentation>
+</documentations>

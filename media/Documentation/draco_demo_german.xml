@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" ?>
+
+<documentations>
+	<documentation>
+		<name>booster</name>
+		<title>Booster</title>
+		<text>Hier im Booster wird der Puls das erste Mal verstärkt. Immer wenn der Puls den roten Titan-Saphir-Kristall in der Mitte durchläuft, wird ihm mehr Energie übertragen.</text>
+	</documentation>
+	<documentation>
+		<name>compressor</name>
+		<title>Kompressor</title>
+		<text>Nur im Vakuum kann der Puls wieder zu seiner ursprünglichen Dauer verkürzt oder "komprimiert" werden, da jegliche Luft durch ihn ionisiert würde. Die Komprimierung erfolgt umgekehrt zur Pulsstreckung.</text>
+	</documentation>
+	<documentation>
+		<name>multipassI</name>
+		<title>1. Multipass</title>
+		<text>Der Puls ist jetzt um Größenordnungen länger als zu Beginn. Mit dieser Länge kann er gefahrlos weiter verstärkt werden.</text>
+	</documentation>
+	<documentation>
+		<name>multipassII</name>
+		<title>2. Multipass</title>
+		<text>Nun wird der Puls erneut verstärkt. Der Lichtpuls ist bereits so intensiv, dass der Kristall, in dem er verstärkt wird, gekühlt werden muss. Für die weitere Verstärkung muss der Laserstrahldurchmesser vergrößert werden.</text>
+	</documentation>
+	<documentation>
+		<name>multipassIII</name>
+		<title>3. Multipass</title>
+		<text>Im letzten Verstärker erhält der Puls seine Endenergie. Die Energie wird ihm durch Pumplaser hinzugefügt. Um dies effizient zu tun, muss der Verstärkerkristall auf unter -100 Grad Celsius gekühlt werden.</text>
+	</documentation>
+	<documentation>
+		<name>oscillator</name>
+		<title>Masteroszillator</title>
+		<text>Der Laserpuls verläßt den Masteroszillator, einen Femtosekundenlaser. Hier hat er nur etwa ein Hundertmillionstel seiner Endenergie.</text>
+	</documentation>
+	<documentation>
+		<name>reg_amplifier</name>
+		<title>Regenerativer Verstärker</title>
+		<text>Die Pulsverlängerung geschah im Gitterstrecker. Die unterschiedlichen Wellenlängen des Pulses nehmen unterschiedlich lange Laufwege, so dass der Puls insgesamt länger wird.</text>
+	</documentation>
+	<documentation>
+		<name>stretcher</name>
+		<title>Stretcher</title>
+		<text>Um den Puls weiter zu verstärken, muss man ihn jetzt verlängern, da er sonst so intensiv wird, dass er bei weiterer Verstärkung die Spiegel zerstören würde.</text>
+	</documentation>
+</documentations>

@@ -1,0 +1,16 @@
+material Track
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+            scene_blend alpha_blend
+            depth_write on
+			transparent_sorting off
+			//depth_func always_pass
+			cull_hardware none
+			//cull_software none
+		}
+	}
+}

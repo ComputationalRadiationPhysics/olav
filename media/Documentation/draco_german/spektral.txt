@@ -1,0 +1,2 @@
+!TODO: Übersetze mich!
+To counter that, an spectral filter is situated in the resonator. It is adjusted so that the central part of the pulse is weakened with each pass as opposed to the sides, to level the preferences of the amplifier crystal. Hence a constant amplification over the course of multiple circuits is achieved and the scope is gained.

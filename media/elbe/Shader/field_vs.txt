@@ -1,0 +1,22 @@
+uniform float time;
+uniform vec3 texCoordMax;
+uniform vec3 fieldEndPt;
+uniform vec3 fieldStartPt;
+uniform vec3 gridPt;
+
+varying vec4 transFieldEnd;
+varying vec4 transFieldStart;
+varying vec4 transGridPt;
+
+varying vec2 TexCoord;
+
+void main(void)
+{
+   transFieldEnd=gl_ModelViewProjectionMatrix*vec4(fieldEndPt,1.0);
+   transFieldStart=gl_ModelViewProjectionMatrix*vec4(fieldStartPt,1.0);
+   transGridPt=gl_ModelViewProjectionMatrix*vec4(gridPt,1.0);
+
+   float factor=3.0;
+   TexCoord = gl_MultiTexCoord0+vec4(mod(time*5.0,1.0),0.0,0.0,0.0);
+   gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+}

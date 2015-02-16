@@ -1,0 +1,1 @@
+Unlike as in the booster the laser pulse travels back and forth during amplification, while the arrangement of mirrors shifts the beam in every pass through the crystal slightly and thus travels from the outside to the inside. After 5 passes the laser pulse leaves the multipass 1 with hundredfold energy.

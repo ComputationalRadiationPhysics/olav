@@ -1,0 +1,15 @@
+uniform sampler2D tex0;
+uniform float time;
+uniform vec3 color;
+
+void main( void )
+{
+     //color=vec3(0.0,0.0,1.0);
+
+   vec4 texel;
+   texel = texture2D(tex0, gl_TexCoord[0].xy);
+   float alpha=(texel.x+texel.y+texel.z)/3.0;
+   vec4 col=vec4(color.x,color.y,color.z,alpha*0.8);
+   gl_FragColor = col;
+   
+}

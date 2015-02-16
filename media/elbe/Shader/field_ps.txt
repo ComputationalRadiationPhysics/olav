@@ -1,0 +1,38 @@
+uniform sampler2D tex0;
+uniform float time;
+uniform vec3 texCoordMax;
+
+uniform vec3 fieldEndPt;
+uniform vec3 fieldStartPt;
+uniform vec3 gridPt;
+
+varying vec4 transFieldEnd;
+varying vec4 transFieldStart;
+varying vec4 transGridPt;
+varying vec2 TexCoord;
+
+void main( void )
+{
+
+   vec4 texel;
+   texel = texture2D(tex0, TexCoord);
+   vec2 coord =gl_FragCoord.xy/gl_FragCoord.w;
+   vec2 fieldEnd=transFieldEnd.xy/transFieldEnd.w;
+   vec2 fieldStart=transFieldStart.xy/transFieldStart.w;
+   vec2 gridPt=transGridPt.xy/transGridPt.w;
+   
+
+
+   vec2 diff=normalize(fieldEnd-fieldStart);
+   float middle=dot(diff,gridPt-fieldStart);
+   float cur=dot(diff,coord-fieldStart);
+   
+   //if(middle>cur)
+	//     texel=vec4(0.0,0.0,.0,.0);
+   float width=texCoordMax.x;
+
+   //TexCoord.x=mod(TexCoord.x,width);
+   texel.xyz=(width-TexCoord.x)/width*vec3(1.0,0.0,.0)+TexCoord.x/width*vec3(0.0,1.0,.0);
+   gl_FragColor = texel;
+   
+}

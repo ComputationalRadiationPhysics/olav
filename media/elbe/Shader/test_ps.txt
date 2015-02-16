@@ -1,0 +1,30 @@
+uniform vec4 uFieldMiddle;
+uniform float uMaxRadius;
+uniform vec4 color;
+
+varying  vec3 tfNormal;
+varying vec3 tfLight;
+varying vec2 texCoord;
+uniform float fTime0_X;
+varying vec3 tfEye;
+varying vec4 vFragColor;
+
+void main( void )
+{
+
+   vec3 tfLightNorm=normalize(tfLight);
+   vec3 tfNormalNorm=normalize(tfNormal);
+   vec3 tfEyeNorm=normalize(tfEye);
+
+   vec4 color =vec4(vFragColor.xyz,1.0);
+   
+   vec3 h=normalize(tfEyeNorm+tfLightNorm);
+   float material_Shiness=50.0;
+
+   float specFactor=pow(max(dot(tfNormalNorm,h),0.0),material_Shiness);
+   vec4 specColor=vec4(1.0,1.0,1.0,1.0)*(specFactor);
+    
+   float difffactor=max( dot(tfNormal,tfLightNorm),0.0);
+   gl_FragColor = color*(difffactor)+vec4(.1,.1,.1,1.0);
+   
+}

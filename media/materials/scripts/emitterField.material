@@ -1,0 +1,16 @@
+material EmitterField
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture arrows_field2.png
+			}
+			lighting off
+            scene_blend alpha_blend
+            depth_write off
+		}
+	}
+}

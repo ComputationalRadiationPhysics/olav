@@ -1,0 +1,24 @@
+uniform vec4 uColor;
+uniform float time;
+uniform float lastTransfTime;
+uniform vec4 diff;
+	
+varying vec3 ViewDirection;
+varying vec3 LightDirection;
+varying vec3 Normal;
+
+void main( void )
+{
+float fSpecularPower=25.0;
+   vec3  fvLightDirection = normalize( LightDirection );
+   vec3  fvNormal         = normalize( Normal );
+   float fNDotL           = dot( fvNormal, fvLightDirection ); 
+   
+   vec3  fvReflection     = normalize( ( ( 2.0 * fvNormal ) * fNDotL ) - fvLightDirection ); 
+   vec3  fvViewDirection  = normalize( ViewDirection );
+   float fRDotV           = max( 0.0, dot( fvReflection, fvViewDirection ) );
+   //vec4  fvTotalSpecular  = uColor* ( pow( fRDotV, fSpecularPower/20.0 ) );
+   vec4 color=uColor;
+   float alpha=pow( fRDotV, fSpecularPower/13.0 )*0.5;
+   gl_FragColor = color*vec4(1,1,1,alpha)+exp(-(diff.x))*vec4(1.0,.0,.0,alpha);  
+}

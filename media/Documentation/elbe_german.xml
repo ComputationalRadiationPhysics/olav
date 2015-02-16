@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" ?>
+
+<documentations>
+	<documentation>
+		<name>Gun</name>
+		<title>Thermionische Gun zur Erzeugung freier Elektronen</title>
+		<pictures>
+			<picture>
+				<size width="956" height="783" />
+				<file_name>Abb.1_thermische Triode.jpg</file_name>
+				<desc>Abb. 1: Funktionsprinzip einer thermischen Triode</desc>
+			</picture>
+			<picture>
+				<size width="412" height="417" />
+				<file_name>Abb.2_Aufnahme der Kathode .jpg</file_name>
+				<desc>Abb. 2: Aufnahme der Kathode</desc>
+			</picture>
+			<picture>
+				<size width="644" height="782" />
+				<file_name>Abb.3_Kathodegitter.jpg</file_name>
+				<desc>Abb. 3: Aufbau der Kathode + Gitter</desc>
+			</picture>
+			<picture>
+				<size width="664" height="572" />
+				<file_name>Abb.4_Aufbau Kathode.jpg</file_name>
+				<desc>Abb. 4: Kathodenmaterial</desc>
+			</picture>
+		</pictures>
+		<text>Die verwendete Kathode besitzt eine dünne Bariumschicht. In dieser kann sich ein Teil der Elektronen (Leitungselektronen) frei bewegen. Um diese aber aus der Oberfläche zu "befreien", muss eine Elektronenaustrittsarbeit aufgebracht werden. Dies geschieht durch Erhitzen des Metalls auf ca. 1200 °C. Daraufhin versammeln sich die freien Elektronen zwischen Steuergitter und Kathode. Gibt das gepulste Gitter den Weg für 500 ps frei, wird eine Elektronenwolke (Bunch) durch die Spannungsdifferenz von 250000 V in Richtung der Anoden beschleunigt (Abb. 1). Abb.2 zeigt eine "echte" Aufnahme des Gitters. Fakten: Ladung pro Bunch = 77 pC (480 Mio. Elektronen), 13 Mio. Elektronenbunche pro Sekunde; ergibt einen mittleren Strom I = 1 mA, Energie der Elektronen= 250 keV</text>
+	</documentation>
+	<documentation>
+		<name>Solenoid</name>
+		<title>Solenoid (auch Zylinderspule)</title>
+		<pictures>
+			<picture>
+				<size width="800" height="800" />
+				<file_name>Abb.5_solenoid_lines.png</file_name>
+				<desc>Abb.5: Magnetfeldlinien einer Solenoidlinse</desc>
+			</picture>
+		</pictures>
+		<text>Ein Solenoid ist eine Spule mit einer hohen Anzahl von Windungen, deren Drahtwicklungen auf einem Zylindermantel liegen. Eine solche Zylinderspule dient der Erzeugung eines räumlich konstanten Magnetfeldes zur Fokussierung der niederenergetischen Elektronen im Injektor. Die Feldlinien sind geschlossen und verlaufen innerhalb des Solenoids parallel (Abb.5). Die Brennweite lässt sich durch den Spulenstrom variieren (f "proportional" I "hoch" -2).
+Ohne die Linsen würden die Elektronen aufgrund der Coulombabstoßung mit der Wand der Beamline kollidieren und gingen verloren.</text>
+	</documentation>
+	<documentation>
+		<name>DiPol</name>
+		<title>Dipol - oder Sektormagnet</title>
+		<pictures>
+			<picture>
+				<size width="1040" height="777" />
+				<file_name>Abb.6_Dipolfeld.jpg</file_name>
+				<desc>Abb.6: Magnetfeld eines Dipolmagneten</desc>
+			</picture>
+			<picture>
+				<size width="314" height="315" />
+				<file_name>Abb.7_Drei-Finger-Regel.jpg</file_name>
+				<desc>Abb.7: 3-Finger-Regel der linken Hand</desc>
+			</picture>
+		</pictures>
+		<text>Ein Dipolmagnet besitzt einen Nord- und einen Südpol und bildet zwischen beiden ein Dipolfeld aus. Aufgrund der Form und Parallelität der Polschuhe ist dieses Magnetfeld homogen (Abb.6). Die Teilchenbewegung folgt der Lorentzkraft, wodurch die Elektronen auf eine Kreisbahn senkrecht zum Feld gezwungen werden. Dies kann leicht durch die 3-Fingerregel der linken Hand nachempfunden werden (Abb.7). Dipolmagnete werden zur Strahlablenkung eingesetzt. Der Bahnradius R verhält sich dabei umgekehrt proportional zum Spulenstrom.</text>
+	</documentation>
+	<documentation>
+		<name>Steerer</name>
+		<title>Steerer</title>
+		<text>Steerer dienen der Korrektur der Elektronenflugbahn um wenige mrad. Dies entspricht einer Ablenkung von wenigen mm pro m Flugstrecke. Wie beim Dipolmagneten wird auch hier die Ablenkung geladener Teilchen im homogenen Magnetfeld durch die Lorentzkraft genutzt. Ein Steerer besteht hierzu aus einem Helmholtz-Spulenpaar für die horizontale und einem weiteren für die vertikale Ebene. Ein Paar besteht aus zwei kurzen und gleichsinnig von Strom durchflossenen Luftspulen mit dem Radius R, die im Abstand R parallel zueinander aufgestellt sind. Durch die Überlagerung beider Felder ergibt sich zwischen den Spulen ein weitgehend homogenes Magnetfeld. Der Bahnradius verhält sich umgekehrt proportional zum Spulenstrom.</text>
+	</documentation>
+	<documentation>
+		<name>QuadroPol</name>
+		<title>Quadrupolmagnet</title>
+		<pictures>
+			<picture>
+				<size width="1109" height="739" />
+				<file_name>Abb.8_Quadrupole_de.png</file_name>
+				<desc>Abb.8: Quadrupolmagnet</desc>
+			</picture>
+			<picture>
+				<size width="935" height="305" />
+				<file_name>Abb.9_Fokussierung Quadrupol.jpg</file_name>
+				<desc>Abb.9: Fokussierung anhand zweier aufeinander folgender Quadrupolmagnete</desc>
+			</picture>
+		</pictures>
+		<text>Ein Quadrupolmagnet ist eine Anordnung von vier hyperbolisch geformten Polschuhen, wobei sich jeweils Nord- und Südpole gegenüberliegen (Abb.8). Sie werden ebenso wie Solenoidlinsen zur Fokussierung des Elektronenbunches eingesetzt. Hierbei nutzt man die Eigenschaft, dass die Feldstärke proportional mit dem Abstand zur Sollstrahlachse wächst. Damit werden achsferne Elektronen stärker beeinflusst. Ein Quadrupol wirkt immer in einer Ebene fokussierend, während er in der anderen Ebene defokussiert. Aus diesem Grunde müssen wenigstens zwei Quadrupole hintereinander verwendet werden (Abb.9).</text>
+	</documentation>
+	<documentation>
+		<name>Macropulser</name>
+		<title>Makropulser</title>
+		<pictures>
+			<picture>
+				<size width="1192" height="753" />
+				<file_name>Abb.10_Elbe_Pulsstruktur.jpg</file_name>
+				<desc>Abb.10: ELBE Pulsstruktur</desc>
+			</picture>
+		</pictures>
+		<text>Im Betrieb liefert die thermionische Gun 13 Millionen Elektronenbunche pro Sekunde. Aufgrund dieser großen Anzahl spricht man auch von einem quasikontinuierlichen (CW) Elektronenstrahl. Dies ist allerdings zum Einstellen der Maschinenparameter zu viel. Deshalb wird der Strahl unter Beibehaltung der Bunchladung in makroskopische Pulse unterteilt (Abb.10). Die Austastung geschieht durch einen Steerer, dessen beide Spulenpaare anstelle eines Gleichstromes mit einem Wechselstrom betrieben werden. Da diese Ströme eine Phasenverschiebung von 90° (Sinus und Kosinus) zueinander aufweisen, wird der Elektronenstrahl von der Achse weg auf eine Rotationsbahn senkrecht zur Ausbreitungsrichtung gelenkt. Nach einer Strecke von 30 cm trifft der rotierende Strahl dann auf eine Blende und wird vernichtet.</text>
+	</documentation>
+	<documentation>
+		<name>Buncher_B</name>
+		<title>Subharmonischer Buncher bei 260 MHz</title>
+		<pictures>
+			<picture>
+				<size width="626" height="545" />
+				<file_name>Abb.11_Buncher260.jpg</file_name>
+				<desc>Abb. 11: zeitlicher Verlauf des elektrischen Feldes</desc>
+			</picture>
+		</pictures>
+		<text>Buncher werden benötigt um den etwa 500 Picosekunden langen, von der Gun erzeugten Elektronenstrahl auf ein 50zigstel der Ausgangslänge zu verkürzen. Dies wird durch einen evakuierten Kupferresonator realisiert. In seinem Inneren oszilliert eine elektromagnetische Welle mit einer Schwingungsdauer von etwa 4 Nanosekunden (260 Mio. Hertz). Idealerweise wird der Buncher gerade so eingestellt, dass das elektrische Feld dieser Welle beim Durchflug des Zentralteilchens gerade Null ist. Aufgrund der Länge des Bunches, sehen so die Elektronen zu Beginn ein abklingendes, die am Ende ein bereits wieder ansteigendes Feld (Abb.11). Die daraus resultierende Lorentzkraft bremst den vorderen und beschleunigt den hinteren Teil des Bunches, wodurch dieser auf dem Weg zum ersten ELBE Linac immer kürzer wird und schließlich seine minimale Länge erreicht.</text>
+	</documentation>
+	<documentation>
+		<name>Buncher_A</name>
+		<title>Harmonischer Buncher bei 1.3 GHz</title>
+		<text>Dieser Buncher funktioniert nach dem gleichen Prinzip wie der subharmonische Buncher, aufgrund des bereits verkürzten Bunches wird eine Frequenz von 1300 Mio. Hertz benötigt. Wichtig für beide Buncher ist die Synchronisation mit der Bunchwiederholrate von 13 MHz.</text>
+	</documentation>
+	<documentation>
+		<name>Cryos</name>
+		<title>Beschleunigungsmodul</title>
+		<pictures>
+			<picture>
+				<size width="2089" height="1334" />
+				<file_name>Abb.12_ELBE_Modul.jpg</file_name>
+				<desc>Abb.12: CAD-Schnittzeichnung eines ELBE Linacs</desc>
+			</picture>
+		</pictures>
+		<text>Die Hauptbeschleunigung findet in den am FZD entwickelten beiden ELBE - Linacs (Linear Accelerator) statt (Abb.12). Diese enthalten jeweils zwei supraleitende, durch flüssiges Helium auf -271°C gekühlte Niob Resonatoren mit einer Länge von 1m. In deren Inneren oszilliert, wie beim harmonischen Buncher, eine elektromagnetische Welle mit einer Schwingungsdauer von etwa 770 Picosekunden (1300 Mio. Hertz). Die Beschleunigung erfolgt auch hier durch die vom elektrischen Feld ausgeübte Lorentzkraft. Anders als beim Buncher soll nun aber das Zentralteilchen die größte Beschleunigung erfahren. Dazu wird jeder Resonator so eingestellt, dass das elektrische Feld der Welle beim Durchqueren der Elektronen in der Mitte jeder Zelle gerade maximal wird. Der Bunch "surft" gewissermaßen auf der Welle und erfährt dabei eine Spannungsdifferenz von 10 Mio. Volt pro Resonator. Multipliziert mit dem Strom von 1mA erhält man nach vier Resonatoren am Ende der Beschleunigungstrecke eine Strahlleistung von 40kW!</text>
+	</documentation>
+	<documentation>
+		<name>Chikane</name>
+		<title>Schikane</title>
+		<pictures>
+			<picture>
+				<size width="1223" height="630" />
+				<file_name>Abb.13_Schikane.jpg</file_name>
+				<desc>Abb.13: Weglängendifferenz infolge der Energie-Orts-Korrelation</desc>
+			</picture>
+		</pictures>
+		<text>Die Schikane ist eine Anordnung von vier Dipolmagneten mit der Aufgabe den Elektronenbunch im höherenergetischen Bereich nach dem ersten ELBE Linac weiter zu verkürzen. Hierzu benötigt der Bunch eine Energie-Orts-Korrelation entlang seiner Achse, sodass die Energie der Elektronen beginnend mit dem Kopf ansteigt. Die Geschwindigkeit  bleibt dabei für alle Elektronen konstant. Der nachfolgende, durch die vier Ablenkmagnete geformte energiedispersive Zweig sorgt nun für einen Wegunterschied zwischen den "leichteren" Elektronen am Anfang (rot) und den etwas "schwereren" Elektronen am Ende (blau), mit der Folge, dass sich der Bunch weiter verkürzt.</text>
+	</documentation>
+</documentations>

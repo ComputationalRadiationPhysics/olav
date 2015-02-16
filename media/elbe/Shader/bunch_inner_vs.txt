@@ -1,0 +1,14 @@
+uniform float time;
+//uniform vec3 color;
+
+uniform float sigma11;
+uniform float sigma33;
+uniform float sigma55;
+
+void main(void)
+{
+
+   float factor=3.0;
+   gl_TexCoord[0] = gl_MultiTexCoord0-vec4(1.0,0.0,0.0,0.0)*time*5.0;
+   gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+}

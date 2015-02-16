@@ -1,0 +1,39 @@
+vertex_program Bunch2VertexShader glsl
+{
+  source bunch2_vs.txt
+}
+
+fragment_program Bunch2FragmentShader glsl
+{
+  source bunch2_ps.txt
+}
+
+
+material bunch2_material
+{
+  technique
+  {
+    pass
+    {
+      scene_blend alpha_blend
+      depth_write off
+      cull_hardware none
+
+      vertex_program_ref Bunch2VertexShader
+	{
+		param_named_auto fvEyePosition camera_position
+
+	}
+	fragment_program_ref Bunch2FragmentShader
+      	{ 
+		param_named lastTransfTime float 0
+		param_named time float
+		param_named_auto diff custom 0	
+
+		param_named_auto uColor custom 1
+      
+      	}
+
+    }
+  }
+}

@@ -1,0 +1,38 @@
+elbe_intro_overlay
+{
+    zorder 650
+    container Panel(elbe_intro_panel)
+    {
+        left 0
+        top 0
+        width 1
+        height 1
+        material elbe_intro_material
+    }
+}
+
+draco_intro_overlay
+{
+    zorder 650
+    container Panel(draco_intro_panel)
+    {
+        left 0
+        top 0
+        width 1
+        height 1
+        material draco_intro_material
+    }
+}
+
+black_intro_overlay
+{
+    zorder 649
+    container Panel(black_intro_panel)
+    {
+        left 0
+        top 0
+        width 1
+        height 1
+        material black_intro_material
+    }
+}

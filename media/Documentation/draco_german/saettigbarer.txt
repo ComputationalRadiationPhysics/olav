@@ -1,0 +1,16 @@
+!TODO: Übersetze mich!
+A saturable absorber is a partially transparent material.
+This means that a part of the light passing the absorber stays inside the material, thus being "absorbed".
+Part of the light is lost inside the absorber, typically a fraction of a percent.
+
+A saturable absorber has the special property of absorbing smaller and smaller parts of light as the light intensity rises.
+For example a percent of light is lost to the absorber with a very low intensity but with ten times this intensity it is just half a percent.
+With decreasing of the absorption the part of light leaving the absorber increases.
+
+Highly intesive light is thus more likely to pass the absorber than light with less intensityy.
+There are saturable absorbers, whose absorption can vary fast or slow (in comparison to the laser's pulse duration).
+
+The application of a fast saturable absorber is especially interesting if a light pulse of a laser with time dilated intensity passes through the absorber.
+This way the parts of the pulse with less intensity, often the beginngin and end of the pulse, get absorbed more strongly than the parts with higher intensity, often the pulse maximum.
+In such a way the pulse form can be varied, to e.g. limit the pulse duration.
+In case of the booster the pulse duration is limitted to about 5 picoseconds (a picosecond is a thousandth of a millionth second).

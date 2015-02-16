@@ -1,0 +1,56 @@
+material elbe_intro_material
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_write off
+			diffuse vertexcolour
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture elbe_intro.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material draco_intro_material
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_write off
+			diffuse vertexcolour
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture draco_intro.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material black_intro_material
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_write off
+			diffuse vertexcolour
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture black_intro.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}

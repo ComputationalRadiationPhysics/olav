@@ -1,0 +1,630 @@
+material DRACO/RedMaterial
+{
+technique
+	{
+		pass
+		{
+			ambient 0.1 0.1 0.1
+
+			texture_unit
+			{
+				texture BeachStones.jpg
+			}
+		}
+	}
+}
+
+material DRACO/gradient
+{
+technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture gradient.png
+				rotate 90
+			}
+		}
+	}
+}
+
+
+material Examples/SphereMappedRustySteel
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture RustySteel.jpg
+			}
+
+			texture_unit
+			{
+				texture spheremap.png
+				colour_op_ex add src_texture src_current
+				colour_op_multipass_fallback one one
+				env_map spherical
+			}
+		}
+	}
+}
+
+material Examples/Laseralt
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			scene_blend alpha_blend
+			depth_write off
+			diffuse vertexcolour
+
+			texture_unit
+			{
+				texture laser.png
+			}
+		}
+	}
+}
+
+material Examples/Laser
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			//depth_write on
+			scene_blend alpha_blend
+			cull_hardware none
+			cull_software none
+			alpha_rejection greater_equal 128
+			//transparent_sorting force
+			texture_unit
+			{
+				texture laser2.png
+			}
+		}
+	}
+}
+
+material Examples/ElectronParticle
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			//depth_write on
+			scene_blend alpha_blend
+			cull_hardware none
+			cull_software none
+			alpha_rejection greater_equal 90
+			//transparent_sorting force
+			texture_unit
+			{
+				texture electronParticle.png
+			}
+		}
+	}
+}
+
+material Examples/ElectronArrow
+{
+	technique
+	{
+		pass
+		{
+			lighting off			
+			//depth_write on
+			scene_blend alpha_blend
+			cull_hardware none
+			cull_software none
+			alpha_rejection greater_equal 90
+			//transparent_sorting force
+			texture_unit
+			{
+				texture simple_arrow.png
+			}
+		}
+	}
+}
+
+
+material Examples/ElectronParticleTrack
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			//depth_write on
+			scene_blend alpha_blend
+			cull_hardware none
+			cull_software none
+			//alpha_rejection greater_equal 90
+			//transparent_sorting force
+			texture_unit
+			{
+				colour_op_ex source1 src_manual src_current 1.0 0.0 0.0
+				alpha_op_ex source1 src_manual src_current 0.2
+			}
+		}
+	}
+}
+
+material Examples/Flaretrail
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			scene_blend add
+			depth_write off
+
+			texture_unit
+			{
+				texture flaretrail.png
+			}
+		}
+	}
+}
+
+material overlayMaterial
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0.5 0 1
+			diffuse 0 0.5 0 1
+			specular 0 0.5 0 1
+			cull_hardware none
+			cull_software none
+
+			texture_unit
+			{
+			}
+		}
+	}
+}
+
+shared_params ElectronCloudParams
+{
+	shared_param_named kolor float4 1.0 1.0 1.0 1.0
+	shared_param_named skale float4 1.0 1.0 1.0 1.0
+	shared_param_named ankle float4 0.0 0.0 1.0 0.0
+	shared_param_named kamera float4 0.0 0.0 0.0 0.0
+	shared_param_named kenter float4 0.0 0.0 0.0 0.0
+	shared_param_named greek_x float4 0.0 0.0 0.0 0.0 //alpha, beta, gamma, epsilon
+	shared_param_named greek_y float4 0.0 0.0 0.0 0.0 //alpha, beta, gamma, epsilon
+	shared_param_named greek_z float4 0.0 0.0 0.0 0.0 //alpha, beta, gamma, epsilon
+	shared_param_named prekalkulated_x float4 0.0 0.0 0.0 0.0 //k, l, m, n
+	shared_param_named prekalkulated_y float4 0.0 0.0 0.0 0.0 //k, l, m, n
+	shared_param_named prekalkulated_z float4 0.0 0.0 0.0 0.0 //k, l, m, n
+	shared_param_named windowsize float4 0.0 0.0 0.0 0.0 //w/2, h/2, w+extra, h+extra
+	shared_param_named stepwidth float4 0.0 0.0 0.0 0.0 //step_width, free, free, free
+}
+
+
+fragment_program ElectronCloudFragmentFine glsl
+{
+	source elbeBunchCloud.glsl
+	preprocessor_defines OLAV_FRAGMENT=1,OLAV_DOVOLUME=1,OLAV_FINE=1
+	default_params
+	{
+		shared_params_ref ElectronCloudParams
+	}
+}		
+
+fragment_program ElectronCloudFragmentFineHacky glsl
+{
+	source elbeBunchCloud.glsl
+	preprocessor_defines OLAV_FRAGMENT=1,OLAV_DOVOLUME=1,OLAV_FINE=1,OLAV_HACKY=1
+	default_params
+	{
+		shared_params_ref ElectronCloudParams
+	}
+}		
+
+vertex_program ElectronCloudVertexFine glsl
+{
+	source elbeBunchCloud.glsl 
+	preprocessor_defines OLAV_VERTEX=1,OLAV_FINE=1
+	default_params
+	{
+		shared_params_ref ElectronCloudParams
+	}
+}
+
+fragment_program ElectronCloudFragmentRaw glsl
+{
+	source elbeBunchCloud.glsl
+	preprocessor_defines OLAV_FRAGMENT=1,OLAV_DOVOLUME=1,OLAV_RAW=1
+	default_params
+	{
+		shared_params_ref ElectronCloudParams
+	}
+}		
+
+fragment_program ElectronCloudFragmentRawHacky glsl
+{
+	source elbeBunchCloud.glsl
+	preprocessor_defines OLAV_FRAGMENT=1,OLAV_DOVOLUME=1,OLAV_RAW=1,OLAV_HACKY=1
+	default_params
+	{
+		shared_params_ref ElectronCloudParams
+	}
+}		
+
+vertex_program ElectronCloudVertexRaw glsl
+{
+	source elbeBunchCloud.glsl 
+	preprocessor_defines OLAV_VERTEX=1,OLAV_RAW=1
+	default_params
+	{
+		shared_params_ref ElectronCloudParams
+	}
+}
+
+fragment_program ElectronCloudFragmentAnal glsl
+{
+	source elbeBunchCloud.glsl
+	preprocessor_defines OLAV_FRAGMENT=1,OLAV_DOVOLUME=1,OLAV_ANAL=1
+	default_params
+	{
+		shared_params_ref ElectronCloudParams
+	}
+}		
+
+fragment_program ElectronCloudFragmentAnalHacky glsl
+{
+	source elbeBunchCloud.glsl
+	preprocessor_defines OLAV_FRAGMENT=1,OLAV_DOVOLUME=1,OLAV_ANAL=1,OLAV_HACKY=1
+	default_params
+	{
+		shared_params_ref ElectronCloudParams
+	}
+}		
+
+vertex_program ElectronCloudVertexAnal glsl
+{
+	source elbeBunchCloud.glsl 
+	preprocessor_defines OLAV_VERTEX=1,OLAV_ANAL=1
+	default_params
+	{
+		shared_params_ref ElectronCloudParams
+	}
+}
+
+fragment_program ElectronCloudFragmentAnalApprox glsl
+{
+	source elbeBunchCloud.glsl
+	preprocessor_defines OLAV_FRAGMENT=1,OLAV_DOVOLUME=1,OLAV_ANAL=1,OLAV_APPROX=1
+	default_params
+	{
+		shared_params_ref ElectronCloudParams
+	}
+}
+
+fragment_program ElectronCloudFragmentAnalApproxHacky glsl
+{
+	source elbeBunchCloud.glsl
+	preprocessor_defines OLAV_FRAGMENT=1,OLAV_DOVOLUME=1,OLAV_ANAL=1,OLAV_APPROX=1,OLAV_HACKY=1
+	default_params
+	{
+		shared_params_ref ElectronCloudParams
+	}
+}		
+
+vertex_program ElectronCloudVertexAnalApprox glsl
+{
+	source elbeBunchCloud.glsl 
+	preprocessor_defines OLAV_VERTEX=1,OLAV_ANAL=1,OLAV_APPROX=1
+	default_params
+	{
+		shared_params_ref ElectronCloudParams
+	}
+}
+
+fragment_program ElectronCloudFragmentFirst glsl
+{
+	source elbeBunchCloud.glsl
+	preprocessor_defines OLAV_FRAGMENT_FIRST=1
+	default_params
+	{
+		shared_params_ref ElectronCloudParams
+	}
+}		
+
+vertex_program ElectronCloudVertexFirst glsl
+{
+	source elbeBunchCloud.glsl 
+	preprocessor_defines OLAV_VERTEX_FIRST=1
+	default_params
+	{
+		shared_params_ref ElectronCloudParams
+	}
+}	
+
+material Examples/ElectronCloudFirst
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_check off
+			cull_hardware anticlockwise
+			cull_software anticlockwise
+			fragment_program_ref ElectronCloudFragmentFirst
+			{
+			}
+			vertex_program_ref ElectronCloudVertexFirst
+			{
+			}
+		}
+	}
+}
+
+material Examples/ElectronCloudFine
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			alpha_rejection greater_equal 1
+			transparent_sorting force
+			fragment_program_ref ElectronCloudFragmentFine
+			{
+			}
+			vertex_program_ref ElectronCloudVertexFine
+			{
+			}
+			texture_unit
+			{
+				texture transfer.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Examples/ElectronCloudRaw
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			alpha_rejection greater_equal 1
+			transparent_sorting force
+			fragment_program_ref ElectronCloudFragmentRaw
+			{
+			}
+			vertex_program_ref ElectronCloudVertexRaw
+			{
+			}
+			texture_unit
+			{
+				texture transfer.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Examples/ElectronCloudAnal
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			alpha_rejection greater_equal 1
+			transparent_sorting force
+			fragment_program_ref ElectronCloudFragmentAnal
+			{
+			}
+			vertex_program_ref ElectronCloudVertexAnal
+			{
+			}
+			texture_unit
+			{
+				texture transfer.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Examples/ElectronCloudAnalApprox
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			alpha_rejection greater_equal 1
+			transparent_sorting force
+			fragment_program_ref ElectronCloudFragmentAnalApprox
+			{
+			}
+			vertex_program_ref ElectronCloudVertexAnalApprox
+			{
+			}
+			texture_unit
+			{
+				texture transfer.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Examples/ElectronCloudFineHacky
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_check off
+			fbo_work_around on
+			fragment_program_ref ElectronCloudFragmentFirst
+			{
+			}
+			vertex_program_ref ElectronCloudVertexFirst
+			{
+			}
+		}
+		pass
+		{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			alpha_rejection greater_equal 1
+			transparent_sorting force
+			fragment_program_ref ElectronCloudFragmentFineHacky
+			{
+			}
+			vertex_program_ref ElectronCloudVertexFine
+			{
+			}
+			texture_unit
+			{
+				texture transfer.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Examples/ElectronCloudRawHacky
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_check off
+			fbo_work_around on
+			fragment_program_ref ElectronCloudFragmentFirst
+			{
+			}
+			vertex_program_ref ElectronCloudVertexFirst
+			{
+			}
+		}
+		pass
+		{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			alpha_rejection greater_equal 1
+			transparent_sorting force
+			fragment_program_ref ElectronCloudFragmentRawHacky
+			{
+			}
+			vertex_program_ref ElectronCloudVertexRaw
+			{
+			}
+			texture_unit
+			{
+				texture transfer.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Examples/ElectronCloudAnalHacky
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_check off
+			fbo_work_around on
+			fragment_program_ref ElectronCloudFragmentFirst
+			{
+			}
+			vertex_program_ref ElectronCloudVertexFirst
+			{
+			}
+		}
+		pass
+		{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			alpha_rejection greater_equal 1
+			transparent_sorting force
+			fragment_program_ref ElectronCloudFragmentAnalHacky
+			{
+			}
+			vertex_program_ref ElectronCloudVertexAnal
+			{
+			}
+			texture_unit
+			{
+				texture transfer.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Examples/ElectronCloudAnalApproxHacky
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_check off
+			fbo_work_around on
+			fragment_program_ref ElectronCloudFragmentFirst
+			{
+			}
+			vertex_program_ref ElectronCloudVertexFirst
+			{
+			}
+		}
+		pass
+		{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			alpha_rejection greater_equal 1
+			transparent_sorting force
+			fragment_program_ref ElectronCloudFragmentAnalApproxHacky
+			{
+			}
+			vertex_program_ref ElectronCloudVertexAnalApprox
+			{
+			}
+			texture_unit
+			{
+				texture transfer.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}

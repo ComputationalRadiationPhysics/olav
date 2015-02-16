@@ -1,0 +1,10 @@
+!TODO: Übersetze mich!
+The Verdi laser by the Coherent company is a continuous wave laser, meaning it produces continuous laser light.
+It's laser ligth is green and consists of a wave length of 532 nm.
+
+The energy, saved within it's laser light is saved partially inside the medium of amplification and partially inside the titan-sapphire crystal (Ti:Sa crystal).
+The green laser light stimulates a part of the crystal's atoms, by granting electrons inside the atom additional potential energy.
+
+This potential energy can be emitted if a fitting laser pulse with a different wave lengt stirrs them to a spontaneous emission of their energy in the form of light.
+
+The verdi laser is also used to induce energy into the Ti:Sa crystal, called "Pumping", which is later used to amplify the laser pulse.

@@ -1,0 +1,113 @@
+material LaserBunch
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			scene_blend src_alpha one
+            depth_write off
+			cull_hardware none
+			cull_software none
+		}
+	}
+}
+
+material XRayBunch
+{
+	technique
+	{
+		pass
+		{
+			cull_hardware anticlockwise
+			lighting off
+			scene_blend src_alpha one
+            depth_write off
+		}
+	}
+}
+
+material LaserPathRed
+{
+	technique
+	{
+		pass
+		{
+            lighting off
+			scene_blend alpha_blend
+			texture_unit
+			{
+				colour_op_ex source1 src_manual src_current 1 0 0
+				alpha_op_ex source1 src_manual src_current 0.3
+			}	
+		}
+	}
+}
+
+material LaserPathBlue
+{
+	technique
+	{
+		pass
+		{
+            lighting off
+			scene_blend alpha_blend
+			texture_unit
+			{
+				colour_op_ex source1 src_manual src_current 0.3 0.8 1
+				alpha_op_ex source1 src_manual src_current 0.3
+			}	
+		}
+	}
+}
+
+material LaserPathYellow
+{
+	technique
+	{
+		pass
+		{
+            lighting off
+			scene_blend alpha_blend
+			texture_unit
+			{
+				colour_op_ex source1 src_manual src_current 1 1 0
+				alpha_op_ex source1 src_manual src_current 0.3
+			}	
+		}
+	}
+}
+
+material LaserPathGreen
+{
+	technique
+	{
+		pass
+		{
+            lighting off
+			scene_blend alpha_blend
+			texture_unit
+			{
+				colour_op_ex source1 src_manual src_current 0 1 0
+				alpha_op_ex source1 src_manual src_current 0.3
+			}	
+		}
+	}
+}
+
+material LaserPathPurple
+{
+	technique
+	{
+		pass
+		{
+            lighting off
+			scene_blend alpha_blend
+			texture_unit
+			{
+				colour_op_ex source1 src_manual src_current 0.5 0 0.5
+				alpha_op_ex source1 src_manual src_current 0.3
+			}	
+		}
+	}
+}

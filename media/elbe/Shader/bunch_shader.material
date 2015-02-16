@@ -1,0 +1,48 @@
+vertex_program bunchVertexShader glsl
+{
+  source bunch_vs.txt
+}
+
+fragment_program bunchFragmentShader glsl
+{
+  source bunch_ps.txt
+}
+
+
+material bunch_material
+{
+  technique
+  {
+    pass
+    {
+      scene_blend alpha_blend
+      depth_write off
+      cull_hardware none
+
+      texture_unit
+      {       
+	tex_address_mode wrap
+        texture bunch_alphaTex.png
+      }
+      vertex_program_ref bunchVertexShader
+	{
+		
+
+		param_named sigma11 float 1.0
+		param_named sigma33 float 1.0
+		param_named sigma55 float 1.0
+		param_named time float 3.0
+	}
+	fragment_program_ref bunchFragmentShader
+      	{ 
+		param_named float3 color
+		param_named time float 3.0
+		param_named tex0 int 0
+		param_named lastTransftime float	
+
+        
+      	}
+
+    }
+  }
+}

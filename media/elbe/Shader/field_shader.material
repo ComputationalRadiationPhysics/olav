@@ -1,0 +1,48 @@
+vertex_program fieldVertexShader glsl
+{
+  source field_vs.txt
+}
+
+fragment_program fieldFragmentShader glsl
+{
+  source field_ps.txt
+}
+
+
+material field_material
+{
+  technique
+  {
+    pass
+    {
+      scene_blend alpha_blend
+      depth_write off
+      cull_hardware none
+
+      texture_unit
+      {       
+	tex_address_mode wrap
+        texture arrows_field2.png
+      }
+      vertex_program_ref fieldVertexShader
+	{
+		
+		param_named float3  fieldEndPt
+		param_named float3  fieldStartPt
+		param_named float3  gridPt
+		param_named float3 texCoordMax
+		param_named time float 3.0
+	}
+	fragment_program_ref fieldFragmentShader
+      	{ 
+		param_named time float 3.0
+		param_named tex0 int 0
+		param_named float2 texCoordMax
+		
+
+        
+      	}
+
+    }
+  }
+}

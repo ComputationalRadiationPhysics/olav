@@ -1,0 +1,29 @@
+vertex_program SolVertexShader glsl
+{
+  source solenoid_vs.txt
+}
+
+fragment_program SolFragmentShader glsl
+{
+  source solenoid_ps.txt
+}
+
+
+material solenoid_material
+{
+  technique
+  {
+    pass
+    {
+
+
+
+	fragment_program_ref SolFragmentShader
+      	{ 
+		param_named color float4 .8 .2 .2 1
+        
+      	}
+
+    }
+  }
+}

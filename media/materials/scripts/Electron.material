@@ -1,0 +1,848 @@
+vertex_program linewidth_glsl glsl
+{
+	source linewidth.glsl
+}
+
+vertex_program scaling_glsl glsl
+{
+	source scaling.glsl
+}
+
+
+vertex_program halfspherevp_glsl glsl
+{
+	source halfspherevp.glsl
+}
+fragment_program halfspherefp_glsl glsl
+{
+	source halfspherefp.glsl
+}
+
+
+vertex_program shintakevp_glsl glsl
+{
+	source shintakevp.vert
+}
+
+vertex_program undulatorFieldColoursVp_glsl glsl
+{
+	source undulatorFieldColoursVp.vert
+}
+
+geometry_program shintakegp_glsl glsl
+{
+	source shintakegp.geom
+	input_operation_type points
+	output_operation_type line_strip
+	max_output_vertices 90
+}
+
+geometry_program shintakecirclegp_glsl glsl
+{
+	source shintakecirclegp.geom
+	input_operation_type points
+	output_operation_type line_strip
+	max_output_vertices 90
+}
+
+geometry_program shintakesinegp_glsl glsl
+{
+	source shintakesinegp.geom
+	input_operation_type points
+	output_operation_type line_strip
+	max_output_vertices 90
+}
+
+geometry_program erase_glsl glsl
+{
+	source erase.geom
+	input_operation_type points
+	output_operation_type line_strip
+	max_output_vertices 90
+}
+
+fragment_program shintakefp_glsl glsl
+{
+	source shintakefp.frag
+}
+
+fragment_program fieldColours_glsl glsl
+{
+	source fieldColours.frag
+}
+
+fragment_program fieldColoursInv_glsl glsl
+{
+	source fieldColoursInv.frag
+}
+
+
+
+material ShadedElectron
+{
+	technique
+	{
+		
+
+
+
+		pass
+		{
+			
+			
+			lighting on
+			colour_write on
+
+			cull_hardware none
+
+			scene_blend alpha_blend 
+
+			depth_check on
+            		depth_write on			
+			ambient 0.3 0.3 0.3
+			
+
+			vertex_program_ref shintakevp_glsl
+			{
+			param_named maxlength float 100.0
+			}
+
+			geometry_program_ref shintakegp_glsl
+			{
+			param_named_auto cameraPosition camera_position_object_space
+			//param_named maxlength float 100.0
+			//param_named min_theta float 0.0
+			//param_named max_theta float 3.0
+			//param_named min_phi float 0.0
+			//param_named max_phi float 3.0
+			//param_named resolution float 0.3
+			param_named speed float 0.0
+			param_named radius float 1.0
+			param_named_auto time time
+			param_named_auto LightPosition light_position 0
+			}
+
+			fragment_program_ref shintakefp_glsl 
+			{
+			
+				param_named_auto LightDirection light_direction_object_space 0
+				param_named_auto ViewDirection view_direction
+				param_named amb float4 0.8 0.8 1.0 1.0
+				param_named spec float4 1.0 1.0 1.0 1.0 
+				param_named diff float4 0.5 1.0 1.0 1.0
+				param_named color float4 0.5 0.5 1.0 1.0
+				param_named blinnphong  int 0
+				param_named shin float 100
+
+			}
+
+			
+
+
+		}
+		
+
+
+	}
+}
+
+material EraseEverything
+{
+	technique
+	{
+		
+
+
+
+		pass
+		{
+			
+			
+				
+
+			
+			geometry_program_ref erase_glsl
+			{
+			
+			}
+
+			
+
+			
+
+
+		}
+		
+
+
+	}
+}
+
+material Halo
+{
+	technique
+	{
+		
+
+
+
+		pass
+		{
+			
+		
+		
+			lighting off
+			colour_write on
+
+			cull_hardware clockwise
+
+			scene_blend alpha_blend 
+
+			depth_check on
+            		depth_write on			
+			//alpha_to_coverage on
+			alpha_rejection greater_equal 10
+
+			
+
+
+		}
+
+
+
+	}
+}
+
+
+material skysphere
+{
+        technique
+        {
+                pass
+                {
+                        transparent_sorting force
+                        lighting off
+                        scene_blend alpha_blend
+                        cull_hardware anticlockwise
+                        texture_unit
+                        {
+                                colour_op_ex source1 src_manual src_current 1 1 1
+                                alpha_op_ex source1 src_manual src_current 1
+                        }
+                        texture_unit
+                        {
+                                env_map spherical
+                                texture grid.png
+                                tex_address_mode wrap
+                                colour_op_ex blend_current_alpha src_texture src_current
+                                //scroll_anim 0.5 0.0
+                        }
+                        //vertex_program_ref halfspherevp_glsl{}
+                        //fragment_program_ref halfspherefp_glsl{}
+                }
+        }
+}
+
+material Arrows
+{
+	technique
+	{
+		
+
+
+
+		pass
+		{
+			
+			//polygon_mode_overrideable false
+			//point_sprites on
+
+			//point_size 2.0
+			//point_size_min 2
+			
+
+
+			//fog_override true exp 0.1 0.1 0.1 0.002 100 10000
+
+			lighting off
+			colour_write on
+
+			cull_hardware anticlockwise
+
+			scene_blend alpha_blend 
+
+			depth_check on
+            		depth_write on			
+			//alpha_to_coverage on
+			ambient 0.3 0.3 0.3
+			alpha_rejection greater_equal 10
+			
+
+
+		}
+		
+
+
+	}
+}
+
+material IlluminatedArrows
+{
+	technique
+	{
+		
+
+		pass
+		{
+		lighting off
+		cull_hardware clockwise
+		colour_write on
+		scene_blend alpha_blend 
+		depth_check on
+   		depth_write on
+		shading phong
+		//specular 0.5 0.5 0.5 120.0
+		//diffuse 0.1 0.1 0.8
+		//ambient 0.0 0.0 1.0
+
+		//specular 1.0 1.0 1.0 120.0
+		
+
+			vertex_program_ref undulatorFieldColoursVp_glsl
+			{
+
+				param_named_auto matrix world_matrix
+				param_named offset float4 0.0 0.0 0.0 1.0
+				param_named clipnormal float4 0.0 0.0 1.0 0.0
+			}
+			fragment_program_ref fieldColours_glsl
+			{
+				param_named width float 5.0				
+			}
+
+		}
+		
+		
+	}
+}
+
+material IlluminatedArrowsInv
+{
+	technique
+	{
+		
+
+		pass
+		{
+		lighting off
+		cull_hardware none
+		colour_write on
+		scene_blend alpha_blend 
+		depth_check on
+   		depth_write on
+		shading phong
+		//specular 0.5 0.5 0.5 120.0
+		//diffuse 0.1 0.1 0.8
+		//ambient 0.0 0.0 1.0
+
+		//specular 1.0 1.0 1.0 120.0
+		
+
+			vertex_program_ref undulatorFieldColoursVp_glsl
+			{
+
+				param_named_auto matrix world_matrix
+				param_named offset float4 0.0 0.0 0.0 1.0
+				param_named clipnormal float4 0.0 0.0 1.0 0.0
+			}
+			fragment_program_ref fieldColoursInv_glsl
+			{
+				param_named width float 5.0				
+			}
+
+		}
+		
+		
+	}
+}
+
+material Electron
+{
+	technique
+	{
+		
+
+		pass
+		{
+
+
+			lighting off
+			colour_write on
+
+			cull_hardware clockwise
+
+			scene_blend alpha_blend 
+			depth_check on
+            		depth_write on			
+			
+			//shading phong
+			//specular 0.5 0.5 0.5 120.0
+			//diffuse 0.1 0.1 0.1
+			//ambient vertexcolour
+
+			specular vertexcolour 120.0
+			
+			ambient 1.0 1.0 1.0 1.0
+			
+			alpha_rejection greater_equal 10
+			
+
+
+		}
+
+		pass
+		{
+			lighting off
+			specular vertexcolour 12
+			diffuse 0.0 0.0 0.0 0.0
+			ambient 0.0 0.0 0.0 0.0
+			colour_write on
+			depth_check on
+			depth_write on
+			scene_blend alpha_blend 
+
+			//separate_scene_blend_op add max
+			shading phong
+
+			cull_hardware none
+
+		
+
+		}
+
+		
+
+
+
+		
+
+
+	}
+}
+
+
+material WavefrontsColl
+{
+	technique
+	{
+		
+
+		
+		
+		pass
+		{
+	
+			lighting off
+			colour_write on
+
+			cull_hardware none
+
+			scene_blend alpha_blend 
+			depth_check off
+            		depth_write off			
+			//alpha_to_coverage on
+			shading phong
+
+ 			
+			vertex_program_ref halfspherevp_glsl
+			{}
+			fragment_program_ref halfspherefp_glsl
+			{}
+		}
+
+
+		
+
+
+		pass
+		{
+			lighting off
+			specular vertexcolour 12.5
+			//diffuse vertexcolour
+			ambient 1.0 1.0 1.0 1.0
+			colour_write on
+			depth_check on
+			depth_write on
+			separate_scene_blend src_colour one_minus_src_colour src_alpha zero 
+			shading phong
+			start_light 1
+			cull_hardware none
+			vertex_program_ref halfspherevp_glsl
+			{}
+			fragment_program_ref halfspherefp_glsl
+			{}
+
+		
+
+		}
+
+
+		
+		
+
+	}
+	
+}
+
+material ElectronColl
+{
+	technique
+	{
+		
+
+
+		pass
+		{
+			
+			//polygon_mode_overrideable false
+			//point_sprites on
+
+			//point_size 2.0
+			//point_size_min 2
+			
+
+
+			//fog_override true exp 0.1 0.1 0.1 0.002 100 10000
+
+			lighting off
+			colour_write on
+
+			cull_hardware none
+
+			scene_blend alpha_blend
+			depth_check on
+            		depth_write on			
+			//alpha_to_coverage on
+			shading phong
+			alpha_rejection greater_equal 10
+			vertex_program_ref scaling_glsl
+			{}
+			
+
+
+			
+
+
+	}
+		
+
+
+	}
+}
+
+material BField
+{
+	technique
+	{
+		pass{
+		
+			lighting off
+			depth_check off
+            		depth_write off	
+			ambient 1 0 0
+			scene_blend add
+			diffuse vertexcolour
+				texture_unit
+				{
+					texture droplet.png
+					tex_address_mode clamp
+					
+				}
+		}
+	}
+
+}
+
+material Wavefronts_backup
+{
+	technique
+	{
+		
+		
+				pass
+		{
+	
+			lighting off
+			colour_write on
+
+			cull_hardware none
+
+			scene_blend alpha_blend 
+			depth_check off
+            		depth_write off			
+			//alpha_to_coverage on
+			shading phong
+
+ 			texture_unit
+	        	 {
+        	        	texture Waterbw.jpg
+	                	tex_address_mode wrap
+				colour_op modulate
+	                	
+			}
+		}
+
+
+		
+
+
+		pass
+		{
+			
+			colour_write off
+			depth_check on
+			depth_write on
+			
+			cull_hardware none
+
+		
+
+		}
+			
+	}
+	
+}
+
+
+material bla
+{
+	technique
+	{
+		
+
+		
+		
+		pass
+		{
+			lighting off
+			specular vertexcolour 12.5
+			diffuse 1.0 0.3 0.5
+			ambient 1.0 1.0 1.0 1.0
+			colour_write on
+			depth_check on
+			depth_write on
+			//separate_scene_blend src_colour one_minus_src_colour src_alpha zero 
+			scene_blend alpha_blend
+			shading phong
+			//start_light 1
+			cull_hardware none
+			
+
+		
+
+		}
+
+
+		
+		
+
+	}
+}
+
+material Waveplane
+{
+	technique
+	{
+		
+
+		
+		
+		pass
+		{
+	
+			lighting off
+			colour_write on
+			specular vertexcolour 12.5
+			//diffuse vertexcolour
+			ambient 1.0 1.0 1.0 1.0
+			cull_hardware none
+
+			scene_blend alpha_blend 
+			depth_check on
+            		depth_write on			
+			//alpha_to_coverage on
+			shading phong
+
+ 			
+		}
+
+
+		
+
+
+		pass
+		{
+			lighting off
+			specular vertexcolour 12.5
+			//diffuse vertexcolour
+			ambient 1.0 1.0 1.0 1.0
+			colour_write on
+			depth_check on
+			depth_write on
+			separate_scene_blend src_colour one_minus_src_colour src_alpha zero 
+			shading phong
+			start_light 1
+			cull_hardware none
+
+		
+
+		}
+
+
+		
+	}
+	
+}
+
+material Wavefronts
+{
+	technique
+	{
+		
+
+		
+		
+		pass
+		{
+	
+			lighting off
+			colour_write on
+			specular vertexcolour 12.5
+			//diffuse vertexcolour
+			ambient 1.0 1.0 1.0 1.0
+			cull_hardware none
+
+			scene_blend alpha_blend 
+			depth_check on
+            		depth_write on			
+			//alpha_to_coverage on
+			shading phong
+
+ 			texture_unit
+	        	{
+        	        	texture Waterbw.jpg
+	                	tex_address_mode wrap
+				colour_op modulate
+	                }
+		}
+
+
+		
+
+
+		pass
+		{
+			lighting off
+			specular vertexcolour 12.5
+			//diffuse vertexcolour
+			ambient 1.0 1.0 1.0 1.0
+			colour_write on
+			depth_check on
+			depth_write on
+			separate_scene_blend src_colour one_minus_src_colour src_alpha zero 
+			shading phong
+			start_light 1
+			cull_hardware none
+
+		
+
+		}
+
+
+		
+		
+
+	}
+	
+}
+
+
+material ShadowCaster
+{
+	technique
+	{
+	
+
+
+		pass
+		{
+		lighting on
+//		cull_hardware none
+		depth_check on
+		depth_write on
+		scene_blend add
+		colour_write on
+		ambient 1.0 1.0 1.0
+		diffuse vertexcolour
+		specular 1.0 1.0 1.0 10.0
+		shading phong
+		start_light 0
+		max_lights 1
+		}
+	}
+}
+
+material Grid
+{
+	receive_shadows off
+	
+	technique
+	{
+		
+
+		pass
+		{
+		
+			
+		depth_check on
+		depth_write on
+		lighting off
+		scene_blend alpha_blend 
+		start_light 0
+		max_lights 1
+		}
+
+		pass
+		{
+		
+			
+		depth_check on
+		depth_write on
+		lighting on
+		scene_blend one one
+		scene_blend_op min
+		ambient 0 0 0
+		diffuse 0.0 0.5 1.0
+		specular 1.0 1.0 1.0 12.5
+		shading phong
+		start_light 0
+		max_lights 1
+		}
+
+	}
+}
+
+
+material StressMark
+{
+	technique
+	{
+		pass
+		{
+		lighting off
+		scene_blend alpha_blend
+		emissive 0.6 0.6 0.0 0.5
+		shading phong
+		}
+	}
+}

@@ -1,0 +1,27 @@
+# Resource locations to be added to the 'boostrap' path
+# This also contains the minimum you need to use the Ogre example framework
+[Bootstrap]
+Zip=@Resources_Dir@/media/packs/SdkTrays.zip
+
+# Resource locations to be added to the default path
+[General]
+FileSystem=@Resources_Dir@/media/draco
+FileSystem=@Resources_Dir@/media/draco/textures
+FileSystem=@Resources_Dir@/media/elbe
+FileSystem=@Resources_Dir@/media/elbe/materials
+FileSystem=@Resources_Dir@/media/elbe/Textures
+FileSystem=@Resources_Dir@/media/elbe/Shader
+FileSystem=@Resources_Dir@/media/collision
+Zip=@Resources_Dir@/media/packs/cubemapsJS.zip
+FileSystem=@Resources_Dir@/media/materials/programs
+FileSystem=@Resources_Dir@/media/materials/scripts
+FileSystem=@Resources_Dir@/media/materials/ssao
+FileSystem=@Resources_Dir@/media/materials/textures
+FileSystem=@Resources_Dir@/media/materials/textures/nvidia
+FileSystem=@Resources_Dir@/media/models
+FileSystem=@Resources_Dir@/media/radialblur
+FileSystem=@Resources_Dir@/media/raumplan
+FileSystem=@Resources_Dir@/media/Documentation
+FileSystem=@Resources_Dir@/media/Documentation/draco_pictures
+FileSystem=@Resources_Dir@/media/Documentation/elbe_pictures
+FileSystem=@Resources_Dir@/media/particle

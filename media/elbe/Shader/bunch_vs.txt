@@ -1,0 +1,74 @@
+uniform float time;
+//uniform vec3 color;
+
+uniform float sigma11;
+uniform float sigma33;
+uniform float sigma55;
+
+varying  vec3 tfNormal;
+varying vec3 tfLight;
+varying vec2 texCoord;
+varying vec3 tfEye;
+void main(void)
+{
+   
+
+   vec4 vertex=gl_Vertex;
+   texCoord= gl_MultiTexCoord0.xy;
+   float PI = 3.14159265358979323846264;
+   float phi = atan(vertex.y,vertex.x);
+   float r=length(vertex);
+   float omega =acos(vertex.z/r);
+  
+   r= r*(1.0+sin(vertex.x*time*vertex.z)*.06+cos(vertex.y*(time+2*PI)*vertex.z+2*PI*time)*time*.06);
+   float a=1.0;//sigma11; 
+	if(sigma11>0.0)
+		a=sigma11;
+   float b=1.0;//sigma33;
+	if(sigma33>0.0)
+		b=sigma33;
+   float c=1.0;//sigma55;
+	if(sigma55>0.0)
+		c=sigma55;
+   //vertex.x=a*r*sin(omega)*cos(phi);
+   //vertex.y=b*r*sin(omega)*sin(phi);
+   //vertex.z=c*r*cos(omega);
+
+   vec3 offset=gl_Normal*sin(vertex.x*time*vertex.z)*.1+cos(vertex.y*(time+2*PI)*vertex.z+2*PI*time)*time*2.0;
+   
+   vertex.xyz+=offset;
+
+   vec3 normal=normalize(gl_Normal);
+   tfNormal=gl_NormalMatrix*normal; 
+   
+   tfLight = gl_NormalMatrix*vec3(0.0,1.0,0.0);
+   tfEye =-gl_NormalMatrix*gl_Vertex.xyz;
+   
+   
+      float phi_el = atan(vertex.y,vertex.x);
+      float r_el=length(vertex);
+      float omega_el =acos(vertex.z/r);
+      //texCoord=vec2(phi_el/(PI),omega_el/(2*PI));
+     
+   //ZylinderMapping
+   if(a>3.0) {
+
+      float r_zyl=sqrt(vertex.z*vertex.z+vertex.y*vertex.y);
+      float sigma=atan(vertex.z,vertex.y);
+      texCoord=vec2(sigma/2/PI,(vertex.x/r/a/2)+0.5);
+   }
+   texCoord+=vec2(1.0,0.0)*time*5.0;
+   gl_Position = gl_ModelViewProjectionMatrix * vertex;
+}
+
+/*
+void main(void)
+{
+
+   float factor=3.0;
+   gl_TexCoord[0] = gl_MultiTexCoord0+vec4(1.0,0.0,0.0,0.0)*time*5.0;
+   gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+}
+
+
+*/

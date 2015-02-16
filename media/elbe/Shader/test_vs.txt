@@ -1,0 +1,37 @@
+//uniform mat4 matView;
+//uniform bool bViewSpace;
+/*
+
+adawd
+*/
+
+uniform vec4 color;
+uniform vec4 uFieldMiddle;
+uniform float uMaxRadius;
+uniform mat4 uModelMatrix;
+
+varying  vec3 tfNormal;
+varying vec3 tfLight;
+varying vec2 texCoord;
+varying vec3 tfEye;
+varying vec4 vFragColor;
+
+void main(void)
+{
+   
+
+   vec4 vertex=gl_Vertex;
+   texCoord= gl_MultiTexCoord0.xy;
+
+   vec3 normal=normalize(gl_Normal);
+   tfNormal=gl_NormalMatrix*normal; 
+   
+   tfLight = gl_NormalMatrix*vec3(0.0,0.0,-1.0);
+   tfEye =-gl_NormalMatrix*vertex.xyz;
+   vec3 vertMV = (uModelMatrix*gl_Vertex).xyz;
+   float f=length(vertMV-uFieldMiddle.xyz)/uMaxRadius;
+   
+   vec3 b=color.xyz;//(1.0-f)*vec3(1.0,.0,.1)+f*vec3(0.0,1.0,0.1);
+   vFragColor =vec4(b,1.0);
+   gl_Position = ftransform();
+}

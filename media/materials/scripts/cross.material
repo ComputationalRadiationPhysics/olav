@@ -1,0 +1,56 @@
+material cross_meow
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			lighting on
+			ambient 0.5 0.5 0.5 0.5
+			diffuse 0.5 0.5 0.5 0.5
+			specular 0.5 0.5 0.5 0.5
+		}
+	}
+}
+material cross_red
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			lighting on
+			ambient 1.0 0.0 0.0 0.8
+			diffuse 1.0 0.0 0.0 0.8
+			specular 1.0 0.0 0.0 0.8
+		}
+	}
+}
+material cross_green
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			lighting on
+			ambient 0.0 1.0 0.0 0.8
+			diffuse 0.0 1.0 0.0 0.8
+			specular 0.0 1.0 0.0 0.8
+		}
+	}
+}
+material cross_blue
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			lighting on
+			ambient 0.0 0.0 1.0 0.8
+			diffuse 0.0 0.0 1.0 0.8
+			specular 0.0 0.0 1.0 0.8
+		}
+	}
+}

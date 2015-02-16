@@ -1,0 +1,7 @@
+!TODO: Übersetze mich!
+The Pac-Man is named after the popular video game character. It consists of two mirrors arranged orthogonally to each other.
+They are envelopped by a circular wrap causing the arrangement to look like the protagonist of the classic video game.
+The laser pulse hits the Pac-Man mirror in a 45° angle and is in turn steered towards the upper mirror. Therefore it is reflected in the same direction it came from, but shifted in height.
+
+This arrangement allows the pulse to pass the mirrors of the multipass amplifier a second time with a different height.
+Thus the number of passes can be doubled and a stronger amplification can be achieved.

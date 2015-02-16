@@ -1,0 +1,2 @@
+!TODO: Übersetze mich!
+The Ti:Sa crystal amplifies the central part of the pulse's wave length more than it's sides with each pass. This results in a decreasing wave length scope. This disadvantageous effect occurs especially strong with high factors of amplification, like those in regenerative amplifiers due to the high number of circuits.

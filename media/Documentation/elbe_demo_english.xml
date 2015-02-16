@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" ?>
+
+<documentations>
+	<documentation>
+		<name>solenoid_und_steerer</name>
+		<title>Solenoid and Steerer</title>
+		<text>Dummy</text>
+	</documentation>
+	<documentation>
+		<name>buncher1300</name>
+		<title>Subharmonic Buncher at 1.3 GHz</title>
+		<text>This buncher works like the subharmonic buncher, but with a higher resonance frequency.</text>
+	</documentation>
+	<documentation>
+		<name>steerer</name>
+		<title>Steerer</title>
+		<text>Steerer create a homogeneous magnetic field inside. The current in the inductor determines the field magnitude, so they are used for the correction of the electron's trajectory</text>
+	</documentation>
+	<documentation>
+		<name>dipol</name>
+		<title>Dipol-Magnet</title>
+		<text>Dipol-Magents have a very powerful homogeneous magnetic field between the north and the south pole. Because of this they are used to realize big deflection angles.</text>
+	</documentation>
+	<documentation>
+		<name>solenoid</name>
+		<title>Solenoid</title>
+		<text>A solenoid creates a radial increasing magnetic field inside and is used to focus the electrons. Without these magnetic lens the electrons would colide with the beamline's wall.</text>
+	</documentation>
+	<documentation>
+		<name>macropulser</name>
+		<title>Macropulser</title>
+		<text>The macropulser cuts macroscopic pulses out of the quasi continuous electron beam of the electron gun. To do this the electrons are destroyed with a steerer on a cooled bezel in the time of the blanking.</text>
+	</documentation>
+	<documentation>
+		<name>quadrupol</name>
+		<title>Quadrupol-Magnet</title>
+		<text>Like the solenoids in the begin of the accelerator the quadrupol-magnets are used for focussing. Since they focus in one plane, but defocus in the second plane, they appear at least paired.</text>
+	</documentation>
+	<documentation>
+		<name>schikane</name>
+		<title>Magnetic Chicane</title>
+		<text>By this array out of four dipol-magnets the electron pulse is further shortenend. For this the difference of the ways between the "lighter" electrons at the pulse begin and the "heavierer" electrons at the end is used.</text>
+	</documentation>
+	<documentation>
+		<name>gun</name>
+		<title>Thermionic Gun for the creation of electrons</title>
+		<text>The thermionic gun creates with the principle of a triode 13 m. electron pulses per second. Every pulse is made out of 480 m. electrons (77pC), which are accelerated with a DC potential of 250 kV.</text>
+	</documentation>
+	<documentation>
+		<name>buncher260</name>
+		<title>Subharmonic Buncher at 260 MHz</title>
+		<text>With the help of the subharmonic buncher the 500 ps long pulses are shortenend to one fiftieth of their initial length. For this the electrons in the begin of the pulse are decelerated by a electromagnetic field and the electrons in the end of the pulse are accelerated.</text>
+	</documentation>
+	<documentation>
+		<name>linac</name>
+		<title>ELBE-LINAC</title>
+		<text>Here the actual acceleration happens. For this a electromagnetic field of two superconductive niobium-resonators, which are cooled down to -271 C° with liquid helium, is used. The electrons "surf" on a waterwave and experience a potential difference of 10 m. volt per resonator and meter!</text>
+	</documentation>
+</documentations>

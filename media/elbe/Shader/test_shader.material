@@ -1,0 +1,43 @@
+vertex_program myVertexShader glsl
+{
+  source test_vs.txt
+}
+
+fragment_program myFragmentShader glsl
+{
+  source test_ps.txt
+}
+
+material arrow_field_material
+{
+  technique
+  {
+	
+    pass
+    {
+	//cull_hardware clockwise
+	depth_write on
+	scene_blend one zero
+
+	vertex_program_ref myVertexShader
+	{
+		
+		param_named uMaxRadius float
+		param_named ufieldMiddle float4  
+		param_named_auto uModelMatrix world_matrix
+		param_named_auto color custom 0
+
+	}
+	fragment_program_ref myFragmentShader
+      	{ 
+		param_named uMaxRadius float
+		param_named ufieldMiddle float4
+		param_named uModelMatrix world_matrix   
+		param_named_auto color custom 0	
+        
+      	}
+
+
+    }
+  }
+}

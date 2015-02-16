@@ -1,0 +1,12 @@
+material bunch_envel_material
+{
+  technique
+  {
+    pass
+    {
+		ambient 1 0 0
+		diffuse 1 0 0
+		scene_blend dest_colour dest_colour
+    }
+  }
+}

@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" ?>
+
+<documentations>
+	<documentation>
+		<name>Gun</name>
+		<title>Thermionic Gun for the creation of electrons</title>
+		<pictures>
+			<picture>
+				<size width="956" height="783" />
+				<file_name>Abb.1_thermische Triode.jpg</file_name>
+				<desc>Pic. 1: Principle of a thermic triode</desc>
+			</picture>
+			<picture>
+				<size width="412" height="417" />
+				<file_name>Abb.2_Aufnahme der Kathode .jpg</file_name>
+				<desc>Pic. 2: Cathode exposure</desc>
+			</picture>
+			<picture>
+				<size width="644" height="782" />
+				<file_name>Abb.3_Kathodegitter.jpg</file_name>
+				<desc>Pic. 3: Build-up of the cathode + grid</desc>
+			</picture>
+			<picture>
+				<size width="664" height="572" />
+				<file_name>Abb.4_Aufbau Kathode.jpg</file_name>
+				<desc>Pic. 4: cathode material</desc>
+			</picture>
+		</pictures>
+		<text>
+      The used cathode features a thin layer of barium. A part of the electrons (the conduction electrons) is able to move freely inside this component. In order to free these out of the surface an electron affinity has to be stirred up. This is done by heating the metal to ca. 1200°C. Afterwards the free electrons assemble between the control grid and the cathode. If the pulsed grid gives way for 500 ps, an electron bunch is accelerated in direction of the anodes due to the potential difference of 250000 V (Pic. 1).
+      Facts: Charge per Bunch = 77 pC (480 Million electrons), 13 Million electron bunches per second; results in an medium current of I=1 mA, energy of the electrons = 250 keV</text>
+	</documentation>
+	<documentation>
+		<name>Solenoid</name>
+		<title>Solenoid (or cylindrical coil)</title>
+		<pictures>
+			<picture>
+				<size width="800" height="800" />
+				<file_name>Abb.5_solenoid_lines.png</file_name>
+				<desc>Pic.5: Magnetic field lines of a solenoid lens</desc>
+			</picture>
+		</pictures>
+		<text>A solenoid is a coil with a high number of convolutions. These lie on a cylinder barrel. A cylindrical coil is used to induce a physically constant magnetic field for focussing the low-energy electrons inside the injector. The field lines are closed and run parallel inside the solenoid (Pic. 5). The focal length may be varied by the coil current (f "proportional" I "to the power of" -2).
+Without the lenses the electrons would collide with the wall of the beam line and be lost, due to the Coulomb repulsion.</text>
+	</documentation>
+	<documentation>
+		<name>DiPol</name>
+		<title>Dipole - or sector magnet</title>
+		<pictures>
+			<picture>
+				<size width="1040" height="777" />
+				<file_name>Abb.6_Dipolfeld.jpg</file_name>
+				<desc>Pic.6: Magnetic field of a dipole magnet</desc>
+			</picture>
+			<picture>
+				<size width="314" height="315" />
+				<file_name>Abb.7_Drei-Finger-Regel.jpg</file_name>
+				<desc>Pic.7: Left-hand Rule</desc>
+			</picture>
+		</pictures>
+		<text>A dipol magnet forms a dipole field between a north and a south pole. Due to the form and parallelism of the pole shoe, the magnetic field is homogenous (Pic.6). The movement of the particles obeys the Lorentz force. Thus the electrons are forced onto a circular path orthoganal to the field. This can be understood easily with the left-hand rule.  Dipole magnets are are used for beam deflection. The path radius R behaves inversely proportional towards the coil current.</text>
+	</documentation>
+	<documentation>
+		<name>Steerer</name>
+		<title>Steerer</title>
+		<text>Steerers ared used for correcting the electrons' path by few mrads. This equates a deflection of few mm per m flight distance. As with the dipole magnet, the deflection of charged particels inside the homogeneous magnetic field is used by the Lorentz force. A steerer is composed of a Helmholtz split pair coil horizontally and another one vertically. A pair consists of two short air-core coils, through which a current runs same-directionally and which are placed parallely towards one another with the distance of their radius R. Due to the superposition of both fields a largely  homogeneous magnetic field is produced between the coils. The path radius behaves inversly proportional towards the coil current.</text>
+	</documentation>
+	<documentation>
+		<name>QuadroPol</name>
+		<title>Quadrupole magnet</title>
+		<pictures>
+			<picture>
+				<size width="1109" height="739" />
+				<file_name>Abb.8_Quadrupole_de.png</file_name>
+				<desc>Pic.8: Quadrupole magnet</desc>
+			</picture>
+			<picture>
+				<size width="935" height="305" />
+				<file_name>Abb.9_Fokussierung Quadrupol.jpg</file_name>
+				<desc>Pic.9: Focussing as shown by two consecutive quadrupole magnets</desc>
+			</picture>
+		</pictures>
+		<text>A quadrupole magnet is an array of four hyperbolically formed pole shoes, where north and south pole are facing one another (Pic.8). They are used for focussing the electron bunch, much like the solenoid lenses. The fact is used, that field force grows proportionally to the distance towards the beam axis. Thus abaxial electrons are influenced more strongly. A quadrupole always focusses in one plain, while defocussing in the other. Due to this at least two quarupoles have to be used consecutively.</text>
+	</documentation>
+	<documentation>
+		<name>Macropulser</name>
+		<title>Macropulser</title>
+		<pictures>
+			<picture>
+				<size width="1192" height="753" />
+				<file_name>Abb.10_Elbe_Pulsstruktur.jpg</file_name>
+				<desc>Pic.10: ELBE pulse structure</desc>
+			</picture>
+		</pictures>
+		<text>While running a thermionic gun provides 13 million electron bunches per second. Due to this large number it is referred to as a quasi continuous electron beam. However, this is too much to handle the machine parameters. Thus the beam is divided into macroscopic pulses, all while maintaining the bunch charge (Pic.10). The blanking occurs through a steerer, whose coil pairs are provided with a alternating current instead of an continuous current. Because these currents offer a phase shift of 90 (sine and cosine) towards one another, the electron beam is directed away from the axis towards a rotational path orthogonally towards the direction of propagation. After a distance of 30 cm, the rotatiing beam hits a blind and is destroyed. </text>
+	</documentation>
+	<documentation>
+		<name>Buncher_B</name>
+		<title>Subharmonic Buncher 1 at 260 MHz</title>
+		<pictures>
+			<picture>
+				<size width="626" height="545" />
+				<file_name>Abb.11_Buncher260.jpg</file_name>
+				<desc>Pic. 11: chronological course of the electric</desc>
+			</picture>
+		</pictures>
+		<text>Bunchers are needed to shorten the about 500 ps long electron beam, as generated by the gun, to a fiftieths of it's original length. This is done through an evacuated mercury resonator. In it's interior an electro magnetic wave is oscillating with a period of around 4 ns (260 million Hertz). Ideally the buncher is adjusted in a way, that the electric field of this wave is zero while the central particle passes through. Due to the length of the bunch, the electrons at the beginning face a fading field, while the electrons at the end face a rising field (Pic.11). The resulting Lorentz force slows the leading and accelerates the rear part of the bunch. Thus this bunch is shortening on it's way towards the first ELBE-Linac and eventually reaches it's minimal length. </text>
+	</documentation>
+	<documentation>
+		<name>Buncher_A</name>
+		<title>Harmonic buncher 2 at 1.3 GHz</title>
+		<pictures>
+			<picture>
+				<size width="626" height="545" />
+				<file_name>Abb.12_Buncher1300.jpg</file_name>
+				<desc>Pic. 11: chronological course of the electric</desc>
+			</picture>
+		</pictures>		
+		<text>This buncher works in the same way as the subharmonic buncher. Due to the already shortened bunch, a frequency of 1300 million Hertz is required. A synchronisation with the bunch repetition rate of 13 MHz is essential for both bunchers.</text>
+	</documentation>
+	<documentation>
+		<name>Cryos</name>
+		<title>Acceleration module</title>
+		<pictures>
+			<picture>
+				<size width="2089" height="1334" />
+				<file_name>Abb.12_ELBE_Modul.jpg</file_name>
+				<desc>Pic.12: CAD section drawing of an  ELBE Linacs</desc>
+			</picture>
+		</pictures>
+		<text>The main acceleration takes place inside the two ELBE-Linacs (Linear Accelerator) (Pic.12), developed at FZD. Each of these contain two superconductive cooled down to -271°C by liquid helium Niob resonators with a length of 1m. Internally an electromagnetic wave with a period of about 770 ps (1300 million Hertz) is oscillating, much like inside the harmonic buncher. Here the acceleration occurs also due to the Lorentz force executed by the electric field. Unlike with the buncher, the central particle is supposed to experience the greatest acceleration. Therefore every resonator is adjusted in a way that the wave's electric field is at it's maximum while traversing the electrons in the center of each cell. The bunch ß is "surfing" on the wave and is experiencing a potential difference of 10 million Volt per resonator. Multiplied with a current of 1mA a beam power of 40kW is achieved after four resonators by the end of the acceleration track.</text>
+	</documentation>
+	<documentation>
+		<name>Chikane</name>
+		<title>Chicane</title>
+		<pictures>
+			<picture>
+				<size width="1223" height="630" />
+				<file_name>Abb.13_Schikane.jpg</file_name>
+				<desc>Pic.13: Difference of range due to the energy-place-correlation</desc>
+			</picture>
+		</pictures>
+		<text>The chicane is an array of four dipole magnets with the task of shortening the electron bunch even further in the higher energetic range after the first ELBE Linac. Therefore the bunch needs an energy-place-correlation aligned with it's axis, so that the energy of the electrons rises starting with the head. All electron's velocity stays constant. The ensuing energy-dispersive branch, formed by the four deflecting magnets, leads to a path difference between the lighter electrons at the beginning (red) and the somewhat heavier electrons at the end (blue), causing the bunch to shorten even further.</text>
+	</documentation>
+</documentations>

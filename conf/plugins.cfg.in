@@ -1,0 +1,3 @@
+PluginFolder=@Plugin_Search_Path@
+Plugin=RenderSystem_GL
+Plugin=Plugin_ParticleFX

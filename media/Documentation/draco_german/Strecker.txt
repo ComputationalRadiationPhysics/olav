@@ -1,0 +1,2 @@
+!TODO: Übersetze mich!
+With the stretcher the pulses are dilated severly and thus their peak intensity is reduced significantly. This is necessary because with further amplification of the pulses' energy the damage threshold of the optical elements would be reached and no further amplification would be possible. In this arrangement the pulses are stretched by 50000 to about a half nanosecond. At the end of the amplification line the pulses are strained inside the compressor. The pattern is called CPA (Chirped Pulse Amplification).

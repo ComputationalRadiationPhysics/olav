@@ -1,0 +1,55 @@
+particle_system ElectronStressMark
+{
+	material 		Examples/Flare
+	particle_width 	1
+	particle_height	1
+	cull_each		false
+	quota			2000
+	billboard_type	point
+
+	emitter Point
+	{
+		angle 0
+		emission_rate 100
+        time_to_live    10
+        direction       -1 0 0
+        velocity_min    0
+        velocity_max    30
+        colour_range_start  1 1 0.5
+        colour_range_end    1 0.8 0.3
+		
+	}
+	affector ColourFader
+	{
+		red -0.25
+		green -1
+		blue -1
+	}
+	
+}
+
+particle_system Fieldparticles
+{
+	material 		Examples/Flare
+	particle_width 	1
+	particle_height	1
+	cull_each		true
+	quota			20000
+	billboard_type	point
+	
+	local_space true
+
+
+	emitter Point
+{
+		emission_rate 50
+}
+
+	affector ColourFader
+	{
+		red -1
+		green -1
+		blue -0.25
+	}
+
+}

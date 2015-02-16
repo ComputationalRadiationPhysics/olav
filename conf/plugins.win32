@@ -1,0 +1,5 @@
+PluginFolder=.
+Plugin=RenderSystem_GL
+Plugin=Plugin_ParticleFX
+
+

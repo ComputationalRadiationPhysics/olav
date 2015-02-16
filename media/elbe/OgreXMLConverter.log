@@ -1,0 +1,16 @@
+13:55:38: Creating resource group General
+13:55:38: Creating resource group Internal
+13:55:38: Creating resource group Autodetect
+13:55:38: Registering ResourceManager for type Mesh
+13:55:38: Registering ResourceManager for type Material
+13:55:38: Registering ResourceManager for type Skeleton
+13:55:38: XMLMeshSerializer writing mesh data to eBunch_elbe.mesh.xml...
+13:55:38: Populating DOM...
+13:55:38: Writing submesh...
+13:55:39: Dedicated geometry bone assignments exported.
+13:55:39: Submesh exported.
+13:55:39: DOM populated, writing XML file..
+13:55:39: XMLMeshSerializer export successful.
+13:55:39: Unregistering ResourceManager for type Skeleton
+13:55:39: Unregistering ResourceManager for type Material
+13:55:39: Unregistering ResourceManager for type Mesh
