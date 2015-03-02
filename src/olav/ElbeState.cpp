@@ -26,6 +26,7 @@
 #include "ElbePipe.hpp"
 #include "globale_defines.h"
 #include "PauseState.hpp"
+#include "CmakeDefines.h"
 #include <GL/gl.h>
 
 //|||||||||||||||||||||||||||||||||||||||||||||||
@@ -85,26 +86,26 @@ void ElbeState::refillDemoList()
 	FILE *test;
 	if (OgreFramework::getSingletonPtr()->m_iLanguage) //german
 	#ifdef WIN32
-		test = fopen("media\\Documentation\\elbe_demo_german.xml", "r");
+		test = fopen(RESOURCES_DIR"\\media\\Documentation\\elbe_demo_german.xml", "r");
 	else
-		test = fopen("media\\Documentation\\elbe_demo_english.xml", "r");
+		test = fopen(RESOURCES_DIR"\\media\\Documentation\\elbe_demo_english.xml", "r");
 	#else
-		test = fopen("./media/Documentation/elbe_demo_german.xml", "r");
+		test = fopen(RESOURCES_DIR"/media/Documentation/elbe_demo_german.xml", "r");
 	else
-		test = fopen("./media/Documentation/elbe_demo_english.xml", "r");
+		test = fopen(RESOURCES_DIR"/media/Documentation/elbe_demo_english.xml", "r");
 	#endif
 	if (test)
 	{
 		fclose(test);
 		if (OgreFramework::getSingletonPtr()->m_iLanguage) //german
 		#ifdef WIN32
-			mDemoDoc = new DocumentationManager("media\\Documentation", "elbe_demo_german.xml");
+			mDemoDoc = new DocumentationManager(RESOURCES_DIR"\\media\\Documentation", "elbe_demo_german.xml");
 		else
-			mDemoDoc = new DocumentationManager("media\\Documentation", "elbe_demo_english.xml");
+			mDemoDoc = new DocumentationManager(RESOURCES_DIR"\\media\\Documentation", "elbe_demo_english.xml");
 		#else
-			mDemoDoc = new DocumentationManager("./media/Documentation", "elbe_demo_german.xml");
+			mDemoDoc = new DocumentationManager(RESOURCES_DIR"/media/Documentation", "elbe_demo_german.xml");
 		else
-			mDemoDoc = new DocumentationManager("./media/Documentation", "elbe_demo_english.xml");
+			mDemoDoc = new DocumentationManager(RESOURCES_DIR"/media/Documentation", "elbe_demo_english.xml");
 		#endif
 	}
 	else

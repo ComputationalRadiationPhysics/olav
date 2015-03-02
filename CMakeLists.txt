@@ -83,7 +83,6 @@ configure_file (
 	)
 file (COPY
 	"${PROJECT_SOURCE_DIR}/src/starter/mainform.lfm"
-	"${PROJECT_SOURCE_DIR}/src/starter/olav_starter.ico"
 	"${PROJECT_SOURCE_DIR}/src/starter/olav_starter.lpr"
 	"${PROJECT_SOURCE_DIR}/src/starter/olav_starter.res"
 	DESTINATION
@@ -230,6 +229,8 @@ if(WIN32)
 	install (FILES ${OGRE_PLUGIN_DIR_DBG}/OgreMain_d.dll ${OGRE_PLUGIN_DIR_DBG}/RenderSystem_GL_d.dll ${OGRE_PLUGIN_DIR_DBG}/Plugin_ParticleFX_d.dll ${OGRE_PLUGIN_DIR_DBG}/libOIS_d.dll DESTINATION bin CONFIGURATIONS Debug)
 	if (BUILD_STARTER)
 		install (FILES ${CMAKE_BINARY_DIR}/olav_starter DESTINATION bin) 
+		install (FILES ${CMAKE_SOURCE_DIR}/src/starter/olav_starter.png DESTINATION share/pixmaps)
+		install (FILES ${CMAKE_SOURCE_DIR}/src/starter/olav_starter.desktop DESTINATION share/applications) 
 		install (DIRECTORY ${CMAKE_SOURCE_DIR}/descriptions DESTINATION share/olav)
 	endif ()
 endif(WIN32)
@@ -240,7 +241,9 @@ if(UNIX)
 	install (FILES ${CMAKE_BINARY_DIR}/plugins.cfg DESTINATION share/olav) 
 	install (FILES ${CMAKE_BINARY_DIR}/resources.cfg DESTINATION share/olav)
 	if (BUILD_STARTER)
-		install (FILES ${CMAKE_BINARY_DIR}/olav_starter DESTINATION bin PERMISSIONS WORLD_EXECUTE) 
+		install (FILES ${CMAKE_BINARY_DIR}/olav_starter DESTINATION bin PERMISSIONS WORLD_EXECUTE)
+		install (FILES ${CMAKE_SOURCE_DIR}/src/starter/olav_starter.png DESTINATION share/pixmaps) 
+		install (FILES ${CMAKE_SOURCE_DIR}/src/starter/olav_starter.desktop DESTINATION share/applications) 
 		install (DIRECTORY ${CMAKE_SOURCE_DIR}/descriptions DESTINATION share/olav)
 	endif ()
 endif(UNIX)
