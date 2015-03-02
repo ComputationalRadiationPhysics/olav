@@ -1,0 +1,88 @@
+﻿Lizenzen von "OLAV"
+
+Die (wenn vorhanden) deutschen Übersetzungen der Lizenzen sind ohne Gewähr. Im Zweifel gilt immer der englische Originalwortlaut! Die Übersetzungen stammen aus der Wikipedia und stehen somit für sich unter der „Creative Commons Attribution/Share Alike“-Lizenz.
+
+Lizenz für "OLAV" (das Grundprogramm)
+
+"Betatest-Lizenz"
+
+Copyright (c) HZDR 2013
+
+Dieses Programm ist ausschließlich für interne Beta-Tests bestimmt. Eine Weitergabe, Veröffentlichung oder Veränderung wird untersagt.
+
+DIE SOFTWARE WIRD OHNE JEDE AUSDRÜCKLICHE ODER IMPLIZIERTE GARANTIE BEREITGESTELLT, EINSCHLIESSLICH DER GARANTIE ZUR BENUTZUNG FÜR DEN VORGESEHENEN ODER EINEM BESTIMMTEN ZWECK SOWIE JEGLICHER RECHTSVERLETZUNG, JEDOCH NICHT DARAUF BESCHRÄNKT. IN KEINEM FALL SIND DIE AUTOREN ODER COPYRIGHTINHABER FÜR JEGLICHEN SCHADEN ODER SONSTIGE ANSPRÜCHE HAFTBAR ZU MACHEN, OB INFOLGE DER ERFÜLLUNG EINES VERTRAGES, EINES DELIKTES ODER ANDERS IM ZUSAMMENHANG MIT DER SOFTWARE ODER SONSTIGER VERWENDUNG DER SOFTWARE ENTSTANDEN.
+
+Lizenz für OGRE
+
+"MIT-Lizenz"
+
+Copyright (c) 2000-2009 Torus Knot Software Ltd
+
+Hiermit wird unentgeltlich, jeder Person, die eine Kopie der Software und der zugehörigen Dokumentationen (die "Software") erhält, die Erlaubnis erteilt, sie uneingeschränkt zu benutzen, inklusive und ohne Ausnahme, dem Recht, sie zu verwenden, kopieren, ändern, fusionieren, verlegen, verbreiten, unterlizenzieren und/oder zu verkaufen, und Personen, die diese Software erhalten, diese Rechte zu geben, unter den folgenden Bedingungen:
+
+Der obige Urheberrechtsvermerk und dieser Erlaubnisvermerk sind in allen Kopien oder Teilkopien der Software beizulegen.
+
+DIE SOFTWARE WIRD OHNE JEDE AUSDRÜCKLICHE ODER IMPLIZIERTE GARANTIE BEREITGESTELLT, EINSCHLIESSLICH DER GARANTIE ZUR BENUTZUNG FÜR DEN VORGESEHENEN ODER EINEM BESTIMMTEN ZWECK SOWIE JEGLICHER RECHTSVERLETZUNG, JEDOCH NICHT DARAUF BESCHRÄNKT. IN KEINEM FALL SIND DIE AUTOREN ODER COPYRIGHTINHABER FÜR JEGLICHEN SCHADEN ODER SONSTIGE ANSPRÜCHE HAFTBAR ZU MACHEN, OB INFOLGE DER ERFÜLLUNG EINES VERTRAGES, EINES DELIKTES ODER ANDERS IM ZUSAMMENHANG MIT DER SOFTWARE ODER SONSTIGER VERWENDUNG DER SOFTWARE ENTSTANDEN.
+
+Lizenz für das Stereographieplugin
+
+Copyright (c) 2008, Mathieu Le Ber, AXYZ-IMAGES
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+    * Neither the name of the AXYZ-IMAGES nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY Mathieu Le Ber ''AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL Mathieu Le Ber BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+Lizenz für tinyxml
+
+"zlib-Lizenz"
+
+Copyright (c) 2000-2006 Lee Thomason (www.grinninglizard.com)
+
+Diese Software wird ohne ausdrückliche oder implizierte Garantie bereitgestellt. In keinem Fall können die Autoren für irgendwelche Schäden, die durch die Benutzung dieser Software entstanden sind, haftbar gemacht werden.
+
+Es ist jedem gestattet, diese Software für jeden Zweck, inklusive kommerzieller Anwendungen, zu benutzen, zu verändern und sie frei weiterzuverbreiten, sofern folgende Bedingungen erfüllt sind:
+    1. Die Herkunft dieser Software darf nicht falsch dargestellt werden; Sie dürfen nicht angeben, dass Sie die ursprüngliche Software geschrieben haben. Wenn Sie diese Software in einem Produkt benutzten, würde eine Erwähnung geschätzt werden, sie ist aber nicht erforderlich.
+    2. Veränderte Quelltextversionen müssen deutlich als solche gekennzeichnet werden und dürfen nicht als die Originalsoftware dargestellt werden.
+    3. Diese Notiz darf in den Quelltexten nicht verändert oder gelöscht werden.
+
+Lizenz für tinyxml
+
+"zlib-Lizenz"
+
+Copyright (c) 2000-2006 Lee Thomason (www.grinninglizard.com)
+
+Diese Software wird ohne ausdrückliche oder implizierte Garantie bereitgestellt. In keinem Fall können die Autoren für irgendwelche Schäden, die durch die Benutzung dieser Software entstanden sind, haftbar gemacht werden.
+
+Es ist jedem gestattet, diese Software für jeden Zweck, inklusive kommerzieller Anwendungen, zu benutzen, zu verändern und sie frei weiterzuverbreiten, sofern folgende Bedingungen erfüllt sind:
+    1. Die Herkunft dieser Software darf nicht falsch dargestellt werden; Sie dürfen nicht angeben, dass Sie die ursprüngliche Software geschrieben haben. Wenn Sie diese Software in einem Produkt benutzten, würde eine Erwähnung geschätzt werden, sie ist aber nicht erforderlich.
+    2. Veränderte Quelltextversionen müssen deutlich als solche gekennzeichnet werden und dürfen nicht als die Originalsoftware dargestellt werden.
+    3. Diese Notiz darf in den Quelltexten nicht verändert oder gelöscht werden.
+
+Lizenz für tinystr
+
+"zlib-Lizenz"
+
+Copyright (c) Yves Berquin und Tyge Lovset
+
+Diese Software wird ohne ausdrückliche oder implizierte Garantie bereitgestellt. In keinem Fall können die Autoren für irgendwelche Schäden, die durch die Benutzung dieser Software entstanden sind, haftbar gemacht werden.
+
+Es ist jedem gestattet, diese Software für jeden Zweck, inklusive kommerzieller Anwendungen, zu benutzen, zu verändern und sie frei weiterzuverbreiten, sofern folgende Bedingungen erfüllt sind:
+Die Herkunft dieser Software darf nicht falsch dargestellt werden; Sie dürfen nicht angeben, dass Sie die ursprüngliche Software geschrieben haben. Wenn Sie diese Software in einem Produkt benutzten, würde eine Erwähnung geschätzt werden, sie ist aber nicht erforderlich.
+Veränderte Quelltextversionen müssen deutlich als solche gekennzeichnet werden und dürfen nicht als die Originalsoftware dargestellt werden.
+Diese Notiz darf in den Quelltexten nicht verändert oder gelöscht werden.
+
+Lizenz für RapidXML
+
+"MIT-Lizenz"
+
+Copyright (c) 2006, 2009 Marcin Kalicinski
+
+Hiermit wird unentgeltlich, jeder Person, die eine Kopie der Software und der zugehörigen Dokumentationen (die "Software") erhält, die Erlaubnis erteilt, sie uneingeschränkt zu benutzen, inklusive und ohne Ausnahme, dem Recht, sie zu verwenden, kopieren, ändern, fusionieren, verlegen, verbreiten, unterlizenzieren und/oder zu verkaufen, und Personen, die diese Software erhalten, diese Rechte zu geben, unter den folgenden Bedingungen:
+
+Der obige Urheberrechtsvermerk und dieser Erlaubnisvermerk sind in allen Kopien oder Teilkopien der Software beizulegen.
+
+DIE SOFTWARE WIRD OHNE JEDE AUSDRÜCKLICHE ODER IMPLIZIERTE GARANTIE BEREITGESTELLT, EINSCHLIESSLICH DER GARANTIE ZUR BENUTZUNG FÜR DEN VORGESEHENEN ODER EINEM BESTIMMTEN ZWECK SOWIE JEGLICHER RECHTSVERLETZUNG, JEDOCH NICHT DARAUF BESCHRÄNKT. IN KEINEM FALL SIND DIE AUTOREN ODER COPYRIGHTINHABER FÜR JEGLICHEN SCHADEN ODER SONSTIGE ANSPRÜCHE HAFTBAR ZU MACHEN, OB INFOLGE DER ERFÜLLUNG EINES VERTRAGES, EINES DELIKTES ODER ANDERS IM ZUSAMMENHANG MIT DER SOFTWARE ODER SONSTIGER VERWENDUNG DER SOFTWARE ENTSTANDEN.

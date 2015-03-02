@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls,
-  Graphics, Dialogs, ExtCtrls, StdCtrls, ComCtrls, RichMemo, Process;
+  Graphics, Dialogs, ExtCtrls, StdCtrls, ComCtrls, Process;
 
 type
 
@@ -24,7 +24,7 @@ type
     dummyMode: TRadioGroup;
     Standard: TRadioButton;
     particleLabel: TLabel;
-    textMemo: TRichMemo;
+    textMemo: TMemo;
     stereo: TComboBox;
     stereoLabel: TLabel;
     Bevel1: TBevel;
@@ -65,7 +65,6 @@ type
     procedure startClick(Sender: TObject);
     procedure stereoChange(Sender: TObject);
   private
-    folder : String;
     appdata : String;
     showRTF : integer;
     first_time : integer;
@@ -79,13 +78,12 @@ type
 
 
 const
-  folderCount : integer = 3;
-  folderPossibilty : array[0..2] of String  = ('/dist/bin/','\..\Release\','\Release\bin\');
+  olavDirectory : String  = ('@Resources_Dir@/');
   {$IFDEF WIN32}
-  heroCall : String = 'LMC.exe';
+  olavCall : String = '@Olav_Call@.exe';
   {$ENDIF}
   {$IFDEF LINUX}
-  heroCall : String = 'LMC';
+  olavCall : String = '@Olav_Call@';
   {$ENDIF}
 
 var
@@ -100,7 +98,6 @@ var
   AProcess: TProcess;
   myFile  : TextFile;
   content : String;
-  i       : integer;
 begin
   inherited;
   first_time := 1;
@@ -113,18 +110,11 @@ begin
   CreateDir(appdata);
   //Starting LMC for testing for resolutions
   AProcess := TProcess.Create(nil);
-  //Searching the folder with "LMC(.exe|.i386|.amd64)".
-  i := 0;
-  repeat
-    folder := GetCurrentDir + folderPossibilty[i];
-    inc(i);
-  until (FileExistsUTF8(folder + heroCall)) or (i >= folderCount);
-
   if not FileExistsUTF8(appdata+'ogre.cfg') then
-     CopyFile(folder+'ogre.cfg',appdata+'ogre.cfg');
+     CopyFile(olavDirectory+'ogre.cfg',appdata+'ogre.cfg');
 
-  AProcess.CommandLine := folder + heroCall + ' --resolutions';
-  AProcess.CurrentDirectory := folder;
+  AProcess.CommandLine := olavCall + ' --resolutions';
+  //AProcess.CurrentDirectory := olavDirectory;
   AProcess.Options := AProcess.Options + [poWaitOnExit];
   AProcess.Execute;
   AProcess.Free;
@@ -359,23 +349,22 @@ var fs : TFileStream;
     ch : Ansichar;
 begin
   buffer := '';
-  {$IFDEF LINUX}
   case showRTF of
     0:
     if deutsch.checked then
-      fs := TFileStream.Create('descriptions/hilfe.txt',fmOpenRead or fmShareDenyNone)
+      fs := TFileStream.Create(olavDirectory+'descriptions/hilfe.txt',fmOpenRead or fmShareDenyNone)
     else
-      fs := TFileStream.Create('descriptions/help.txt',fmOpenRead or fmShareDenyNone);
+      fs := TFileStream.Create(olavDirectory+'descriptions/help.txt',fmOpenRead or fmShareDenyNone);
     1:
     if deutsch.checked then
-      fs := TFileStream.Create('descriptions/mitwirkende.txt',fmOpenRead or fmShareDenyNone)
+      fs := TFileStream.Create(olavDirectory+'descriptions/mitwirkende.txt',fmOpenRead or fmShareDenyNone)
     else
-      fs := TFileStream.Create('descriptions/participants.txt',fmOpenRead or fmShareDenyNone);
+      fs := TFileStream.Create(olavDirectory+'descriptions/participants.txt',fmOpenRead or fmShareDenyNone);
     2:
     if deutsch.checked then
-      fs := TFileStream.Create('descriptions/lizenzen.txt',fmOpenRead or fmShareDenyNone)
+      fs := TFileStream.Create(olavDirectory+'descriptions/lizenzen.txt',fmOpenRead or fmShareDenyNone)
     else
-      fs := TFileStream.Create('descriptions/licenses.txt',fmOpenRead or fmShareDenyNone);
+      fs := TFileStream.Create(olavDirectory+'descriptions/licenses.txt',fmOpenRead or fmShareDenyNone);
   end;
   ch := 'a';
   while (fs.Read( ch, 1) = 1) do
@@ -384,28 +373,6 @@ begin
   end;
   textMemo.text := buffer;
   fs.free;
-  {$ENDIF}
-  {$IFDEF WIN32}
-  case showRTF of
-    0:
-    if deutsch.checked then
-      fs := TFileStream.Create('descriptions\hilfe.rtf',fmOpenRead or fmShareDenyNone)
-    else
-      fs := TFileStream.Create('descriptions\help.rtf',fmOpenRead or fmShareDenyNone);
-    1:
-    if deutsch.checked then
-      fs := TFileStream.Create('descriptions\mitwirkende.rtf',fmOpenRead or fmShareDenyNone)
-    else
-      fs := TFileStream.Create('descriptions\participants.rtf',fmOpenRead or fmShareDenyNone);
-    2:
-    if deutsch.checked then
-      fs := TFileStream.Create('descriptions\lizenzen.rtf',fmOpenRead or fmShareDenyNone)
-    else
-      fs := TFileStream.Create('descriptions\licenses.rtf',fmOpenRead or fmShareDenyNone);
-  end;
-  textMemo.LoadRichText(fs);
-  fs.free;
-  {$ENDIF}
 end;
 
 procedure TForm1.deutschChange(Sender: TObject);
@@ -549,8 +516,8 @@ var
 begin
   //Starting LMC
   AProcess := TProcess.Create(nil);
-  AProcess.CommandLine := folder + heroCall + ' -n';
-  AProcess.CurrentDirectory := folder;
+  AProcess.CommandLine := olavCall + ' -n';
+  //AProcess.CurrentDirectory := olavDirectory;
   case stereo.ItemIndex of
     1 : AProcess.CommandLine := AProcess.CommandLine + ' -s -m dualoutput';
     2 : AProcess.CommandLine := AProcess.CommandLine + ' -s -m redcyan';

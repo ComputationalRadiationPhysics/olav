@@ -1,0 +1,9 @@
+﻿OLAV - Optical Laser & electron Accelerator Visualization
+
+Welcome to OLAV. With OLAV you get a view behind the walls of the research buildings of the ELBE high energy particle accelerator.
+
+Change the settings on the right for your system capabilities and press "Start" to start the simulation. "About" shows this help text and "licenses" the license of this program and other used sub programs or libraries.
+
+Check "Demo" for a demo mode, which runs automaticly and explains most of the features of DRACO and ELBE.
+
+This project was created by the Helmholtz-Zentrum Dresden (HZDR) in coorperation with the chair of Computer Graphics and Visualization of the faculty of Informatics of the TU Dresden with the help of the OGRE framework.

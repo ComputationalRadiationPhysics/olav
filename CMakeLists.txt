@@ -13,7 +13,7 @@ if(WIN32)
 	)
 	include_directories(
 		$ENV{OGRE_HOME}/include/OGRE/RenderSystems/GL
-    )
+		)
 endif(WIN32)
  
 if(UNIX)
@@ -21,9 +21,9 @@ if(UNIX)
 endif(UNIX)
  
 if (CMAKE_BUILD_TYPE STREQUAL "")
-  # CMake defaults to leaving CMAKE_BUILD_TYPE empty. This screws up
-  # differentiation between debug and release builds.
-  set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel." FORCE)
+	# CMake defaults to leaving CMAKE_BUILD_TYPE empty. This screws up
+	# differentiation between debug and release builds.
+	set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif ()
  
 set(CMAKE_DEBUG_POSTFIX "_d")
@@ -40,7 +40,7 @@ endif()
 find_package(OpenGL REQUIRED)
  
 #if(NOT "${OGRE_VERSION_NAME}" STREQUAL "Cthugha")
-#  message(SEND_ERROR "You need Ogre 1.7 Cthugha to build this.")
+#	message(SEND_ERROR "You need Ogre 1.7 Cthugha to build this.")
 #endif()
  
 find_package(OIS REQUIRED)
@@ -54,23 +54,48 @@ get_filename_component(Plugin_Search_Path_Debug ${OGRE_Plugin_ParticleFX_LIBRARY
 set(Plugin_Config ${CMAKE_INSTALL_PREFIX}/share/olav/plugins.cfg)
 set(Resources_Config ${CMAKE_INSTALL_PREFIX}/share/olav/resources.cfg)
 set(Resources_Dir ${CMAKE_INSTALL_PREFIX}/share/olav)
+set(Starter_Src_Dir ${PROJECT_BINARY_DIR}/starter_src)
+set(Olav_Call ${CMAKE_INSTALL_PREFIX}/bin/olav)
 
 configure_file (
-  "${PROJECT_SOURCE_DIR}/conf/plugins.cfg.in"
-  "${PROJECT_BINARY_DIR}/plugins.cfg"
-  )
+	"${PROJECT_SOURCE_DIR}/conf/plugins.cfg.in"
+	"${PROJECT_BINARY_DIR}/plugins.cfg"
+	)
 configure_file (
-  "${PROJECT_SOURCE_DIR}/conf/plugins_d.cfg.in"
-  "${PROJECT_BINARY_DIR}/plugins_d.cfg"
-  )
+	"${PROJECT_SOURCE_DIR}/conf/plugins_d.cfg.in"
+	"${PROJECT_BINARY_DIR}/plugins_d.cfg"
+	)
 configure_file (
-  "${PROJECT_SOURCE_DIR}/conf/resources.cfg.in"
-  "${PROJECT_BINARY_DIR}/resources.cfg"
-  )
+	"${PROJECT_SOURCE_DIR}/conf/resources.cfg.in"
+	"${PROJECT_BINARY_DIR}/resources.cfg"
+	)
 configure_file (
-  "${PROJECT_SOURCE_DIR}/src/CmakeDefines.h.in"
-  "${PROJECT_BINARY_DIR}/CmakeDefines.h"
-  )
+	"${PROJECT_SOURCE_DIR}/src/olav/CmakeDefines.h.in"
+	"${PROJECT_BINARY_DIR}/CmakeDefines.h"
+	)
+configure_file (
+	"${PROJECT_SOURCE_DIR}/src/starter/olav_starter.lpi.in"
+	"${Starter_Src_Dir}/olav_starter.lpi"
+	)
+configure_file (
+	"${PROJECT_SOURCE_DIR}/src/starter/mainform.pas.in"
+	"${Starter_Src_Dir}/mainform.pas"
+	)
+file (COPY
+	"${PROJECT_SOURCE_DIR}/src/starter/mainform.lfm"
+	"${PROJECT_SOURCE_DIR}/src/starter/olav_starter.ico"
+	"${PROJECT_SOURCE_DIR}/src/starter/olav_starter.lpr"
+	"${PROJECT_SOURCE_DIR}/src/starter/olav_starter.res"
+	DESTINATION
+	"${Starter_Src_Dir}"
+	)
+
+find_program(LAZARUS_AVAILABLE "lazbuild")	
+if (LAZARUS_AVAILABLE)
+	option(BUILD_STARTER "Build the starter application. This needs lazarus installed!" ON)
+else ()
+	option(BUILD_STARTER "Build the starter application. This needs lazarus installed!" OFF)
+endif ()
 
 # Find Boost
 if (NOT OGRE_BUILD_PLATFORM_IPHONE)
@@ -104,63 +129,63 @@ if (NOT OGRE_BUILD_PLATFORM_IPHONE)
 endif()
 
 set(HDRS
-	${CMAKE_SOURCE_DIR}/src/mat.h
-	${CMAKE_SOURCE_DIR}/src/resource.h
-	${CMAKE_SOURCE_DIR}/src/vec.h
-	${CMAKE_SOURCE_DIR}/src/AbstractCamera.hpp
-	${CMAKE_SOURCE_DIR}/src/AppState.hpp
-	${CMAKE_SOURCE_DIR}/src/AppStateManager.hpp
-	${CMAKE_SOURCE_DIR}/src/ChaseCamera.hpp
-	${CMAKE_SOURCE_DIR}/src/CollisionTools.hpp
-	${CMAKE_SOURCE_DIR}/src/DocumentationManager.hpp
-	${CMAKE_SOURCE_DIR}/src/DotSceneLoader.hpp
-	${CMAKE_SOURCE_DIR}/src/ElbeBunch.hpp
-	${CMAKE_SOURCE_DIR}/src/ElbeConstants.hpp
-	${CMAKE_SOURCE_DIR}/src/ElbeElectron.hpp
-	${CMAKE_SOURCE_DIR}/src/ElbePipe.hpp
-	${CMAKE_SOURCE_DIR}/src/ElbeState.hpp
-	${CMAKE_SOURCE_DIR}/src/FreeViewCamera.hpp
-	${CMAKE_SOURCE_DIR}/src/LMCApp.hpp
-	${CMAKE_SOURCE_DIR}/src/MoveablePathElement.hpp
-	${CMAKE_SOURCE_DIR}/src/NodeDescription.hpp
-	${CMAKE_SOURCE_DIR}/src/OgreFramework.hpp
-	${CMAKE_SOURCE_DIR}/src/OrbitCamera.hpp
-	${CMAKE_SOURCE_DIR}/src/PathParser.hpp
-	${CMAKE_SOURCE_DIR}/src/PathPoint.hpp
-	${CMAKE_SOURCE_DIR}/src/PauseState.hpp
-	${CMAKE_SOURCE_DIR}/src/rapidxml.hpp
-	${CMAKE_SOURCE_DIR}/src/StereoManager.h
-	${CMAKE_SOURCE_DIR}/src/TimeManager.hpp
-	${CMAKE_SOURCE_DIR}/src/tinystr.hpp
-	${CMAKE_SOURCE_DIR}/src/tinyxml.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/mat.h
+	${CMAKE_SOURCE_DIR}/src/olav/resource.h
+	${CMAKE_SOURCE_DIR}/src/olav/vec.h
+	${CMAKE_SOURCE_DIR}/src/olav/AbstractCamera.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/AppState.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/AppStateManager.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/ChaseCamera.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/CollisionTools.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/DocumentationManager.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/DotSceneLoader.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/ElbeBunch.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/ElbeConstants.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/ElbeElectron.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/ElbePipe.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/ElbeState.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/FreeViewCamera.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/LMCApp.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/MoveablePathElement.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/NodeDescription.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/OgreFramework.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/OrbitCamera.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/PathParser.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/PathPoint.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/PauseState.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/rapidxml.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/StereoManager.h
+	${CMAKE_SOURCE_DIR}/src/olav/TimeManager.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/tinystr.hpp
+	${CMAKE_SOURCE_DIR}/src/olav/tinyxml.hpp
 )
  
 set(SRCS
-	${CMAKE_SOURCE_DIR}/src/AppStateManager.cpp
-	${CMAKE_SOURCE_DIR}/src/ChaseCamera.cpp
-	${CMAKE_SOURCE_DIR}/src/CollisionTools.cpp
-	${CMAKE_SOURCE_DIR}/src/DocumentationManager.cpp
-	${CMAKE_SOURCE_DIR}/src/DotSceneLoader.cpp
-	${CMAKE_SOURCE_DIR}/src/ElbeBunch.cpp
-	${CMAKE_SOURCE_DIR}/src/ElbeConstants.cpp
-	${CMAKE_SOURCE_DIR}/src/ElbeElectron.cpp
-	${CMAKE_SOURCE_DIR}/src/ElbePipe.cpp
-	${CMAKE_SOURCE_DIR}/src/ElbeState.cpp
-	${CMAKE_SOURCE_DIR}/src/FreeViewCamera.cpp
-	${CMAKE_SOURCE_DIR}/src/LMCApp.cpp
-	${CMAKE_SOURCE_DIR}/src/main.cpp
-	${CMAKE_SOURCE_DIR}/src/MoveablePathElement.cpp
-	${CMAKE_SOURCE_DIR}/src/NodeDescription.cpp
-	${CMAKE_SOURCE_DIR}/src/OgreFramework.cpp
-	${CMAKE_SOURCE_DIR}/src/OrbitCamera.cpp
-	${CMAKE_SOURCE_DIR}/src/PathParser.cpp
-	${CMAKE_SOURCE_DIR}/src/PauseState.cpp
-	${CMAKE_SOURCE_DIR}/src/StereoManager.cc
-	${CMAKE_SOURCE_DIR}/src/TimeManager.cpp
-	${CMAKE_SOURCE_DIR}/src/tinystr.cpp
-	${CMAKE_SOURCE_DIR}/src/tinyxml.cpp
-	${CMAKE_SOURCE_DIR}/src/tinyxmlerror.cpp
-	${CMAKE_SOURCE_DIR}/src/tinyxmlparser.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/AppStateManager.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/ChaseCamera.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/CollisionTools.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/DocumentationManager.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/DotSceneLoader.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/ElbeBunch.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/ElbeConstants.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/ElbeElectron.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/ElbePipe.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/ElbeState.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/FreeViewCamera.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/LMCApp.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/main.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/MoveablePathElement.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/NodeDescription.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/OgreFramework.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/OrbitCamera.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/PathParser.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/PauseState.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/StereoManager.cc
+	${CMAKE_SOURCE_DIR}/src/olav/TimeManager.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/tinystr.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/tinyxml.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/tinyxmlerror.cpp
+	${CMAKE_SOURCE_DIR}/src/olav/tinyxmlparser.cpp
 )
  
 include_directories( ${OIS_INCLUDE_DIRS}
@@ -187,7 +212,14 @@ endif(WIN32 AND NOT MINGW)
 if(MINGW OR UNIX)
 	set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/dist/bin)
 endif(MINGW OR UNIX)
- 
+
+if (BUILD_STARTER)
+	add_custom_command(
+		TARGET olav POST_BUILD
+		COMMAND lazbuild -B ${Starter_Src_Dir}/olav_starter.lpr > /dev/null 
+		COMMENT "Building olav_starter")
+endif ()
+
 if(WIN32)
 	install (TARGETS olav DESTINATION bin) 
 	install (DIRECTORY ${CMAKE_SOURCE_DIR}/media DESTINATION share/olav)
@@ -196,11 +228,19 @@ if(WIN32)
 	install (FILES ${CMAKE_SOURCE_DIR}/conf/resources.win32 DESTINATION bin CONFIGURATIONS Debug)
 	install (FILES ${OGRE_PLUGIN_DIR_REL}/OgreMain.dll ${OGRE_PLUGIN_DIR_REL}/RenderSystem_GL.dll ${OGRE_PLUGIN_DIR_REL}/Plugin_ParticleFX.dll ${OGRE_PLUGIN_DIR_REL}/libOIS.dll DESTINATION bin CONFIGURATIONS Release RelWithDebInfo)
 	install (FILES ${OGRE_PLUGIN_DIR_DBG}/OgreMain_d.dll ${OGRE_PLUGIN_DIR_DBG}/RenderSystem_GL_d.dll ${OGRE_PLUGIN_DIR_DBG}/Plugin_ParticleFX_d.dll ${OGRE_PLUGIN_DIR_DBG}/libOIS_d.dll DESTINATION bin CONFIGURATIONS Debug)
+	if (BUILD_STARTER)
+		install (FILES ${CMAKE_BINARY_DIR}/olav_starter DESTINATION bin) 
+		install (DIRECTORY ${CMAKE_SOURCE_DIR}/descriptions DESTINATION share/olav)
+	endif ()
 endif(WIN32)
 
 if(UNIX)
 	install (TARGETS olav DESTINATION bin) 
 	install (DIRECTORY ${CMAKE_SOURCE_DIR}/media DESTINATION share/olav)
 	install (FILES ${CMAKE_BINARY_DIR}/plugins.cfg DESTINATION share/olav) 
-	install (FILES ${CMAKE_BINARY_DIR}/resources.cfg DESTINATION share/olav) 
+	install (FILES ${CMAKE_BINARY_DIR}/resources.cfg DESTINATION share/olav)
+	if (BUILD_STARTER)
+		install (FILES ${CMAKE_BINARY_DIR}/olav_starter DESTINATION bin PERMISSIONS WORLD_EXECUTE) 
+		install (DIRECTORY ${CMAKE_SOURCE_DIR}/descriptions DESTINATION share/olav)
+	endif ()
 endif(UNIX)

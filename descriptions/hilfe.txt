@@ -1,0 +1,9 @@
+﻿OLAV - Optical Laser & electron Accelerator Visualization
+
+Willkommen bei OLAV. Mit OLAV können Sie den Hochenergieteilchenbeschleuniger ELBE live betreten und schauen, was im Helmholtz-Zentrum Dresden hinter den Mauern geschieht.
+
+Rechts können Sie die Einstellungen an Ihr System anpassen und mit "Start" die Simulation starten. "Über" zeigt diesen Hilfetext an und Lizenzen die "Lizenzen" dieses Programmes und verwendeter Teilprogramme oder Bibliotheken.
+
+Mit einem Häkchen bei "Demo" startet ein Demo-Modus, in dem vieles automatisch abläuft und nebenbei erklärt wird.
+
+Dieses Projekt ist vom Helmholtz-Zentrum Dresden (HZDR) in Zusammenarbeit mit dem Lehrstuhl für Computer Grafik und Visualisierung der Fakultät Informatik der TU Dresden mit Hilfe des OGRE Frameworks erstellt worden.
