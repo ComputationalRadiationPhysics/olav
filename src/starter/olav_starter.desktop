@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=OLAV
+GenericName=OLAV
+Comment=OLAV - Optical Laser & electron Accelerator Visualization
+Comment[de]=OLAV - Optical Laser & electron Accelerator Visualization
+Type=Application
+Exec=olav_starter
+Icon=olav_starter
+Terminal=false
+Categories=Education;
+StartupNotify=true
+
