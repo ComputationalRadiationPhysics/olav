@@ -57,9 +57,10 @@ LMCApp::~LMCApp()
 
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
-void LMCApp::startDemo(int enter_state,bool show_settings,bool stereo,Ogre::StereoManager::StereoMode mode,bool mouse_emulation,float eye_spacing,int language,bool simple, int demo,int change)
+void LMCApp::startDemo(int enter_state,bool show_settings,bool stereo,Ogre::StereoManager::StereoMode mode,bool mouse_emulation,float eye_spacing,int language,bool simple, int demo,int change,bool show_debug)
 {	
 	new OgreFramework();
+	OgreFramework::getSingletonPtr()->m_pLog->setDebugOutputEnabled(show_debug);
 	if(!(OgreFramework::getSingletonPtr()->initOgre("OLAV", 0, 0,show_settings,stereo,mode,mouse_emulation,language,demo,change)))
 		return;
 	OgreFramework::getSingletonPtr()->m_stereo.setEyesSpacing(eye_spacing);

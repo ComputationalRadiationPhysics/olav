@@ -56,6 +56,7 @@ int main(int argc, char **argv)
 	int demo = 0;
 	int change = 0;
 	bool simple = false;
+	bool show_debug = false;
 	Ogre::StereoManager::StereoMode mode = Ogre::StereoManager::SM_DUALOUTPUT;
 	//command line parameters
 #ifdef WIN32
@@ -133,6 +134,7 @@ int main(int argc, char **argv)
 								 "  --demo                   : Activates the demo mode\n"\
 								 "  --change                 : Activates the state change in demo mode\n"\
 								 "  --particles=N or -p N    : Elbe Particles to show. Default: 6000\n"\
+								 "  --debug       or -d      : Show debug informations (especially from OGRE)\n"\
 								 ,"Help",MB_OK | MB_ICONINFORMATION);
 				#endif
 				printf("LMC command line options\n");
@@ -163,7 +165,13 @@ int main(int argc, char **argv)
 				printf("  --demo                   : Activates the demo mode\n");
 				printf("  --change                 : Activates the state change in demo mode\n");
 				printf("  --particles=N or -p N    : Elbe Particles to show. Default: 6000\n");
+				printf("  --debug       or -d      : Show debug informations (especially from OGRE)\n");
 				return 0;
+			}
+			else
+			if (strcmp(argv[i],"--debug") == 0 || strcmp(argv[i],"-d") == 0)
+			{
+				show_debug = true;
 			}
 			else
 			if (strcmp(argv[i],"--version") == 0 || strcmp(argv[i],"-v") == 0)
@@ -382,7 +390,7 @@ int main(int argc, char **argv)
 	LMCApp lmc;
 	try	
 	{
-		lmc.startDemo(enter_state,show_settings,stereo,mode,mouse_emulation,spacing,language,simple,demo,change);
+		lmc.startDemo(enter_state,show_settings,stereo,mode,mouse_emulation,spacing,language,simple,demo,change,show_debug);
 	}
 	catch(std::exception& e)
     {

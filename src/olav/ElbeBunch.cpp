@@ -38,6 +38,8 @@
 #define M_PI           3.14159265358979323846
 #endif
 
+#define VOLUME_TYPE Ogre::TU_WRITE_ONLY
+
 ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double time__,bool followed,bool is_in_collision,int electronCount,bool show_billboard,bool show_volume, int shader)
 	: MoveablePathElement(node, is_in_collision?mSceneMgr->getEntity("ElectronPath")->getMesh():mSceneMgr->getEntity("BunchPath")->getMesh())
 {
@@ -205,7 +207,7 @@ ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double
 			volume_x, volume_y, volume_z,
 			0,                // number of mipmaps
 			Ogre::PF_BYTE_RGBA,     // pixel format
-			Ogre::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE);      // usage; should be TU_DYNAMIC_WRITE_ONLY_DISCARDABLE for
+			VOLUME_TYPE);      // usage; should be TU_DYNAMIC_WRITE_ONLY_DISCARDABLE for
 							  // textures updated very often (e.g. each frame)
 		#if USE_HACKY_WORKAROUND
 			m_pMatBunch->getTechnique(0)->getPass(OgreFramework::getSingletonPtr()->m_iMajor>=3?1:0)->createTextureUnitState("volume_texture");//->setTextureFiltering(Ogre::TFO_NONE);
@@ -728,8 +730,7 @@ void ElbeBunch::visualize(AbstractCamera* camera,float speed)
 						volume_x, volume_y, volume_z,
 						0,                // number of mipmaps
 						Ogre::PF_BYTE_RGBA,     // pixel format
-						Ogre::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE);      // usage; should be TU_DYNAMIC_WRITE_ONLY_DISCARDABLE for
-										  // textures updated very often (e.g. each frame)
+						VOLUME_TYPE);
 					#if (OGRE_VERSION_MAJOR == 1) && (OGRE_VERSION_MINOR < 8)
 						m_pMatBunch->getTechnique(0)->getPass(OgreFramework::getSingletonPtr()->m_iMajor>=3?1:0)->getTextureUnitState(1)->_setTexturePtr(volume_texture);//->setTextureFiltering(Ogre::TFO_NONE);
 					#else

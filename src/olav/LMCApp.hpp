@@ -36,7 +36,7 @@ public:
 	LMCApp();
 	~LMCApp();
 
-	void startDemo(int enter_state,bool show_settings,bool stereo,Ogre::StereoManager::StereoMode mode,bool mouse_emulation,float eye_spacing=0.06f,int language = 0,bool simple = false, int demo = 0, int change = 0);
+	void startDemo(int enter_state,bool show_settings,bool stereo,Ogre::StereoManager::StereoMode mode,bool mouse_emulation,float eye_spacing=0.06f,int language = 0,bool simple = false, int demo = 0, int change = 0,bool show_debug = false);
 
 	static	AppStateManager*	m_pAppStateManager;
 };

@@ -77,8 +77,8 @@ OgreFramework::OgreFramework()
     Ogre::LogManager* logMgr = new Ogre::LogManager();
 
     m_pLog = Ogre::LogManager::getSingleton().createLog(appdata+"OgreLogfile.log", true, true, false);
-    m_pLog->setDebugOutputEnabled(true);
-
+    m_pLog->setDebugOutputEnabled(false);
+    
     m_pRoot = new Ogre::Root(
 	#ifdef WIN32
 	        "plugins.win32",
