@@ -281,26 +281,26 @@ void ElbeState::enter()
 	FILE *test;
 	if (OgreFramework::getSingletonPtr()->m_iLanguage) //german
 	#ifdef WIN32
-		test = fopen("media\\Documentation\\elbe_german.xml", "r");
+		test = fopen(RESOURCES_DIR"\\media\\Documentation\\elbe_german.xml", "r");
 	else
-		test = fopen("media\\Documentation\\elbe_english.xml", "r");
+		test = fopen(RESOURCES_DIR"\\media\\Documentation\\elbe_english.xml", "r");
 	#else
-		test = fopen("media/Documentation/elbe_german.xml", "r");
+		test = fopen(RESOURCES_DIR"/media/Documentation/elbe_german.xml", "r");
 	else
-		test = fopen("media/Documentation/elbe_english.xml", "r");
+		test = fopen(RESOURCES_DIR"/media/Documentation/elbe_english.xml", "r");
 	#endif
 	if (test)
 	{
 		fclose(test);
 		if (OgreFramework::getSingletonPtr()->m_iLanguage) //german
 		#ifdef WIN32
-			mDocMgr = new DocumentationManager("media\\Documentation", "elbe_german.xml");
+			mDocMgr = new DocumentationManager(RESOURCES_DIR"\\media\\Documentation", "elbe_german.xml");
 		else
-			mDocMgr = new DocumentationManager("media\\Documentation", "elbe_english.xml");
+			mDocMgr = new DocumentationManager(RESOURCES_DIR"\\media\\Documentation", "elbe_english.xml");
 		#else
-			mDocMgr = new DocumentationManager("media/Documentation", "elbe_german.xml");
+			mDocMgr = new DocumentationManager(RESOURCES_DIR"/media/Documentation", "elbe_german.xml");
 		else
-			mDocMgr = new DocumentationManager("media/Documentation", "elbe_english.xml");
+			mDocMgr = new DocumentationManager(RESOURCES_DIR"/media/Documentation", "elbe_english.xml");
 		#endif
 	}
 	else
