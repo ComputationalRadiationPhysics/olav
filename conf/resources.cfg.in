@@ -5,14 +5,15 @@ Zip=@Resources_Dir@/media/packs/SdkTrays.zip
 
 # Resource locations to be added to the default path
 [General]
+Zip=@Resources_Dir@/media/packs/cubemapsJS.zip
 FileSystem=@Resources_Dir@/media/draco
 FileSystem=@Resources_Dir@/media/draco/textures
-FileSystem=@Resources_Dir@/media/elbe
+Zip=@Resources_Dir@/media/elbe/elbe_1.zip
+Zip=@Resources_Dir@/media/elbe/elbe_2.zip
 FileSystem=@Resources_Dir@/media/elbe/materials
 FileSystem=@Resources_Dir@/media/elbe/Textures
 FileSystem=@Resources_Dir@/media/elbe/Shader
 FileSystem=@Resources_Dir@/media/collision
-Zip=@Resources_Dir@/media/packs/cubemapsJS.zip
 FileSystem=@Resources_Dir@/media/materials/programs
 FileSystem=@Resources_Dir@/media/materials/scripts
 FileSystem=@Resources_Dir@/media/materials/ssao
