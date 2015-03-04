@@ -1,2 +1,0 @@
-!TODO: Übersetze mich!
-After the dilation the laser pulse enters a special arrangement of amplification, the so called regenerative amplifier. It differs from the multipass arrangement because the pulse always passes the same way inside the resonator arrangement and the number of circuits can be adjusted.

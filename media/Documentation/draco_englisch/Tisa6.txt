@@ -1,1 +1,0 @@
-A simple water cooling system is no longer sufficient to conduct emerging waste heat out of the Ti:Sa crystal in this step. To avoid disturbing thermical effects the crystal is therefore cooled down to -150°C in a special frame.

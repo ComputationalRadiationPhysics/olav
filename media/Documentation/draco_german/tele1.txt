@@ -1,2 +1,0 @@
-!TODO: Übersetze mich!
-After further twentyfold amplification the laser pulse has so much energy that the resilience limits of the optical elements is reached. For any further amplification the beam radius has to be broadened much more to reduce the burden of the optical surfaces. This is achieved with a telescope, which is composed of a dispersing and a collecting lens. The beam is broadened to a diameter of about 3 cm before entering the last amplifier.

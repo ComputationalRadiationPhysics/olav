@@ -1,1 +1,0 @@
-The laser pulse is now amplified to it's target energy in three subsequent steps. Each of these steps is composed in a multipass arrangement, causing the pulse to pass the Ti:Sa amplification crystal under a slightly different angle each pass.

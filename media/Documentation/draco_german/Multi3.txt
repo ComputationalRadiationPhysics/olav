@@ -1,2 +1,0 @@
-!TODO: Übersetze mich!
-Due to the beam diameter being much larger now, the size of all optical components has to increase as well, to keep them from trimming the beam. Inside the MP3 the energy of the laser pulse is amplified again 10 fold to 6 Joule. All in all the laser pulse experiences an amplification of more than 10 magnitudes on it's way through the system.
