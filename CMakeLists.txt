@@ -49,13 +49,23 @@ if(NOT OIS_FOUND)
 	message(SEND_ERROR "Failed to find OIS.")
 endif()
 
-get_filename_component(Plugin_Search_Path ${OGRE_Plugin_ParticleFX_LIBRARY_REL} PATH)
-get_filename_component(Plugin_Search_Path_Debug ${OGRE_Plugin_ParticleFX_LIBRARY_DBG} PATH)
-set(Plugin_Config ${CMAKE_INSTALL_PREFIX}/share/olav/plugins.cfg)
-set(Resources_Config ${CMAKE_INSTALL_PREFIX}/share/olav/resources.cfg)
-set(Resources_Dir ${CMAKE_INSTALL_PREFIX}/share/olav)
-set(Starter_Src_Dir ${PROJECT_BINARY_DIR}/starter_src)
-set(Olav_Call ${CMAKE_INSTALL_PREFIX}/bin/olav)
+if(WIN32)
+	set(Plugin_Search_Path ".")
+	set(Plugin_Search_Path_Debug ".")
+	set(Plugin_Config plugins.cfg)
+	set(Resources_Config resources.cfg)
+	set(Resources_Dir .)
+	set(Starter_Src_Dir ${PROJECT_BINARY_DIR}/starter_src)
+	set(Olav_Call olav)
+else()
+	get_filename_component(Plugin_Search_Path ${OGRE_Plugin_ParticleFX_LIBRARY_REL} PATH)
+	get_filename_component(Plugin_Search_Path_Debug ${OGRE_Plugin_ParticleFX_LIBRARY_DBG} PATH)
+	set(Plugin_Config ${CMAKE_INSTALL_PREFIX}/share/olav/plugins.cfg)
+	set(Resources_Config ${CMAKE_INSTALL_PREFIX}/share/olav/resources.cfg)
+	set(Resources_Dir ${CMAKE_INSTALL_PREFIX}/share/olav)
+	set(Starter_Src_Dir ${PROJECT_BINARY_DIR}/starter_src)
+	set(Olav_Call ${CMAKE_INSTALL_PREFIX}/bin/olav)
+endif()
 
 configure_file (
 	"${PROJECT_SOURCE_DIR}/conf/plugins.cfg.in"
@@ -89,8 +99,8 @@ file (COPY
 	"${Starter_Src_Dir}"
 	)
 
-find_program(LAZARUS_AVAILABLE "lazbuild")	
-if (LAZARUS_AVAILABLE)
+find_program(LAZBUILD "lazbuild" HINTS "C:/lazarus" DOC "location of lazbuild needed for the olav starter")	
+if (LAZBUILD)
 	option(BUILD_STARTER "Build the starter application. This needs lazarus installed!" ON)
 else ()
 	option(BUILD_STARTER "Build the starter application. This needs lazarus installed!" OFF)
@@ -110,21 +120,22 @@ if (NOT OGRE_BUILD_PLATFORM_IPHONE)
 		# search names with "lib". This is the workaround.
 		set(CMAKE_FIND_LIBRARY_PREFIXES ${CMAKE_FIND_LIBRARY_PREFIXES} "")
 	endif ()
-	set(Boost_ADDITIONAL_VERSIONS "1.44" "1.44.0" "1.42" "1.42.0" "1.41.0" "1.41" "1.40.0" "1.40" "1.39.0" "1.39" "1.38.0" "1.38" "1.37.0" "1.37" )
+	
 	# Components that need linking (NB does not include header-only components like bind)
-	set(OGRE_BOOST_COMPONENTS thread date_time)
-	find_package(Boost COMPONENTS ${OGRE_BOOST_COMPONENTS} QUIET)
+	set(OGRE_BOOST_COMPONENTS thread date_time system chrono)
+	find_package(Boost COMPONENTS ${OGRE_BOOST_COMPONENTS})
 	if (NOT Boost_FOUND)
 		# Try again with the other type of libs
 		set(Boost_USE_STATIC_LIBS NOT ${Boost_USE_STATIC_LIBS})
-		find_package(Boost COMPONENTS ${OGRE_BOOST_COMPONENTS} QUIET)
+		find_package(Boost COMPONENTS ${OGRE_BOOST_COMPONENTS})
 	endif()
-	find_package(Boost QUIET)
+	#find_package(Boost)
  
 	# Set up referencing of Boost
 	include_directories(${Boost_INCLUDE_DIR})
 	add_definitions(-DBOOST_ALL_NO_LIB)
 	set(OGRE_LIBRARIES ${OGRE_LIBRARIES} ${Boost_LIBRARIES})
+	#message(${Boost_FOUND})
 endif()
 
 set(HDRS
@@ -195,8 +206,9 @@ include_directories( ${OIS_INCLUDE_DIRS}
 add_executable(olav WIN32 ${HDRS} ${SRCS})
  
 set_target_properties(olav PROPERTIES DEBUG_POSTFIX _d)
- 
-target_link_libraries(olav ${OGRE_LIBRARIES} ${OIS_LIBRARIES} ${OPENGL_LIBRARY} ${BOOST_LIBRARIES} boost_system)
+
+target_link_libraries(olav ${OGRE_LIBRARIES} ${OIS_LIBRARIES} ${OPENGL_LIBRARY} ${BOOST_LIBRARIES})
+target_compile_options(olav PRIVATE -static-libstdc++ PRIVATE -static-libgcc)
 
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/bin)
  
@@ -215,23 +227,20 @@ endif(MINGW OR UNIX)
 if (BUILD_STARTER)
 	add_custom_command(
 		TARGET olav POST_BUILD
-		COMMAND lazbuild -B ${Starter_Src_Dir}/olav_starter.lpr > /dev/null 
+		COMMAND ${LAZBUILD} -B ${Starter_Src_Dir}/olav_starter.lpr
 		COMMENT "Building olav_starter")
 endif ()
 
 if(WIN32)
-	install (TARGETS olav DESTINATION bin) 
-	install (DIRECTORY ${CMAKE_SOURCE_DIR}/media DESTINATION share/olav)
-	install (FILES ${CMAKE_SOURCE_DIR}/conf/plugins.win32 DESTINATION bin CONFIGURATIONS Release RelWithDebInfo)
-	install (FILES ${CMAKE_SOURCE_DIR}/conf/plugins_d.win32 DESTINATION bin CONFIGURATIONS Debug)
-	install (FILES ${CMAKE_SOURCE_DIR}/conf/resources.win32 DESTINATION bin CONFIGURATIONS Debug)
-	install (FILES ${OGRE_PLUGIN_DIR_REL}/OgreMain.dll ${OGRE_PLUGIN_DIR_REL}/RenderSystem_GL.dll ${OGRE_PLUGIN_DIR_REL}/Plugin_ParticleFX.dll ${OGRE_PLUGIN_DIR_REL}/libOIS.dll DESTINATION bin CONFIGURATIONS Release RelWithDebInfo)
-	install (FILES ${OGRE_PLUGIN_DIR_DBG}/OgreMain_d.dll ${OGRE_PLUGIN_DIR_DBG}/RenderSystem_GL_d.dll ${OGRE_PLUGIN_DIR_DBG}/Plugin_ParticleFX_d.dll ${OGRE_PLUGIN_DIR_DBG}/libOIS_d.dll DESTINATION bin CONFIGURATIONS Debug)
+	install (TARGETS olav DESTINATION olav) 
+	install (DIRECTORY ${CMAKE_SOURCE_DIR}/media DESTINATION olav)
+	install (FILES ${CMAKE_BINARY_DIR}/plugins.cfg DESTINATION olav CONFIGURATIONS Release RelWithDebInfo)
+	install (FILES ${CMAKE_BINARY_DIR}/resources.cfg DESTINATION olav CONFIGURATIONS Debug Release RelWithDebInfo)
+	install (FILES ${OGRE_PLUGIN_DIR_REL}/OgreMain.dll ${OGRE_PLUGIN_DIR_REL}/RenderSystem_GL.dll ${OGRE_PLUGIN_DIR_REL}/Plugin_ParticleFX.dll ${OGRE_PLUGIN_DIR_REL}/OIS.dll DESTINATION olav CONFIGURATIONS Release RelWithDebInfo)
+	install (FILES ${OGRE_PLUGIN_DIR_DBG}/OgreMain_d.dll ${OGRE_PLUGIN_DIR_DBG}/RenderSystem_GL_d.dll ${OGRE_PLUGIN_DIR_DBG}/Plugin_ParticleFX_d.dll ${OGRE_PLUGIN_DIR_DBG}/OIS_d.dll DESTINATION olav CONFIGURATIONS Debug)
 	if (BUILD_STARTER)
-		install (FILES ${CMAKE_BINARY_DIR}/olav_starter DESTINATION bin) 
-		install (FILES ${CMAKE_SOURCE_DIR}/src/starter/olav_starter.png DESTINATION share/pixmaps)
-		install (FILES ${CMAKE_SOURCE_DIR}/src/starter/olav_starter.desktop DESTINATION share/applications) 
-		install (DIRECTORY ${CMAKE_SOURCE_DIR}/descriptions DESTINATION share/olav)
+		install (FILES ${CMAKE_BINARY_DIR}/olav_starter.exe DESTINATION olav) 
+		install (DIRECTORY ${CMAKE_SOURCE_DIR}/descriptions DESTINATION olav)
 	endif ()
 endif(WIN32)
 

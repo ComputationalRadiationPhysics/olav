@@ -79,13 +79,7 @@ OgreFramework::OgreFramework()
     m_pLog = Ogre::LogManager::getSingleton().createLog(appdata+"OgreLogfile.log", true, true, false);
     m_pLog->setDebugOutputEnabled(false);
     
-    m_pRoot = new Ogre::Root(
-	#ifdef WIN32
-	        "plugins.win32",
-	#else
-	        PLUGIN_CONFIG,
-	#endif
-        appdata+"ogre.cfg",appdata+"Ogre.log");
+    m_pRoot = new Ogre::Root( PLUGIN_CONFIG, appdata+"ogre.cfg",appdata+"Ogre.log");
     m_pRoot->restoreConfig();
 }
 
