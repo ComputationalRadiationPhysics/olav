@@ -95,6 +95,7 @@ file (COPY
 	"${PROJECT_SOURCE_DIR}/src/starter/mainform.lfm"
 	"${PROJECT_SOURCE_DIR}/src/starter/olav_starter.lpr"
 	"${PROJECT_SOURCE_DIR}/src/starter/olav_starter.res"
+	"${PROJECT_SOURCE_DIR}/src/starter/olav_starter.ico"
 	DESTINATION
 	"${Starter_Src_Dir}"
 	)
@@ -259,6 +260,7 @@ endif()
 SET(CPACK_PACKAGE_NAME "OLAV")
 SET(CPACK_PACKAGE_VENDOR "HZDR")
 if(WIN32)
+	SET(CPACK_PACKAGE_INSTALL_DIRECTORY "OLAV")
 	SET(CPACK_NSIS_EXECUTABLES_DIRECTORY ".") 
 	SET(CPACK_PACKAGE_EXECUTABLES "olav_starter" "OLAV")
 endif()
