@@ -364,7 +364,7 @@ void ElbeState::enter()
 		OgreFramework::getSingletonPtr()->m_stereo.shutdown();
 		OgreFramework::getSingletonPtr()->m_stereo.init(OgreFramework::getSingletonPtr()->m_pViewport[0], OgreFramework::getSingletonPtr()->m_pViewport[1], OgreFramework::getSingletonPtr()->m_sm);
 	}
-
+	m_pPipe->updateScreenPosition();
     buildGUI();
 }
 
@@ -581,6 +581,13 @@ bool ElbeState::keyPressed(const OIS::KeyEvent &keyEventRef)
 			buttonHit(button);
 		else
 			m_Pause = !m_Pause;
+		return true;
+	}
+	if(OgreFramework::getSingletonPtr()->m_pKeyboard->isKeyDown(OIS::KC_O))
+    {
+		OgreBites::Button* button = (OgreBites::Button*)OgreFramework::getSingletonPtr()->m_pTrayMgr->getWidget("freeViewButton");
+		if (button)
+			buttonHit(button);
 		return true;
 	}
 	if(OgreFramework::getSingletonPtr()->m_pKeyboard->isKeyDown(OIS::KC_RETURN))

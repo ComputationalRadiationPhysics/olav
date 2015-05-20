@@ -959,10 +959,15 @@ void ElbePipe::refreshScreenTexture()
 
 float ElbePipe::updateScreenPosition()
 {
+	printf("%f\n",screenPosition);
 	int numPoint = ElbeElectron::getNumFromPosition(screenPosition);
 	float position = (ElbeElectron::getRealDriftPosition(numPoint)-ElbeElectron::getRealDriftLength(0))/0.368667;
 	position += (ElbeElectron::getRealDriftLength(numPoint)*(screenPosition+L_DT0-ElbeElectron::getKumDriftLength(numPoint-1))/ElbeElectron::getDriftLength(numPoint))/0.368667f;
 	float realposition = position*0.368667f-ElbePipe::EMITTER_POS;
+	if (screenPosition == 0.0f)
+		screenNode->setVisible(false);
+	else
+		screenNode->setVisible(true);
 	if (realposition > 176.9f)
 	{
 		float angel = M_PI/4.0f;
