@@ -18,6 +18,8 @@
 * If not, see <http://www.gnu.org/licenses/>.
 */
 
+#version 120
+
 uniform vec4 skale;
 uniform vec4 kolor;
 uniform vec4 ankle;
@@ -82,8 +84,9 @@ vec4 trace_volume(vec3 start_position,vec3 end_position,vec4 start_color,vec4 sc
 {
 	float alpha = start_color.a;
 	vec4 color = vec4(start_color.r,start_color.g,start_color.b,0.0);
+
 	vec3 sensor = start_position;
-	
+
 	vec3 vector = (end_position-start_position);
 	float l = length(vector);
 	float stepwidth = 0.001;
@@ -113,7 +116,7 @@ vec4 trace_volume(vec3 start_position,vec3 end_position,vec4 start_color,vec4 sc
 					+ t_color.g
 					+ t_color.b / 256.0
 					+ t_color.a / 65536.0;
-		     t_color = texture3D(volume_texture, (sensor+vector+1.0)/2.0);
+			 t_color = texture3D(volume_texture, (sensor+vector+1.0)/2.0);
 		float value_2 = t_color.r * 256.0
 					+ t_color.g
 					+ t_color.b / 256.0
@@ -145,6 +148,7 @@ vec4 trace_volume(vec3 start_position,vec3 end_position,vec4 start_color,vec4 sc
 void main(void)
 {
 	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+
 	#ifdef OLAV_FINE
 		bunch_position.x = gl_Vertex.x/5.01;
 		bunch_position.y = gl_Vertex.y/5.01;
@@ -195,7 +199,10 @@ void main(void)
 			bunch_end.y = rtt_vertex.y/5.01;
 			bunch_end.z = rtt_vertex.z/5.01;
 		#endif
-		gl_FragColor = trace_volume(bunch_position,bunch_end,kolor,skale);
+		if (kolor.w == 0.0f)
+			gl_FragColor = vec4(0.0,0.0,0.0,0.0);
+		else
+			gl_FragColor = trace_volume(bunch_position,bunch_end,kolor,skale);
 	}
 }
 #endif

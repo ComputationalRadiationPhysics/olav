@@ -821,7 +821,7 @@ void ElbeBunch::visualize(AbstractCamera* camera,float speed)
 			}
 		}
 		else
-			m_pBunchEntity->setVisible(false);
+			Ogre::GpuProgramManager::getSingletonPtr()->getSharedParameters("ElectronCloudParams")->setNamedConstant("kolor",Ogre::Vector4(0.0,0.0,0.0,0.0));
 	}
 	else
 	if (show_volume)
