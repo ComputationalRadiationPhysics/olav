@@ -1028,7 +1028,7 @@ void ElbePipe::refreshTrack(bool show)
 	Ogre::SceneNode *newNode = holdNode->createChildSceneNode();
 	ElbeBunch* sensorElectron = new ElbeBunch(m_pSceneMgr,newNode,0,false,false,TRACK_COUNT);
 
-	float alpha = 0.8f;
+	float alpha = 0.4f;
 	Ogre::Vector3 scale = sensorElectron->getElectron()->getBunchScale() * ElbeConstants::MODEL_SCALE_2;
 	track->position( sensorElectron->getOgreNode()->_getDerivedPosition().x,
 			         sensorElectron->getOgreNode()->_getDerivedPosition().y-scale.y,

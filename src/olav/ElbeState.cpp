@@ -37,8 +37,8 @@ using namespace Ogre;
 #define SLIDER_VALUE_WIDTH 70
 
 //|||||||||||||||||||||||||||||||||||||||||||||||
-#define ZOOM_LEVEL_1 3
-#define ZOOM_LEVEL_2 6
+#define ZOOM_LEVEL_1 2
+#define ZOOM_LEVEL_2 4
 #define ZOOM_LEVEL_3 20
 
 #define SLOW_TIME 1600
@@ -49,16 +49,26 @@ using namespace Ogre;
 		doc = mDemoDoc->GetDocumentation(file); \
 		caption = doc->GetTitle(); \
 		text = doc->GetText(); \
-		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2, time     ,caption,text,0.5f,true)); \
-		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, time+SLOW_TIME,caption,text,SLOW_SPEED,true)); \
-		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, time+13000-SLOW_TIME,caption,text,SLOW_SPEED,true)); \
-		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2, time+13000,"","",0.5f,true));
+		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2, time     ,caption,text,0.5f,false)); \
+		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, time+SLOW_TIME,caption,text,SLOW_SPEED,false)); \
+		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, time+13000-SLOW_TIME,caption,text,SLOW_SPEED,false)); \
+		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2, time+13000,"","",0.5f,false));
+		
+#define demoShowFirstNoZoom(time,file) \
+		doc = mDemoDoc->GetDocumentation(file); \
+		caption = doc->GetTitle(); \
+		text = doc->GetText(); \
+		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2, time     ,caption,text,0.5f,false)); \
+		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2, time+SLOW_TIME,caption,text,SLOW_SPEED,false)); \
+		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2, time+13000-SLOW_TIME,caption,text,SLOW_SPEED,false)); \
+		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2, time+13000,"","",0.5f,false));
+
 
 #define demoShowAgain(time,file) \
 		doc = mDemoDoc->GetDocumentation(file); \
 		caption = doc->GetTitle(); \
-		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2, time,caption,"",0.5f,true)); \
-		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2, time+1500,"","",0.5f,true));
+		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2, time,caption,"",0.5f,false)); \
+		demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2, time+1500,"","",0.5f,false));
 
 #define demoShowAgain2(time,file) \
 		doc = mDemoDoc->GetDocumentation(file); \
@@ -131,33 +141,33 @@ void ElbeState::refillDemoList()
 	std::string caption;
 	std::string text;
 	const Documentation * doc;
-	demoLast = tElbeDemoType(65.0f,-20.0f,30,0,"black","",0.0f,true);
-	demoList.push_back(tElbeDemoType( 65.0f,-20.0f,30, 2000,"black","",0.0f,true));
-	demoList.push_back(tElbeDemoType( 65.0f,-20.0f,30, 4000,"internalOverlay","",0.0f,true));
-	demoList.push_back(tElbeDemoType( 65.0f,-20.0f,30, 9000,"internalOverlay","",0.0f,true));
-	demoList.push_back(tElbeDemoType( 65.0f,-20.0f,30, 10000,"","",0.0f,true));
-	demoList.push_back(tElbeDemoType( 65.0f,-20.0f,30, 10000,"","",0.0f,true));
-	demoList.push_back(tElbeDemoType( 65.0f,-20.0f,30, 15000,"","",0.0f,true));
+	demoLast = tElbeDemoType(65.0f,-20.0f,30,0,"black","",0.0f,false);
+	demoList.push_back(tElbeDemoType( 65.0f,-20.0f,30, 2000,"black","",0.0f,false));
+	demoList.push_back(tElbeDemoType( 65.0f,-20.0f,30, 4000,"internalOverlay","",0.0f,false));
+	demoList.push_back(tElbeDemoType( 65.0f,-20.0f,30, 9000,"internalOverlay","",0.0f,false));
+	demoList.push_back(tElbeDemoType( 65.0f,-20.0f,30, 10000,"","",0.0f,false));
+	demoList.push_back(tElbeDemoType( 65.0f,-20.0f,30, 10000,"","",0.0f,false));
+	demoList.push_back(tElbeDemoType( 65.0f,-20.0f,30, 15000,"","",0.0f,false));
 	doc = mDemoDoc->GetDocumentation("gun");
 	caption = doc->GetTitle();
 	text = doc->GetText();
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f,10, 23000,caption,text,0.0f,true));
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 30000,caption,text,0.0f,true));
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 32000,caption,text,0.5f,true));
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f,10, 23000,caption,text,0.0f,false));
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 30000,caption,text,0.0f,false));
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 32000,caption,text,0.5f,false));
 	doc = mDemoDoc->GetDocumentation("steerer");
 	caption = doc->GetTitle();
 	text = doc->GetText();
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 34000,caption,text,0.5f,true));
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 34700,caption,text,0.03f,true));
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 38000,caption,text,0.03f,true));
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 39000,"","",0.5f,true));
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 34000,caption,text,0.5f,false));
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 34700,caption,text,0.03f,false));
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 38000,caption,text,0.03f,false));
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 39000,"","",0.5f,false));
 	doc = mDemoDoc->GetDocumentation("solenoid");
 	caption = doc->GetTitle();
 	text = doc->GetText();
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 41000      ,caption,text,0.5f,true)); \
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 41000+ 1000,caption,text,0.04f,true)); \
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 41000+12000,caption,text,0.04f,true)); \
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2, 41000+13000,"","",0.5f,true));
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 41000      ,caption,text,0.5f,false)); \
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 41000+ 1000,caption,text,0.04f,false)); \
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1, 41000+12000,caption,text,0.04f,false)); \
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2, 41000+13000,"","",0.5f,false));
 	demoShowFirst( 56200,"buncher260");
 	demoShowAgain( 72500,"steerer");
 	demoShowAgain( 75000,"solenoid");
@@ -171,13 +181,13 @@ void ElbeState::refillDemoList()
 	doc = mDemoDoc->GetDocumentation("linac");
 	caption = doc->GetTitle();
 	text = doc->GetText();
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1,130000,caption,text,0.5f,true));
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1,133000,caption,text,0.05f,true));
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1,146000,caption,text,0.05f,true));
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1,150000,caption,text,0.5f,true));
-	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2,163000,"","",0.5f,true));
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1,130000,caption,text,0.5f,false));
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1,133000,caption,text,0.05f,false));
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1,146000,caption,text,0.05f,false));
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_1,150000,caption,text,0.5f,false));
+	demoList.push_back(tElbeDemoType(  0.0f,  0.0f, ZOOM_LEVEL_2,163000,"","",0.5f,false));
 	int extra = 10651;
-	demoShowFirst(extra+157500,"quadrupol");
+	demoShowFirstNoZoom(extra+157500,"quadrupol");
 	demoShowAgain(extra+170500,"steerer");
 	demoShowAgain(extra+172000,"quadrupol");
 	demoShowAgain(extra+173500,"quadrupol");

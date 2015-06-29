@@ -891,7 +891,12 @@ void ElbeBunch::visualize(AbstractCamera* camera,float speed)
 		//m_pBillboards->notifyBillboardDataChanged();
 	}*/
 	double old_pos = electron->pos;
-	float size = electronSize/1000.0f;
+	float dist = camera->getDistanceToPoint(ogreNode->_getDerivedPosition());
+	float size = pow(dist,1.0f)/200.0f;
+	if (size < 0.0002f)
+		size = 0.0002f;
+	if (size > 0.003f)
+		size = 0.003f;
 	//size = 0.0002f;
 	if (m_pBillboards)
 	{
