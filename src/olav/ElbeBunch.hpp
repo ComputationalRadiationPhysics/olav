@@ -37,7 +37,7 @@
 class ElbeBunch : public MoveablePathElement,public Ogre::RenderTargetListener
 {
 public:
-	ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double time__ = 0,bool followed = false, bool is_in_collision = false,int electronCount = MAX_PARTICLE_COUNT,bool show_billboard = true,bool show_volume = true,int shader = 0);
+	ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double time__ = 0,bool followed = false, bool is_in_collision = false,int electronCount = MAX_PARTICLE_COUNT,bool show_billboard = true,bool show_volume = true,int shader = 0,bool show_border = true);
 	~ElbeBunch();
 
 	void visualize(AbstractCamera* camera,float speed);	// make cloud- or bunch-entity visible
@@ -65,6 +65,7 @@ public:
 	float lastTrackUpdate;
 	bool show_billboard;
 	bool show_volume;
+	bool show_border;
 	float stepwidth;
 
 private:
@@ -75,6 +76,7 @@ private:
 	Ogre::SceneNode* ogreNode;
 	Ogre::Entity* m_pBunchEntity;
 	Ogre::Entity* m_pBunchEntity_background;
+	Ogre::Entity* m_pBunchEntity_border;
 	int entityCount;
 	Ogre::Entity* entityList[10000]; //in fact 3655 should be enough
 	Ogre::Entity* m_pCloudEntity;
@@ -97,6 +99,7 @@ private:
 	int shader;
 	Ogre::TexturePtr rtt_texture;
 	Ogre::RenderTexture *renderTexture;
+	Ogre::SceneNode* extraNode;
 #ifndef RELEASE
 	ElectronVis*	   m_pElectronVis;
 	Ogre::ManualObject* blackPlane;

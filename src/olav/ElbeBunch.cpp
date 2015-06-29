@@ -40,7 +40,7 @@
 
 #define VOLUME_TYPE Ogre::TU_WRITE_ONLY
 
-ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double time__,bool followed,bool is_in_collision,int electronCount,bool show_billboard,bool show_volume, int shader)
+ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double time__,bool followed,bool is_in_collision,int electronCount,bool show_billboard,bool show_volume, int shader,bool show_border)
 	: MoveablePathElement(node, is_in_collision?mSceneMgr->getEntity("ElectronPath")->getMesh():mSceneMgr->getEntity("BunchPath")->getMesh())
 {
 	stepwidth = 0.001;
@@ -51,6 +51,7 @@ ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double
 	this->shader = shader;
 	this->show_billboard = show_billboard;
 	this->show_volume = show_volume;
+	this->show_border = show_border;
 	if (followed && shader!=-1)
 	{
 		volume_x = 1 << MAX_VOLUME_BIT/3;
@@ -73,9 +74,19 @@ ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double
 	m_pBunchEntity->setVisible(true);
 
 	m_pBunchEntity_background = NULL;
+	m_pBunchEntity_border = NULL;
 	
 	if (followed && shader != -1)
 	{
+		Ogre::MaterialPtr border_material = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronBorder");
+		m_pBunchEntity_border = mSceneMgr->createEntity("eBunch_elbe.mesh");
+		m_pBunchEntity_border->setCastShadows(false);
+		m_pBunchEntity_border->setVisible(true);
+		m_pBunchEntity_border->setMaterial(border_material);
+		extraNode = ogreNode->createChildSceneNode();
+		extraNode->setScale(Ogre::Vector3(Ogre::Real(1.1f), Ogre::Real(1.1f), Ogre::Real(1.1f)));
+		extraNode->attachObject(m_pBunchEntity_border);
+
 		switch (shader)
 		{
 			case 0:
@@ -230,6 +241,9 @@ ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double
 		#else
 			m_pMatBunch->getTechnique(0)->getPass(0)->createTextureUnitState("rtt_texture")->setTextureFiltering(Ogre::TFO_NONE);
 		#endif
+		border_material->getTechnique(0)->getPass(0)->createTextureUnitState("rtt_texture")->setTextureFiltering(Ogre::TFO_NONE);
+		Ogre::GpuProgramParametersSharedPtr pParams = border_material->getTechnique(0)->getPass(0)->getFragmentProgramParameters();
+		pParams->setNamedConstant("rtt_texture", 0);
 		renderTexture = rtt_texture->getBuffer()->getRenderTarget();
 		#if USE_HACKY_WORKAROUND		 
 		if ( OgreFramework::getSingletonPtr()->m_iMajor >= 3)
@@ -239,7 +253,7 @@ ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double
 		{
 			renderTexture->addViewport(NULL);
 			renderTexture->getViewport(0)->setClearEveryFrame(true);
-			renderTexture->getViewport(0)->setBackgroundColour(Ogre::ColourValue(0.5f,0.5f,0.5f));
+			renderTexture->getViewport(0)->setBackgroundColour(Ogre::ColourValue(0.0,0.0,0.0));
 			renderTexture->getViewport(0)->setOverlaysEnabled(false);
 			m_pBunchEntity_background = mSceneMgr->createEntity("eBunch_elbe.mesh");
 			m_pBunchEntity_background->setCastShadows(false);
@@ -248,6 +262,7 @@ ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double
 			ogreNode->attachObject(m_pBunchEntity_background);
 			renderTexture->addListener(this);
 		}
+
 	}
 	else
 	{
@@ -260,6 +275,7 @@ ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double
 		m_pMatBunch->setAmbient(0, 1, 0);
 		m_pMatBunch->setDiffuse(0, 1, 0, 0.5);
 		m_pMatBunch->setSpecular(0, 1, 0, 0.5);
+		m_pBunchEntity_border = NULL;
 	}
 	m_pBunchEntity->setMaterial(m_pMatBunch);
 	ogreNode->attachObject(m_pBunchEntity);
@@ -613,24 +629,47 @@ void ElbeBunch::visualize(AbstractCamera* camera,float speed)
 			Ogre::Vector3 v = camera->getOgreCamera()->getDerivedPosition()-ogreNode->_getDerivedPosition();
 			#if USE_HACKY_WORKAROUND
 			if (OgreFramework::getSingletonPtr()->m_iMajor >= 3)
-			Ogre::GpuProgramManager::getSingletonPtr()->getSharedParameters("ElectronCloudParams")->setNamedConstant("windowsize",Ogre::Vector4(
-				camera->getOgreCamera()->getViewport()->getActualWidth()/2,
-				camera->getOgreCamera()->getViewport()->getActualHeight()/2,
-				camera->getOgreCamera()->getViewport()->getActualWidth()*65/64,
-				camera->getOgreCamera()->getViewport()->getActualHeight()*65/64));
+			{
+				Ogre::GpuProgramManager::getSingletonPtr()->getSharedParameters("ElectronCloudParams")->setNamedConstant("windowsize",Ogre::Vector4(
+					camera->getOgreCamera()->getViewport()->getActualWidth()/2,
+					camera->getOgreCamera()->getViewport()->getActualHeight()/2,
+					camera->getOgreCamera()->getViewport()->getActualWidth()*65/64,
+					camera->getOgreCamera()->getViewport()->getActualHeight()*65/64));
+				Ogre::GpuProgramManager::getSingletonPtr()->getSharedParameters("ElectronBorderParams")->setNamedConstant("windowsize",Ogre::Vector4(
+					camera->getOgreCamera()->getViewport()->getActualWidth()/2,
+					camera->getOgreCamera()->getViewport()->getActualHeight()/2,
+					camera->getOgreCamera()->getViewport()->getActualWidth()*65/64,
+					camera->getOgreCamera()->getViewport()->getActualHeight()*65/64));
+			}
 			else
 			#endif
-			Ogre::GpuProgramManager::getSingletonPtr()->getSharedParameters("ElectronCloudParams")->setNamedConstant("windowsize",Ogre::Vector4(
-				OgreFramework::getSingletonPtr()->m_pRenderWnd->getViewport(0)->getActualWidth()/2,
-				OgreFramework::getSingletonPtr()->m_pRenderWnd->getViewport(0)->getActualHeight()/2,
-				OgreFramework::getSingletonPtr()->m_pRenderWnd->getViewport(0)->getActualWidth()*65/64,
-				OgreFramework::getSingletonPtr()->m_pRenderWnd->getViewport(0)->getActualHeight()*65/64));
+			{
+				Ogre::GpuProgramManager::getSingletonPtr()->getSharedParameters("ElectronCloudParams")->setNamedConstant("windowsize",Ogre::Vector4(
+					OgreFramework::getSingletonPtr()->m_pRenderWnd->getViewport(0)->getActualWidth()/2,
+					OgreFramework::getSingletonPtr()->m_pRenderWnd->getViewport(0)->getActualHeight()/2,
+					OgreFramework::getSingletonPtr()->m_pRenderWnd->getViewport(0)->getActualWidth()*65/64,
+					OgreFramework::getSingletonPtr()->m_pRenderWnd->getViewport(0)->getActualHeight()*65/64));
+				Ogre::GpuProgramManager::getSingletonPtr()->getSharedParameters("ElectronBorderParams")->setNamedConstant("windowsize",Ogre::Vector4(
+					OgreFramework::getSingletonPtr()->m_pRenderWnd->getViewport(0)->getActualWidth()/2,
+					OgreFramework::getSingletonPtr()->m_pRenderWnd->getViewport(0)->getActualHeight()/2,
+					OgreFramework::getSingletonPtr()->m_pRenderWnd->getViewport(0)->getActualWidth()*65/64,
+					OgreFramework::getSingletonPtr()->m_pRenderWnd->getViewport(0)->getActualHeight()*65/64));
+			}
 			Ogre::GpuProgramManager::getSingletonPtr()->getSharedParameters("ElectronCloudParams")->setNamedConstant("kolor",Ogre::Vector4(brightness, 1.0f, brightness, alpha));
 			Ogre::GpuProgramManager::getSingletonPtr()->getSharedParameters("ElectronCloudParams")->setNamedConstant("skale",Ogre::Vector4(m_Scale.x,m_Scale.y,m_Scale.z, biggest));
 
 			Ogre::GpuProgramManager::getSingletonPtr()->getSharedParameters("ElectronCloudParams")->setNamedConstant("ankle",Ogre::Vector4(v));
 			Ogre::GpuProgramManager::getSingletonPtr()->getSharedParameters("ElectronCloudParams")->setNamedConstant("kamera",Ogre::Vector4(camera->getOgreCamera()->getDerivedPosition().x,camera->getOgreCamera()->getDerivedPosition().y,camera->getOgreCamera()->getDerivedPosition().z,show_billboard?1.0f:0.0f));
 			Ogre::GpuProgramManager::getSingletonPtr()->getSharedParameters("ElectronCloudParams")->setNamedConstant("kenter",Ogre::Vector4(ogreNode->_getDerivedPosition().x,ogreNode->_getDerivedPosition().y,ogreNode->_getDerivedPosition().z,divisor));
+			
+			float extraSize = v.length()/100.0f;
+			if (extraSize > 0.03f)
+				extraSize = 0.03f;
+			extraNode->setScale(Ogre::Vector3(
+				1.0f+Ogre::Real(extraSize)/sqrt(ogreNode->getScale().x),
+				1.0f+Ogre::Real(extraSize)/sqrt(ogreNode->getScale().y),
+				1.0f+Ogre::Real(extraSize)/sqrt(ogreNode->getScale().z)
+			));
 			
 			float render_time = LMCApp::m_pAppStateManager->getPerformance().render_time;
 			if (render_time > 30000.0f)
@@ -819,15 +858,31 @@ void ElbeBunch::visualize(AbstractCamera* camera,float speed)
 				pParams->setNamedConstant("volume_texture", 1);
 				pParams->setNamedConstant("rtt_texture", 2);
 			}
+			if (show_border)
+				m_pBunchEntity_border->setVisible(true);
+			else
+				m_pBunchEntity_border->setVisible(false);
 		}
 		else
+		{
+			m_pBunchEntity_border->setVisible(false);
 			Ogre::GpuProgramManager::getSingletonPtr()->getSharedParameters("ElectronCloudParams")->setNamedConstant("kolor",Ogre::Vector4(0.0,0.0,0.0,0.0));
+		}
 	}
 	else
-	if (show_volume)
-		m_pBunchEntity->setVisible(true);
-	else
-		m_pBunchEntity->setVisible(false);
+	{
+		if (show_volume)
+			m_pBunchEntity->setVisible(true);
+		else
+			m_pBunchEntity->setVisible(false);
+		if (m_pBunchEntity_border)
+		{
+			if (show_border)
+				m_pBunchEntity_border->setVisible(true);
+			else
+				m_pBunchEntity_border->setVisible(false);
+		}
+	}
 	this->m_pMatBunch->setDiffuse(brightness, 1.0f, brightness, alpha);
 	/*if (followed)
 	{

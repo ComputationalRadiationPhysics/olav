@@ -959,7 +959,6 @@ void ElbePipe::refreshScreenTexture()
 
 float ElbePipe::updateScreenPosition()
 {
-	printf("%f\n",screenPosition);
 	int numPoint = ElbeElectron::getNumFromPosition(screenPosition);
 	float position = (ElbeElectron::getRealDriftPosition(numPoint)-ElbeElectron::getRealDriftLength(0))/0.368667;
 	position += (ElbeElectron::getRealDriftLength(numPoint)*(screenPosition+L_DT0-ElbeElectron::getKumDriftLength(numPoint-1))/ElbeElectron::getDriftLength(numPoint))/0.368667f;
@@ -1616,7 +1615,7 @@ bool ElbePipe::newCameraBunch() {
 	return newCamera;
 }
 
-bool ElbePipe::update(double timeSinceLastFrame,double factor, bool explosion,bool show_billboard,bool show_volume,int update_tracks)
+bool ElbePipe::update(double timeSinceLastFrame,double factor, bool explosion,bool show_billboard,bool show_volume,int update_tracks,bool show_border)
 {
 	oldGlobalTime = globalTime;
 	globalTime += timeSinceLastFrame*factor;
@@ -1629,7 +1628,7 @@ bool ElbePipe::update(double timeSinceLastFrame,double factor, bool explosion,bo
 			newBunch = new ElbeBunch(m_pSceneMgr, newNode,globalTime);
 		else
 		{
-			newBunch = new ElbeBunch(m_pSceneMgr, newNode,globalTime,true,false,particle_count,show_billboard,show_volume,VOLUME_SHADER);
+			newBunch = new ElbeBunch(m_pSceneMgr, newNode,globalTime,true,false,particle_count,show_billboard,show_volume,VOLUME_SHADER,show_border);
 			cameraBunch = newBunch;
 			newBunch->updateParticle(update_tracks);
 		}

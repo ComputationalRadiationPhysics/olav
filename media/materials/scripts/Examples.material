@@ -231,6 +231,10 @@ shared_params ElectronCloudParams
 	shared_param_named stepwidth float4 0.0 0.0 0.0 0.0 //step_width, free, free, free
 }
 
+shared_params ElectronBorderParams
+{
+	shared_param_named windowsize float4 0.0 0.0 0.0 0.0 //w/2, h/2, w+extra, h+extra
+}
 
 fragment_program ElectronCloudFragmentFine glsl
 {
@@ -370,6 +374,26 @@ vertex_program ElectronCloudVertexFirst glsl
 	{
 		shared_params_ref ElectronCloudParams
 	}
+}
+
+fragment_program ElectronBorderFragment glsl
+{
+	source elbeBunchBorder.glsl
+	preprocessor_defines OLAV_FRAGMENT=1
+	default_params
+	{
+		shared_params_ref ElectronBorderParams
+	}
+}		
+
+vertex_program ElectronBorderVertex glsl
+{
+	source elbeBunchBorder.glsl 
+	preprocessor_defines OLAV_VERTEX=1
+	default_params
+	{
+		shared_params_ref ElectronBorderParams
+	}
 }	
 
 material Examples/ElectronCloudFirst
@@ -428,7 +452,7 @@ material Examples/ElectronCloudRaw
 			depth_check off
 			scene_blend alpha_blend
 			alpha_rejection greater_equal 1
-			transparent_sorting force
+			transparent_sorting off
 			fragment_program_ref ElectronCloudFragmentRaw
 			{
 			}
@@ -643,6 +667,27 @@ material Examples/ElectronCloudAnalApproxHacky
 			{
 				texture transfer.png
 				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Examples/ElectronBorder
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			alpha_rejection greater_equal 1
+			transparent_sorting force
+			fragment_program_ref ElectronBorderFragment
+			{
+			}
+			vertex_program_ref ElectronBorderVertex
+			{
 			}
 		}
 	}

@@ -178,7 +178,7 @@ void main(void)
 	#else
 		vec3 rtt_color = texture2D(rtt_texture, vec2(x,1.0-y)).rgb;
 	#endif
-	if (rtt_color == vec3(0.5,0.5,0.5)) //grey
+	if (rtt_color == vec3(0.0,0.0,0.0)) //black
 		gl_FragColor = vec4(0.0,0.0,0.0,0.0);
 	else
 	{
