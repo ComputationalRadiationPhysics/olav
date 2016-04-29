@@ -223,6 +223,8 @@ void ElbeState::refillDemoList()
 ElbeState::ElbeState()
 {
 	followed_random_seed = rand();
+	show_billboard = true;
+	volume_state = 3;
 }
 
 float ElbeState::MIN_CAMERA_DISTANCE = 0.01f;
@@ -264,8 +266,6 @@ void ElbeState::enter()
 	fixedHeight = true;
 	coverVisible = false;
 	explosion =	false;
-	show_billboard = true;
-	volume_state = 3;
 	mouseX = 0;
 	mouseY = 0;
 	mousepressed = false;
