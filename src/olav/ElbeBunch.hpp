@@ -37,7 +37,7 @@
 class ElbeBunch : public MoveablePathElement,public Ogre::RenderTargetListener
 {
 public:
-	ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double time__ = 0,bool followed = false, bool is_in_collision = false,int electronCount = MAX_PARTICLE_COUNT,bool show_billboard = true,bool show_volume = true,int shader = 0,bool show_border = true);
+	ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double time__ = 0,bool followed = false, bool is_in_collision = false,int electronCount = MAX_PARTICLE_COUNT,bool show_billboard = true,int volume_state = 3,int shader = 0);
 	~ElbeBunch();
 
 	void visualize(AbstractCamera* camera,float speed);	// make cloud- or bunch-entity visible
@@ -64,11 +64,11 @@ public:
 	Ogre::Billboard*			billboard[MAX_PARTICLE_COUNT];
 	float lastTrackUpdate;
 	bool show_billboard;
-	bool show_volume;
-	bool show_border;
 	float stepwidth;
+	void setVolumeState(int volume_state);
 
 private:
+	int volume_state;
 	int volume_x,volume_y,volume_z;
 	Ogre::uint32 *volume_lookup; //RGBA * three dimensions
 	Ogre::TexturePtr volume_texture;
@@ -82,6 +82,8 @@ private:
 	Ogre::Entity* m_pCloudEntity;
 	Ogre::BillboardSet* m_pBillboards;
 
+	Ogre::MaterialPtr m_pMatBunch_shader;
+	Ogre::MaterialPtr m_pMatBunch_simple;
 	Ogre::MaterialPtr m_pMatBunch;
 
 	Ogre::Vector3 m_Scale;

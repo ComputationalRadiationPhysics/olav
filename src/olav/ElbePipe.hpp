@@ -238,7 +238,7 @@ public:
 	void saveState(std::string name);
 
 	//returns false, if the node has been changed
-	bool update(double timeSinceLastFrame,double factor,bool explosion,bool show_billboard,bool show_volume,int update_tracks = TRACK_COUNT,bool show_border = true);
+	bool update(double timeSinceLastFrame,double factor,bool explosion,bool show_billboard,int volume_state,int update_tracks = TRACK_COUNT);
 
 	void updateFields();
 

@@ -40,9 +40,10 @@
 
 #define VOLUME_TYPE Ogre::TU_WRITE_ONLY
 
-ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double time__,bool followed,bool is_in_collision,int electronCount,bool show_billboard,bool show_volume, int shader,bool show_border)
+ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double time__,bool followed,bool is_in_collision,int electronCount,bool show_billboard,int volume_state, int shader)
 	: MoveablePathElement(node, is_in_collision?mSceneMgr->getEntity("ElectronPath")->getMesh():mSceneMgr->getEntity("BunchPath")->getMesh())
 {
+	this->followed = followed;
 	stepwidth = 0.001;
 	if (OgreFramework::getSingletonPtr()->m_iMajor == 1 &&
 		OgreFramework::getSingletonPtr()->m_iMinor <= 4)
@@ -50,8 +51,7 @@ ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double
 	renderTexture = NULL;
 	this->shader = shader;
 	this->show_billboard = show_billboard;
-	this->show_volume = show_volume;
-	this->show_border = show_border;
+	this->volume_state = volume_state;
 	if (followed && shader!=-1)
 	{
 		volume_x = 1 << MAX_VOLUME_BIT/3;
@@ -92,25 +92,25 @@ ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double
 			case 0:
 				#if USE_HACKY_WORKAROUND
 				if (OgreFramework::getSingletonPtr()->m_iMajor >= 3)
-					m_pMatBunch = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudFineHacky");
+					m_pMatBunch_shader = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudFineHacky");
 				else
 				#endif
-					m_pMatBunch = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudFine");
+					m_pMatBunch_shader = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudFine");
 				break;
 			case 1:
 			{
 				#if USE_HACKY_WORKAROUND
 				if (OgreFramework::getSingletonPtr()->m_iMajor >= 3)
-					m_pMatBunch = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudRawHacky");
+					m_pMatBunch_shader = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudRawHacky");
 				else
 				#endif
-					m_pMatBunch = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudRaw");
+					m_pMatBunch_shader = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudRaw");
 				//Creating transfer function:
 				
 				#if USE_HACKY_WORKAROUND
-					Ogre::TexturePtr transfer_texture = m_pMatBunch->getTechnique(0)->getPass((OgreFramework::getSingletonPtr()->m_iMajor>=3)?1:0)->getTextureUnitState(0)->_getTexturePtr();
+					Ogre::TexturePtr transfer_texture = m_pMatBunch_shader->getTechnique(0)->getPass((OgreFramework::getSingletonPtr()->m_iMajor>=3)?1:0)->getTextureUnitState(0)->_getTexturePtr();
 				#else
-					Ogre::TexturePtr transfer_texture = m_pMatBunch->getTechnique(0)->getPass(0)->getTextureUnitState(0)->_getTexturePtr();
+					Ogre::TexturePtr transfer_texture = m_pMatBunch_shader->getTechnique(0)->getPass(0)->getTextureUnitState(0)->_getTexturePtr();
 				#endif
 				Ogre::HardwarePixelBufferSharedPtr pixelBuffer = transfer_texture->getBuffer();
 				pixelBuffer->lock(Ogre::HardwareBuffer::HBL_NORMAL);
@@ -196,18 +196,18 @@ ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double
 			case 2:
 				#if USE_HACKY_WORKAROUND
 				if (OgreFramework::getSingletonPtr()->m_iMajor >= 3)
-					m_pMatBunch = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudAnalHacky");
+					m_pMatBunch_shader = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudAnalHacky");
 				else
 				#endif
-					m_pMatBunch = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudAnal");
+					m_pMatBunch_shader = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudAnal");
 				break;
 			case 3:
 				#if USE_HACKY_WORKAROUND
 				if (OgreFramework::getSingletonPtr()->m_iMajor >= 3)
-					m_pMatBunch = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudAnalApproxHacky");
+					m_pMatBunch_shader = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudAnalApproxHacky");
 				else
 				#endif
-					m_pMatBunch = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudAnalApprox");
+					m_pMatBunch_shader = Ogre::MaterialManager::getSingletonPtr()->getByName("Examples/ElectronCloudAnalApprox");
 				break;
 		}
 		Ogre::ResourceGroupManager::getSingleton().createResourceGroup("volume_texture_group");
@@ -221,9 +221,9 @@ ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double
 			VOLUME_TYPE);      // usage; should be TU_DYNAMIC_WRITE_ONLY_DISCARDABLE for
 							  // textures updated very often (e.g. each frame)
 		#if USE_HACKY_WORKAROUND
-			m_pMatBunch->getTechnique(0)->getPass(OgreFramework::getSingletonPtr()->m_iMajor>=3?1:0)->createTextureUnitState("volume_texture");//->setTextureFiltering(Ogre::TFO_NONE);
+			m_pMatBunch_shader->getTechnique(0)->getPass(OgreFramework::getSingletonPtr()->m_iMajor>=3?1:0)->createTextureUnitState("volume_texture");//->setTextureFiltering(Ogre::TFO_NONE);
 		#else
-			m_pMatBunch->getTechnique(0)->getPass(0)->createTextureUnitState("volume_texture");//->setTextureFiltering(Ogre::TFO_NONE);
+			m_pMatBunch_shader->getTechnique(0)->getPass(0)->createTextureUnitState("volume_texture");//->setTextureFiltering(Ogre::TFO_NONE);
 		#endif
 		
 		Ogre::ResourceGroupManager::getSingleton().createResourceGroup("rtt_texture_group");
@@ -237,9 +237,9 @@ ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double
 			Ogre::PF_X8R8G8B8,
 			Ogre::TU_RENDERTARGET);
 		#if USE_HACKY_WORKAROUND
-			m_pMatBunch->getTechnique(0)->getPass(OgreFramework::getSingletonPtr()->m_iMajor>=3?1:0)->createTextureUnitState("rtt_texture")->setTextureFiltering(Ogre::TFO_NONE);
+			m_pMatBunch_shader->getTechnique(0)->getPass(OgreFramework::getSingletonPtr()->m_iMajor>=3?1:0)->createTextureUnitState("rtt_texture")->setTextureFiltering(Ogre::TFO_NONE);
 		#else
-			m_pMatBunch->getTechnique(0)->getPass(0)->createTextureUnitState("rtt_texture")->setTextureFiltering(Ogre::TFO_NONE);
+			m_pMatBunch_shader->getTechnique(0)->getPass(0)->createTextureUnitState("rtt_texture")->setTextureFiltering(Ogre::TFO_NONE);
 		#endif
 		border_material->getTechnique(0)->getPass(0)->createTextureUnitState("rtt_texture")->setTextureFiltering(Ogre::TFO_NONE);
 		Ogre::GpuProgramParametersSharedPtr pParams = border_material->getTechnique(0)->getPass(0)->getFragmentProgramParameters();
@@ -266,18 +266,19 @@ ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double
 	}
 	else
 	{
-		// Materialien erzeugen
-		m_pMatBunch = Ogre::MaterialManager::getSingletonPtr()->create("ElbeBunchMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-		m_pMatBunch->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
-		m_pMatBunch->getTechnique(0)->getPass(0)->setTransparentSortingEnabled(true);
-		m_pMatBunch->getTechnique(0)->getPass(0)->setTransparentSortingForced(true);
-		m_pMatBunch->setDepthFunction(Ogre::CMPF_ALWAYS_PASS);
-		m_pMatBunch->setAmbient(0, 1, 0);
-		m_pMatBunch->setDiffuse(0, 1, 0, 0.5);
-		m_pMatBunch->setSpecular(0, 1, 0, 0.5);
 		m_pBunchEntity_border = NULL;
 	}
-	m_pBunchEntity->setMaterial(m_pMatBunch);
+	// Simples Materiali erzeugen
+	m_pMatBunch_simple = Ogre::MaterialManager::getSingletonPtr()->create("ElbeBunchMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	m_pMatBunch_simple->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
+	m_pMatBunch_simple->getTechnique(0)->getPass(0)->setTransparentSortingEnabled(true);
+	m_pMatBunch_simple->getTechnique(0)->getPass(0)->setTransparentSortingForced(true);
+	m_pMatBunch_simple->setDepthFunction(Ogre::CMPF_ALWAYS_PASS);
+	m_pMatBunch_simple->setAmbient(0, 1, 0);
+	m_pMatBunch_simple->setDiffuse(0, 1, 0, 0.5);
+	m_pMatBunch_simple->setSpecular(0, 1, 0, 0.5);
+
+	setVolumeState( volume_state );
 	ogreNode->attachObject(m_pBunchEntity);
 
 
@@ -298,7 +299,6 @@ ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double
 
 
 	brightness = 0.0f;
-	this->followed = followed;
 	if (followed)
 	{
 		light=mSceneMgr->createLight();
@@ -463,6 +463,16 @@ ElbeBunch::ElbeBunch(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* node,double
 	}
 }
 
+void ElbeBunch::setVolumeState(int volume_state)
+{
+	this->volume_state = volume_state;
+	if (followed && shader != -1 && volume_state != 1)
+		m_pMatBunch = m_pMatBunch_shader;
+	else
+		m_pMatBunch = m_pMatBunch_simple;
+	m_pBunchEntity->setMaterial(m_pMatBunch);
+}
+
 ElbeBunch::~ElbeBunch()
 {
 	if (followed && shader!=-1)
@@ -618,9 +628,9 @@ void ElbeBunch::visualize(AbstractCamera* camera,float speed)
 		else
 			m_pBunchEntity->setVisible(true);
 	}
-	if (followed && shader!=-1)
+	if (followed && shader!=-1 && volume_state != 1)
 	{
-		if (show_volume)
+		if (volume_state != 0)
 		{
 			float divisor = 50.0f;
 			if (biggest > divisor)
@@ -771,9 +781,9 @@ void ElbeBunch::visualize(AbstractCamera* camera,float speed)
 						Ogre::PF_BYTE_RGBA,     // pixel format
 						VOLUME_TYPE);
 					#if (OGRE_VERSION_MAJOR == 1) && (OGRE_VERSION_MINOR < 8)
-						m_pMatBunch->getTechnique(0)->getPass(OgreFramework::getSingletonPtr()->m_iMajor>=3?1:0)->getTextureUnitState(1)->_setTexturePtr(volume_texture);//->setTextureFiltering(Ogre::TFO_NONE);
+						m_pMatBunch_shader->getTechnique(0)->getPass(OgreFramework::getSingletonPtr()->m_iMajor>=3?1:0)->getTextureUnitState(1)->_setTexturePtr(volume_texture);//->setTextureFiltering(Ogre::TFO_NONE);
 					#else
-						m_pMatBunch->getTechnique(0)->getPass(OgreFramework::getSingletonPtr()->m_iMajor>=3?1:0)->getTextureUnitState(1)->setTexture(volume_texture);//->setTextureFiltering(Ogre::TFO_NONE);
+						m_pMatBunch_shader->getTechnique(0)->getPass(OgreFramework::getSingletonPtr()->m_iMajor>=3?1:0)->getTextureUnitState(1)->setTexture(volume_texture);//->setTextureFiltering(Ogre::TFO_NONE);
 					#endif
 				}
 			}
@@ -849,16 +859,16 @@ void ElbeBunch::visualize(AbstractCamera* camera,float speed)
 				memcpy(pDest,volume_lookup,volume_x*volume_y*volume_z*4);
 				pixelBuffer->unlock();
 				#if USE_HACKY_WORKAROUND
-					Ogre::GpuProgramParametersSharedPtr pParams = m_pMatBunch->getTechnique(0)->getPass(OgreFramework::getSingletonPtr()->m_iMajor>=3?1:0)->getFragmentProgramParameters();
+					Ogre::GpuProgramParametersSharedPtr pParams = m_pMatBunch_shader->getTechnique(0)->getPass(OgreFramework::getSingletonPtr()->m_iMajor>=3?1:0)->getFragmentProgramParameters();
 					if (OgreFramework::getSingletonPtr()->m_iMajor < 3 && renderTexture)
 				#else
 						renderTexture->getViewport(0)->setCamera(camera->getOgreCamera());
-					Ogre::GpuProgramParametersSharedPtr pParams = m_pMatBunch->getTechnique(0)->getPass(0)->getFragmentProgramParameters();
+					Ogre::GpuProgramParametersSharedPtr pParams = m_pMatBunch_shader->getTechnique(0)->getPass(0)->getFragmentProgramParameters();
 				#endif
 				pParams->setNamedConstant("volume_texture", 1);
 				pParams->setNamedConstant("rtt_texture", 2);
 			}
-			if (show_border)
+			if (volume_state == 3)
 				m_pBunchEntity_border->setVisible(true);
 			else
 				m_pBunchEntity_border->setVisible(false);
@@ -871,13 +881,13 @@ void ElbeBunch::visualize(AbstractCamera* camera,float speed)
 	}
 	else
 	{
-		if (show_volume)
+		if (volume_state != 0)
 			m_pBunchEntity->setVisible(true);
 		else
 			m_pBunchEntity->setVisible(false);
 		if (m_pBunchEntity_border)
 		{
-			if (show_border)
+			if (volume_state == 3)
 				m_pBunchEntity_border->setVisible(true);
 			else
 				m_pBunchEntity_border->setVisible(false);

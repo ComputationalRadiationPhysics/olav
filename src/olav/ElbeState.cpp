@@ -265,8 +265,7 @@ void ElbeState::enter()
 	coverVisible = false;
 	explosion =	false;
 	show_billboard = true;
-	show_volume = true;
-	show_border = true;
+	volume_state = 3;
 	mouseX = 0;
 	mouseY = 0;
 	mousepressed = false;
@@ -1315,6 +1314,14 @@ void ElbeState::itemSelected(OgreBites::SelectMenu *selectMenu)
 		else
 			b->show();
 	}
+	else if(selectMenu->getName() == "volumeSelect")
+	{
+		volume_state = selectMenu->getSelectionIndex();
+		if (m_pPipe->getCameraBunch())
+		{
+			m_pPipe->getCameraBunch()->setVolumeState(volume_state);
+		}
+	}
 }
 
 void ElbeState::moveCamera()
@@ -1491,7 +1498,7 @@ void ElbeState::update(double timeSinceLastFrame)
 		#endif
 		ElbeBunch* oldCameraBunch = m_pPipe->getCameraBunch();
 		float factor=animationSpeed;
-		if (!m_pPipe->update(timeSinceLastFrame,factor,explosion,show_billboard,show_volume,track_count,show_border) && m_pPipe->newCameraBunch())
+		if (!m_pPipe->update(timeSinceLastFrame,factor,explosion,show_billboard,volume_state,track_count) && m_pPipe->newCameraBunch())
 		{
 			if (m_pCamera->getOgreCamera()->getName() == "ElbeCameraOrbit")
 			{
@@ -1743,8 +1750,12 @@ void ElbeState::buildGUI()
 			}
 			OgreFramework::getSingletonPtr()->m_pTrayMgr->createCheckBox(OgreBites::TL_BOTTOMRIGHT, "arrowButton", "Feldpfeile", 140)->setChecked(showArrows,false);
 			OgreFramework::getSingletonPtr()->m_pTrayMgr->createCheckBox(OgreBites::TL_BOTTOMRIGHT, "billboardButton", "Einzelelektronen", 140)->setChecked(show_billboard,false);
-			OgreFramework::getSingletonPtr()->m_pTrayMgr->createCheckBox(OgreBites::TL_BOTTOMRIGHT, "volumeButton", "Bunchvolumen", 140)->setChecked(show_volume,false);
-			OgreFramework::getSingletonPtr()->m_pTrayMgr->createCheckBox(OgreBites::TL_BOTTOMRIGHT, "borderButton", "Bunchbegrenzung", 140)->setChecked(show_border,false);
+			Ogre::StringVector volumeSelectItems;
+			volumeSelectItems.push_back("Keines");
+			volumeSelectItems.push_back("Einfach");
+			volumeSelectItems.push_back("Volumetrisch");
+			volumeSelectItems.push_back("Vol.+Rahmen");
+			OgreFramework::getSingletonPtr()->m_pTrayMgr->createThickSelectMenu(OgreBites::TL_BOTTOMRIGHT, "volumeSelect", "Bunchvolumen", 140, 4, volumeSelectItems )->selectItem(volume_state, false);
 			OgreFramework::getSingletonPtr()->m_pTrayMgr->createThickSlider(OgreBites::TL_BOTTOMRIGHT, "tracksSlider","Spuren",140,30,0,TRACK_COUNT,TRACK_COUNT+1)->setValue(track_count,false);
 		}
 		Ogre::StringVector my_vector;
@@ -1816,8 +1827,12 @@ void ElbeState::buildGUI()
 			}
 			OgreFramework::getSingletonPtr()->m_pTrayMgr->createCheckBox(OgreBites::TL_BOTTOMRIGHT, "arrowButton", "Field Arrows", 140)->setChecked(showArrows,false);
 			OgreFramework::getSingletonPtr()->m_pTrayMgr->createCheckBox(OgreBites::TL_BOTTOMRIGHT, "billboardButton", "Each Electron", 140)->setChecked(show_billboard,false);
-			OgreFramework::getSingletonPtr()->m_pTrayMgr->createCheckBox(OgreBites::TL_BOTTOMRIGHT, "volumeButton", "Bunch volume", 140)->setChecked(show_volume,false);
-			OgreFramework::getSingletonPtr()->m_pTrayMgr->createCheckBox(OgreBites::TL_BOTTOMRIGHT, "borderButton", "Bunch border", 140)->setChecked(show_border,false);
+			Ogre::StringVector volumeSelectItems;
+			volumeSelectItems.push_back("None");
+			volumeSelectItems.push_back("Simple");
+			volumeSelectItems.push_back("Volumetric");
+			volumeSelectItems.push_back("Vol.+Border");
+			OgreFramework::getSingletonPtr()->m_pTrayMgr->createThickSelectMenu(OgreBites::TL_BOTTOMRIGHT, "volumeSelect", "Bunch volume", 140, 4, volumeSelectItems )->selectItem(volume_state, false);
 			OgreFramework::getSingletonPtr()->m_pTrayMgr->createThickSlider(OgreBites::TL_BOTTOMRIGHT, "tracksSlider","Tracks",140,30,0,TRACK_COUNT,TRACK_COUNT+1)->setValue(track_count,false);
 		}
 		Ogre::StringVector my_vector;
@@ -1868,18 +1883,6 @@ void ElbeState::checkBoxToggled(OgreBites::CheckBox *checkBox)
 		show_billboard = !show_billboard;
 		if (m_pPipe->getCameraBunch())
 			m_pPipe->getCameraBunch()->show_billboard = show_billboard;
-	}
-	else if(checkBox->getName() == "volumeButton")
-	{
-		show_volume = !show_volume;
-		if (m_pPipe->getCameraBunch())
-			m_pPipe->getCameraBunch()->show_volume = show_volume;
-	}
-	else if(checkBox->getName() == "borderButton")
-	{
-		show_border = !show_border;
-		if (m_pPipe->getCameraBunch())
-			m_pPipe->getCameraBunch()->show_border = show_border;
 	}
 	else if(checkBox->getName() == "fixedHeightButton" && m_pCamera->getOgreCamera()->getName() == "ElbeCameraFree")
 	{

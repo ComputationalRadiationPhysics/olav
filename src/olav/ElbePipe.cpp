@@ -1615,7 +1615,7 @@ bool ElbePipe::newCameraBunch() {
 	return newCamera;
 }
 
-bool ElbePipe::update(double timeSinceLastFrame,double factor, bool explosion,bool show_billboard,bool show_volume,int update_tracks,bool show_border)
+bool ElbePipe::update(double timeSinceLastFrame,double factor, bool explosion,bool show_billboard,int volume_state,int update_tracks)
 {
 	oldGlobalTime = globalTime;
 	globalTime += timeSinceLastFrame*factor;
@@ -1628,7 +1628,7 @@ bool ElbePipe::update(double timeSinceLastFrame,double factor, bool explosion,bo
 			newBunch = new ElbeBunch(m_pSceneMgr, newNode,globalTime);
 		else
 		{
-			newBunch = new ElbeBunch(m_pSceneMgr, newNode,globalTime,true,false,particle_count,show_billboard,show_volume,VOLUME_SHADER,show_border);
+			newBunch = new ElbeBunch(m_pSceneMgr, newNode,globalTime,true,false,particle_count,show_billboard,volume_state,VOLUME_SHADER);
 			cameraBunch = newBunch;
 			newBunch->updateParticle(update_tracks);
 		}

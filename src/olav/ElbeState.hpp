@@ -123,8 +123,7 @@ public:
 
 private:
 	bool show_billboard;
-	bool show_volume;
-	bool show_border;
+	int volume_state;
 	void triggerElbeMap(bool mousepressed);
     OgreBites::ParamsPanel*		m_pDetailsPanel;
 	bool						m_bQuit;
