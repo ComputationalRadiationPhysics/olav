@@ -89,7 +89,7 @@ const double ElbePipe::L_DT18 = 270.0; // Quadropol 6 -> Quadropol 7
 const double ElbePipe::L_DT19 = 930.0; // Quadropol 7 -> Cryosat 2
 const double ElbePipe::L_DT20 = 1038.0; // Cryostat 2.1
 const double ElbePipe::L_DT21 = 310.0; // Cryostat 2 break
-const double ElbePipe::L_DT22 = 1038.0; // Cryostat 2.2  
+const double ElbePipe::L_DT22 = 1038.0; // Cryostat 2.2
 const double ElbePipe::L_DT23 = 920.0; // Cryostat 2 -> Quadropol 8
 const double ElbePipe::L_DT24 = 270.0; // Quadropol 8 -> Quadropol 9
 const double ElbePipe::L_DT25 = 1250.0; // Quadropol 9 -> Quadropol 10
@@ -376,16 +376,16 @@ ElbePipe::ElbePipe(Ogre::SceneManager* m_pSceneMgr)
 	emitterField->begin("EmitterField", Ogre::RenderOperation::OT_TRIANGLE_FAN);
 		emitterField->position( 0.0f, 0.0f,  0.28f);
 		emitterField->colour(0,1,0);
-		emitterField->textureCoord(10,0);
+		emitterField->textureCoord(0,0);
 		emitterField->position(-3.0f, 0.0f,  0.28f);
 		emitterField->colour(1,0,0);
-		emitterField->textureCoord(0,0);
+		emitterField->textureCoord(10,0);
 		emitterField->position(-3.0f, 0.0f, -0.28f);
 		emitterField->colour(1,0,0);
-		emitterField->textureCoord(0,1);
+		emitterField->textureCoord(10,1);
 		emitterField->position( 0.0f, 0.0f, -0.28f);
 		emitterField->colour(0,1,0);
-		emitterField->textureCoord(10,1);
+		emitterField->textureCoord(0,1);
 	emitterField->end();
 	emitterFieldPosition = 0;
 
@@ -420,7 +420,7 @@ ElbePipe::ElbePipe(Ogre::SceneManager* m_pSceneMgr)
 		Ogre::PF_BYTE_BGRA,     // pixel format
 		Ogre::TU_DYNAMIC);      // usage; should be TU_DYNAMIC_WRITE_ONLY_DISCARDABLE for
 						  // textures updated very often (e.g. each frame)
- 
+
 	screenMaterial = NULL;
 
 	// Create a material using the texture
@@ -433,7 +433,7 @@ ElbePipe::ElbePipe(Ogre::SceneManager* m_pSceneMgr)
 		"screenTextureMaterial", // name
 		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 	screenMaterial = material.getPointer();
- 
+
 	screenMaterial->getTechnique(0)->getPass(0)->createTextureUnitState("screenTexture");
 	screenMaterial->getTechnique(0)->getPass(0)->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
 	screenMaterial->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
@@ -541,7 +541,7 @@ ElbePipe::ElbePipe(Ogre::SceneManager* m_pSceneMgr)
 				extra_sign = 0.0f;
 				extra_fix = M_PI/2.0f;
 			}*/
-			
+
 			//Calculating the length of the fieldline
 			float length = 0.0f;
 			for(unsigned int i = 1; i < pp->pointList->size(); i++)
@@ -634,7 +634,7 @@ ElbePipe::ElbePipe(Ogre::SceneManager* m_pSceneMgr)
 	//+------------------------+
 	//| Field Arrows Buncher A |
 	//+------------------------+
-	buncher = m_pSceneMgr->getSceneNode("Buncher_A_Field");	
+	buncher = m_pSceneMgr->getSceneNode("Buncher_A_Field");
 	it = buncher->getChildIterator();
 	number = 0;
 	while (it.hasMoreElements())
@@ -685,7 +685,7 @@ ElbePipe::ElbePipe(Ogre::SceneManager* m_pSceneMgr)
 			entity->getSubEntity(0)->getMaterial()->setDepthFunction(Ogre::CMPF_ALWAYS_PASS);
 			Ogre::MeshPtr line = entity->getMesh();
 			PathParser* pp = new PathParser(line);
-			
+
 			//Calculating the length of the fieldline
 			float length = 0.0f;
 			for(unsigned int i = 1; i < pp->pointList->size(); i++)
@@ -772,12 +772,12 @@ ElbePipe::ElbePipe(Ogre::SceneManager* m_pSceneMgr)
 			delete pp;
 		}
 		node->attachObject(billboardSet);
-		number++;		
+		number++;
 	}
 	//+---------------------+
 	//| Field Arrows Cavity |
 	//+---------------------+
-	buncher = m_pSceneMgr->getSceneNode("Cavity_Field");	
+	buncher = m_pSceneMgr->getSceneNode("Cavity_Field");
 	it = buncher->getChildIterator();
 	number = 0;
 	while (it.hasMoreElements())
@@ -793,7 +793,7 @@ ElbePipe::ElbePipe(Ogre::SceneManager* m_pSceneMgr)
 			entity->getSubEntity(0)->getMaterial()->setDepthFunction(Ogre::CMPF_ALWAYS_PASS);
 			Ogre::MeshPtr line = entity->getMesh();
 			PathParser* pp = new PathParser(line);
-			
+
 			//Calculating the length of the fieldline
 			float length = 0.0f;
 			for(unsigned int i = 1; i < pp->pointList->size(); i++)
@@ -878,7 +878,7 @@ ElbePipe::ElbePipe(Ogre::SceneManager* m_pSceneMgr)
 			delete pp;
 		}
 		number++;
-		node->attachObject(billboardSet);	
+		node->attachObject(billboardSet);
 	}
 #endif
 }
@@ -895,7 +895,7 @@ void ElbePipe::refreshScreenTexture()
  	pixelBuffer->lock(Ogre::HardwareBuffer::HBL_DISCARD); // for best performance use HBL_DISCARD!
 	const Ogre::PixelBox& pixelBox = pixelBuffer->getCurrentLock();
  	Ogre::uint8* pDest = static_cast<Ogre::uint8*>(pixelBox.data);
- 
+
 	if (oldScreenW != screenW || oldScreenH != screenH)
 	{
 		oldScreenW = screenW;
@@ -1091,7 +1091,7 @@ void ElbePipe::refreshTrack(bool show)
 
 	globalTime = realGlobalTime;
 	oldGlobalTime = realOldGlobalTime;
-	
+
 	track->end();
 	if (newTrack)
 	{
@@ -1319,7 +1319,7 @@ void ElbePipe::setDefaults(int which)
 	}
 	if (which & BUNCHER_2)
 	{
-		ElbePipe::U_B2 = ElbePipe::U_B2_DEFAULT;	
+		ElbePipe::U_B2 = ElbePipe::U_B2_DEFAULT;
 		ElbePipe::P_B2 = ElbePipe::P_B2_DEFAULT;
 	}
 	if (which & CRYOSTAT_1)
@@ -1661,16 +1661,16 @@ bool ElbePipe::update(double timeSinceLastFrame,double factor, bool explosion,bo
 	emitterField->beginUpdate(0);
 		emitterField->position( 0.0f, 0.0f,  0.28f);
 		emitterField->colour(0,1,0);
-		emitterField->textureCoord(10+emitterFieldPosition,0);
+		emitterField->textureCoord(0+emitterFieldPosition,0);
 		emitterField->position(-3.0f, 0.0f,  0.28f);
 		emitterField->colour(1,0,0);
-		emitterField->textureCoord(0+emitterFieldPosition,0);
+		emitterField->textureCoord(10+emitterFieldPosition,0);
 		emitterField->position(-3.0f, 0.0f, -0.28f);
 		emitterField->colour(1,0,0);
-		emitterField->textureCoord(0+emitterFieldPosition,1);
+		emitterField->textureCoord(10+emitterFieldPosition,1);
 		emitterField->position( 0.0f, 0.0f, -0.28f);
 		emitterField->colour(0,1,0);
-		emitterField->textureCoord(10+emitterFieldPosition,1);
+		emitterField->textureCoord(0+emitterFieldPosition,1);
 	emitterField->end();
 
 
@@ -1688,13 +1688,13 @@ void ElbePipe::updateFields()
 	int i;
 	double realtime = globalTime - ((L_DT1 + L_DT2)/(beta*ElbeConstants::CPSMM));
 	double scalingFactor = realtime*ElbeConstants::CPSMM;
-	double size = -sin(2.0*ElbeConstants::PI*ElbeConstants::F_026*scalingFactor/ElbeConstants::CMM+P_B1*M_PI/180.0f-M_PI/2.0f);
+	double size = sin(2.0*ElbeConstants::PI*ElbeConstants::F_026*scalingFactor/ElbeConstants::CMM+P_B1*M_PI/180.0f-M_PI/2.0f);
 	for (i = 0; i < billboardBList.size(); i++)
 		billboardBList[i]->setDimensions(size*40.0f,size*40.0f);
 
 	realtime = globalTime - ((L_DT1 + L_DT2 + L_DT3 + L_DT4 + L_DT5 + L_DT6)/(beta*ElbeConstants::CPSMM));
 	scalingFactor = realtime*ElbeConstants::CPSMM;
-	size = -sin(2.0*ElbeConstants::PI*ElbeConstants::F_13*scalingFactor/ElbeConstants::CMM+P_B2*M_PI/180.0f-M_PI/2.0f)*0.5f;
+	size = sin(2.0*ElbeConstants::PI*ElbeConstants::F_13*scalingFactor/ElbeConstants::CMM+P_B2*M_PI/180.0f-M_PI/2.0f)*0.5f;
 	for (i = 0; i < billboardAList.size(); i++)
 		billboardAList[i]->setDimensions(size*40.0f*billboardAListMultiplicator[i],size*40.0f*billboardAListMultiplicator[i]);
 
@@ -1704,18 +1704,18 @@ void ElbePipe::updateFields()
 	scalingFactor = ElbePipe::ARROW_SCALE * cavityGetEZmm(realtime*ElbeConstants::CPSMM + P1_CRYOS1*L_DT9/9.0/180.0);
 	for (i = 0; i < billboardC1_1List.size(); i++)
 		billboardC1_1List[i]->setDimensions(scalingFactor*40.0f*70.0f,scalingFactor*40.0f*70.0f);
-	
+
 	realtime = globalTime - ((L_DT1 + L_DT2 + L_DT3 + L_DT4 + L_DT5 + L_DT6 + L_DT7 + L_DT8 + L_DT9 + L_DT10)/(beta*ElbeConstants::CPSMM));
 	scalingFactor = ElbePipe::ARROW_SCALE * cavityGetEZmm(realtime*ElbeConstants::CPSMM + (P2_CRYOS1-29.0)*L_DT11/9.0/180.0);
 	for (i = 0; i < billboardC1_2List.size(); i++)
 		billboardC1_2List[i]->setDimensions(scalingFactor*40.0f*70.0f,scalingFactor*40.0f*70.0f);
-	
+
 	//Cryosupdate 2
 	realtime = globalTime - ((L_DT1 + L_DT2 + L_DT3 + L_DT4 + L_DT5 + L_DT6 + L_DT7 + L_DT8)/(beta*ElbeConstants::CPSMM));
 	scalingFactor = ElbePipe::ARROW_SCALE * cavityGetEZmm(realtime*ElbeConstants::CPSMM + (P1_CRYOS2-224.0)*L_DT9/9.0/180.0);
 	for (i = 0; i < billboardC2_1List.size(); i++)
 		billboardC2_1List[i]->setDimensions(scalingFactor*40.0f*70.0f,scalingFactor*40.0f*70.0f);
-	
+
 	realtime = globalTime - ((L_DT1 + L_DT2 + L_DT3 + L_DT4 + L_DT5 + L_DT6 + L_DT7 + L_DT8 + L_DT9 + L_DT10)/(beta*ElbeConstants::CPSMM));
 	scalingFactor = ElbePipe::ARROW_SCALE * cavityGetEZmm(realtime*ElbeConstants::CPSMM + (P2_CRYOS2-209.0)*L_DT11/9.0/180.0);
 	for (i = 0; i < billboardC2_2List.size(); i++)

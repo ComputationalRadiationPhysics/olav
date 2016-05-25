@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 2.6)
 
 project(olav)
 
-set(OLAV_VERSION "1.0")
-
 add_definitions( -DRELEASE -DELBE_ONLY)
 
 if(WIN32)
@@ -15,19 +13,19 @@ if(WIN32)
 		$ENV{OGRE_HOME}/include/OGRE/RenderSystems/GL
 		)
 endif(WIN32)
- 
+
 if(UNIX)
 	set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 endif(UNIX)
- 
+
 if (CMAKE_BUILD_TYPE STREQUAL "")
 	# CMake defaults to leaving CMAKE_BUILD_TYPE empty. This screws up
 	# differentiation between debug and release builds.
 	set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif ()
- 
+
 set(CMAKE_DEBUG_POSTFIX "_d")
- 
+
 find_package(OGRE REQUIRED)
 
 if (NOT OGRE_Plugin_ParticleFX_FOUND)
@@ -41,13 +39,13 @@ if (NOT OGRE_Plugin_CgProgramManager_FOUND)
 endif()
 
 find_package(OpenGL REQUIRED)
- 
+
 #if(NOT "${OGRE_VERSION_NAME}" STREQUAL "Cthugha")
 #	message(SEND_ERROR "You need Ogre 1.7 Cthugha to build this.")
 #endif()
- 
+
 find_package(OIS REQUIRED)
- 
+
 if(NOT OIS_FOUND)
 	message(SEND_ERROR "Failed to find OIS.")
 endif()
@@ -103,7 +101,7 @@ file (COPY
 	"${Starter_Src_Dir}"
 	)
 
-find_program(LAZBUILD "lazbuild" HINTS "C:/lazarus" DOC "location of lazbuild needed for the olav starter")	
+find_program(LAZBUILD "lazbuild" HINTS "C:/lazarus" DOC "location of lazbuild needed for the olav starter")
 if (LAZBUILD)
 	option(BUILD_STARTER "Build the starter application. This needs lazarus installed!" ON)
 else ()
@@ -124,7 +122,7 @@ if (NOT OGRE_BUILD_PLATFORM_IPHONE)
 		# search names with "lib". This is the workaround.
 		set(CMAKE_FIND_LIBRARY_PREFIXES ${CMAKE_FIND_LIBRARY_PREFIXES} "")
 	endif ()
-	
+
 	# Components that need linking (NB does not include header-only components like bind)
 	set(OGRE_BOOST_COMPONENTS thread date_time system chrono)
 	find_package(Boost COMPONENTS ${OGRE_BOOST_COMPONENTS})
@@ -134,7 +132,7 @@ if (NOT OGRE_BUILD_PLATFORM_IPHONE)
 		find_package(Boost COMPONENTS ${OGRE_BOOST_COMPONENTS})
 	endif()
 	#find_package(Boost)
- 
+
 	# Set up referencing of Boost
 	include_directories(${Boost_INCLUDE_DIR})
 	add_definitions(-DBOOST_ALL_NO_LIB)
@@ -173,7 +171,7 @@ set(HDRS
 	${CMAKE_SOURCE_DIR}/src/olav/tinystr.hpp
 	${CMAKE_SOURCE_DIR}/src/olav/tinyxml.hpp
 )
- 
+
 set(SRCS
 	${CMAKE_SOURCE_DIR}/src/olav/AppStateManager.cpp
 	${CMAKE_SOURCE_DIR}/src/olav/ChaseCamera.cpp
@@ -201,21 +199,21 @@ set(SRCS
 	${CMAKE_SOURCE_DIR}/src/olav/tinyxmlerror.cpp
 	${CMAKE_SOURCE_DIR}/src/olav/tinyxmlparser.cpp
 )
- 
+
 include_directories( ${OIS_INCLUDE_DIRS}
 	${OGRE_INCLUDE_DIRS}
 	${PROJECT_BINARY_DIR}
 )
 
 add_executable(olav WIN32 ${HDRS} ${SRCS})
- 
+
 set_target_properties(olav PROPERTIES DEBUG_POSTFIX _d)
 
 target_link_libraries(olav ${OGRE_LIBRARIES} ${OIS_LIBRARIES} ${OPENGL_LIBRARY} ${BOOST_LIBRARIES})
 target_compile_options(olav PRIVATE -static-libstdc++ PRIVATE -static-libgcc)
 
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/bin)
- 
+
 # post-build copy for win32
 if(WIN32 AND NOT MINGW)
 	add_custom_command( TARGET olav PRE_BUILD
@@ -238,7 +236,7 @@ endif ()
 if(WIN32)
 	set(TOOLCHAIN_LIBRARY_PATH "C:/MinGW/bin" CACHE PATH "Path of the files libgcc_s_dw2-1.dll and libstdc++-6.dll needed for installation" )
 
-	install (TARGETS olav DESTINATION .) 
+	install (TARGETS olav DESTINATION .)
 	install (DIRECTORY ${CMAKE_SOURCE_DIR}/media DESTINATION .)
 	install (FILES ${CMAKE_BINARY_DIR}/plugins.cfg DESTINATION . CONFIGURATIONS Release RelWithDebInfo)
 	install (FILES ${CMAKE_BINARY_DIR}/resources.cfg DESTINATION . CONFIGURATIONS Debug Release RelWithDebInfo)
@@ -248,19 +246,19 @@ if(WIN32)
 	install (FILES ${CMAKE_SOURCE_DIR}/conf/ogre.cfg DESTINATION . CONFIGURATIONS Debug Release RelWithDebInfo)
 	if (BUILD_STARTER)
 		install (FILES ${CMAKE_BINARY_DIR}/olav_starter.exe DESTINATION .)
-		install (FILES ${CMAKE_SOURCE_DIR}/src/starter/olav_starter.png DESTINATION .) 
+		install (FILES ${CMAKE_SOURCE_DIR}/src/starter/olav_starter.png DESTINATION .)
 		install (DIRECTORY ${CMAKE_SOURCE_DIR}/descriptions DESTINATION .)
 	endif ()
 else()
-	install (TARGETS olav DESTINATION bin) 
+	install (TARGETS olav DESTINATION bin)
 	install (DIRECTORY ${CMAKE_SOURCE_DIR}/media DESTINATION share/olav)
-	install (FILES ${CMAKE_BINARY_DIR}/plugins.cfg DESTINATION share/olav) 
+	install (FILES ${CMAKE_BINARY_DIR}/plugins.cfg DESTINATION share/olav)
 	install (FILES ${CMAKE_BINARY_DIR}/resources.cfg DESTINATION share/olav)
 	install (FILES ${CMAKE_SOURCE_DIR}/conf/ogre.cfg DESTINATION share/olav)
 	if (BUILD_STARTER)
 		install (FILES ${CMAKE_BINARY_DIR}/olav_starter DESTINATION bin PERMISSIONS WORLD_EXECUTE WORLD_READ OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_WRITE GROUP_EXECUTE)
 		install (FILES ${CMAKE_SOURCE_DIR}/src/starter/olav_starter.png DESTINATION share/pixmaps)
-		install (FILES ${CMAKE_SOURCE_DIR}/src/starter/olav_starter.desktop DESTINATION share/applications) 
+		install (FILES ${CMAKE_SOURCE_DIR}/src/starter/olav_starter.desktop DESTINATION share/applications)
 		install (DIRECTORY ${CMAKE_SOURCE_DIR}/descriptions DESTINATION share/olav)
 	endif ()
 endif()
@@ -269,11 +267,11 @@ SET(CPACK_PACKAGE_NAME "OLAV")
 SET(CPACK_PACKAGE_VENDOR "HZDR")
 SET(CPACK_PACKAGE_VERSION_MAJOR "1")
 SET(CPACK_PACKAGE_VERSION_MINOR "0")
-SET(CPACK_PACKAGE_VERSION_PATCH "1")
+SET(CPACK_PACKAGE_VERSION_PATCH "2")
 SET(CPACK_PACKAGE_EXECUTABLES "olav_starter" "OLAV")
 if(WIN32)
 	SET(CPACK_PACKAGE_INSTALL_DIRECTORY "OLAV")
-	SET(CPACK_NSIS_EXECUTABLES_DIRECTORY ".") 
+	SET(CPACK_NSIS_EXECUTABLES_DIRECTORY ".")
 else()
 	set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
 	SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6 (>= 2.19), libgcc1 (>= 1:5.3.0), libgtk2.0-0 (>= 2.24.0), libogre-1.8.0 (>= 1.8.0)")
